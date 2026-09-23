@@ -1,0 +1,37 @@
+{
+  "actualizado": "2026-09-22",
+  "tareas": [
+    {
+      "id": "t-gmfire-post",
+      "titulo": "Publicar portafolio GM Fire Services en Facebook e Instagram",
+      "detalle": "Copia el texto de 07-Marketing/Publicaciones/Portafolio-01-GMFire.md y usa una captura de 02-Portafolio/Proyecto-01/capturas/. Publica en ambas redes.",
+      "categoria": "Marketing",
+      "vence": "2026-09-22",
+      "hecha": false
+    },
+    {
+      "id": "t-sheets",
+      "titulo": "Crear Google Sheets de prospectos y métricas",
+      "detalle": "Ve a sheets.google.com → crea \"D.Softworks - Prospectos\" copiando la estructura de 05-Prospectos/Hoja-prospectos.md y una segunda hoja \"Métricas semanales\" con 05-Prospectos/Metricas-semanales.md.",
+      "categoria": "Administración",
+      "vence": "2026-09-22",
+      "hecha": false
+    },
+    {
+      "id": "t-edu-01",
+      "titulo": "Publicar Educativo \"5 Cosas\" (imagen en Canva)",
+      "detalle": "Crea la imagen en Canva con el texto de 07-Marketing/Publicaciones/Educativo-01-CincoCosas.md y publica el 23 sep.",
+      "categoria": "Marketing",
+      "vence": "2026-09-23",
+      "hecha": false
+    },
+    {
+      "id": "t-prospect-10",
+      "titulo": "Prospección día 1: buscar y contactar 10 negocios",
+      "detalle": "Busca en Facebook y Google Maps negocios de Guadalajara sin página web. Agrega cada uno en la pestaña Prospección de la app y envíales el mensaje de 04-Ventas/Guiones-contacto.md.",
+      "categoria": "Prospección",
+      "vence": "2026-09-23",
+      "hecha": false
+    }
+  ]
+}

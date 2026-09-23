@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D.Softworks OS — Panel de operación</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='%230d121c' stroke='%2363cfe4' stroke-width='4'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='17' font-weight='700' fill='%23eef3fa'%3EDSW%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0d121c;--panel:#141b2a;--panel2:#1b2436;--line:#2c3a54;--txt:#eef3fa;--muted:#93a3bd;
+  --accent:#63cfe4;--accent2:#a8e4f0;--btn:#63cfe4;--btn-ink:#0b1017;--btn-danger:#c0392b;--btn-ok:#1d7a44;--ok:#2ecc71;--warn:#f39c12;--danger:#e74c3c;
+  --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;scrollbar-width:thin;scrollbar-color:var(--line) var(--bg)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::selection{background:rgba(99,207,228,.35)}
+html{color-scheme:dark}
+body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:14px;min-height:100vh;caret-color:var(--accent)}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:14px;background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:9px 11px;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+textarea{resize:vertical;min-height:80px}
+
+header{display:flex;align-items:center;gap:14px;padding:14px 22px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+header img{height:36px;width:36px;object-fit:cover;border-radius:50%;border:1px solid rgba(99,207,228,.55)}
+.brand{font-weight:700;font-size:16px;letter-spacing:.3px}
+.brand span{color:var(--accent)}
+.spacer{flex:1}
+.status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--danger);display:inline-block}
+.dot.on{background:var(--accent);position:relative}
+.dot.on::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid var(--accent);animation:live 2.2s ease-out infinite}
+.dot.local{background:var(--warn)}
+@keyframes live{0%{transform:scale(.6);opacity:.9}70%{opacity:.15}100%{transform:scale(2);opacity:0}}
+@media(prefers-reduced-motion:reduce){.dot.on::after{animation:none;display:none}.progress i,.toast{transition:none}}
+
+.btn{background:var(--btn);border:none;color:var(--btn-ink);padding:9px 16px;border-radius:8px;font-weight:700;font-size:13px}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+.btn.small{padding:7px 12px;font-size:12px;border-radius:6px}
+.btn.danger{background:var(--btn-danger)}
+.btn.ok{background:var(--btn-ok)}
+
+nav{display:flex;gap:4px;padding:10px 22px 0;background:var(--panel);border-bottom:1px solid var(--line)}
+nav button{background:none;border:none;color:var(--muted);padding:10px 16px;font-size:14px;font-weight:600;border-bottom:2px solid transparent;border-radius:0}
+nav button.active{color:var(--txt);border-bottom-color:var(--accent)}
+nav button:hover{color:var(--txt)}
+.badge{display:inline-block;min-width:18px;padding:1px 5px;border-radius:99px;background:var(--btn-danger);color:#fff;font-size:12px;font-weight:800;text-align:center;margin-left:5px;vertical-align:top;line-height:1.3}
+
+main{padding:22px;max-width:1100px;margin:0 auto}
+.tab{display:none}
+.tab.active{display:block}
+h2{font-size:18px;margin-bottom:14px}
+h3{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin:18px 0 8px}
+
+.grid{display:grid;gap:14px}
+.grid.two{grid-template-columns:1fr 1fr}
+@media(max-width:800px){.grid.two{grid-template-columns:1fr}}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.progress{height:10px;background:var(--bg);border-radius:6px;overflow:hidden;margin:10px 0}
+.progress i{display:block;height:100%;width:100%;background:var(--accent);border-radius:6px;transform:scaleX(0);transform-origin:left;transition:transform .3s ease-out}
+
+.chip{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700}
+.chip.nuevo{background:#2a3245;color:#aab3c5}
+.chip.contactado{background:#1a3a6b;color:#6ea8ff}
+.chip.respondio{background:#0d4f5c;color:#5ce0e0}
+.chip.reunion{background:#3d2a6b;color:#b79bff}
+.chip.cotizado{background:#5c3d0d;color:#ffc46b}
+.chip.cerrado{background:#14471f;color:#6fe08a}
+.chip.sinrep{background:#5c1a1a;color:#ff8a8a}
+.cat{font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel2);color:var(--muted)}
+
+.task{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:8px}
+.task.done{opacity:.5}
+.task input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);margin-top:2px;flex-shrink:0}
+.task .body{flex:1;min-width:0}
+.task .title{font-weight:600}
+.task.done .title{text-decoration:line-through}
+.task .detail{color:var(--muted);font-size:13px;margin-top:4px;white-space:pre-wrap}
+.task .meta{display:flex;gap:8px;align-items:center;margin-top:7px;flex-wrap:wrap}
+.due{font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;background:#5c3d0d;color:#ffc46b}
+.due.over{background:#5c1a1a;color:#ff8a8a}
+.due.ok{background:#14471f;color:#6fe08a}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-row.one{grid-template-columns:1fr}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:600}
+
+.p-list{display:flex;flex-direction:column;gap:8px}
+.p-item{display:flex;gap:12px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;flex-wrap:wrap}
+.p-item .info{flex:1;min-width:180px}
+.p-item .neg{font-weight:700}
+.p-item .sub{color:var(--muted);font-size:12px;margin-top:2px}
+.p-item select{width:auto;min-width:130px;padding:6px 8px}
+
+.msg{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.msg.new{border-color:var(--accent2)}
+.msg .head{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-bottom:6px}
+.msg .txt{white-space:pre-wrap}
+.msg .resp{margin-top:10px;padding:10px 12px;background:#0f2733;border:1px solid #1f5f72;border-radius:6px;color:#c9edf6;white-space:pre-wrap}
+.st{font-weight:700;font-size:12px;padding:2px 8px;border-radius:6px}
+.st.pend{background:#5c3d0d;color:#ffc46b}
+.st.listo{background:#14471f;color:#6fe08a}
+
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-align:center}
+.stat b{display:block;font-size:30px;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.stat .goal{font-size:12px;color:var(--muted);margin-top:4px}
+
+.routine{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:8px}
+.routine h4{font-size:13px;margin-bottom:8px;color:var(--accent)}
+.routine label{display:flex;gap:9px;align-items:center;color:var(--txt);font-weight:500;margin-bottom:6px;cursor:pointer}
+.routine input{width:16px;height:16px;accent-color:var(--accent)}
+
+.help{background:#0f2733;border:1px solid #1f5f72;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:13px;line-height:1.6;color:#c9edf6}
+.help ol{margin-left:18px}
+.hidden{display:none!important}
+footer{padding:20px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:30px}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--panel2);border:1px solid var(--accent);color:var(--txt);padding:12px 18px;border-radius:8px;font-size:13px;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;z-index:100;display:flex;gap:12px;align-items:center;max-width:min(420px,calc(100vw - 48px))}
+.toast.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.toast.err{border-color:var(--danger)}
+.toast .btn{padding:5px 10px;font-size:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="../logo_DSW.jpg" alt="D.Softworks" onerror="this.style.display='none'">
+  <div class="brand">D.Softworks <span>OS</span></div>
+  <div class="spacer"></div>
+  <div class="status"><span class="dot" id="connDot"></span><span id="connTxt">Sin conexión a archivos</span></div>
+  <button class="btn ghost small" id="btnSync" title="Releer archivos del disco">⟳ Sincronizar</button>
+  <button class="btn small" id="btnConnect">📁 Conectar carpeta</button>
+</header>
+
+<nav role="tablist" aria-label="Secciones del panel">
+  <button class="active" role="tab" id="tb-hoy" aria-controls="tab-hoy" aria-selected="true" data-tab="hoy">📋 Hoy</button>
+  <button role="tab" id="tb-prospectos" aria-controls="tab-prospectos" aria-selected="false" data-tab="prospectos">🎯 Prospectos</button>
+  <button role="tab" id="tb-mensajes" aria-controls="tab-mensajes" aria-selected="false" data-tab="mensajes">🧠 Mensajes<span class="badge hidden" id="msgBadge" aria-label="respuestas nuevas del cerebro">0</span></button>
+  <button role="tab" id="tb-metricas" aria-controls="tab-metricas" aria-selected="false" data-tab="metricas">📊 Métricas</button>
+  <button role="tab" id="tb-ayuda" aria-controls="tab-ayuda" aria-selected="false" data-tab="ayuda">❓ Ayuda</button>
+</nav>
+
+<main>
+
+<section class="tab active" id="tab-hoy" role="tabpanel" aria-labelledby="tb-hoy" tabindex="0">
+  <div class="help hidden" id="onboard">
+    <b>Primera vez:</b>
+    <ol>
+      <li>Da clic en <b>📁 Conectar carpeta</b> y selecciona la carpeta <code>app/</code> de este repo.</li>
+      <li>Con eso, todo lo que marques aquí se guarda en los archivos JSON que el cerebro (la IA) lee.</li>
+      <li>Cuando termines algo, marca la tarea y agrega un mensaje en <b>🧠 Mensajes</b> si necesitas que yo prepare el siguiente paso.</li>
+    </ol>
+    <button class="btn small" id="dismissOnboard" style="margin-top:8px">Entendido</button>
+  </div>
+
+  <h2>Progreso de tareas</h2>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;font-size:13px">
+      <span id="progTxt">0 de 0 completadas</span>
+      <span style="color:var(--muted)" id="progPct">0%</span>
+    </div>
+    <div class="progress"><i id="progBar"></i></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <span class="cat" id="countToday">Vencen hoy: 0</span>
+      <span class="cat" id="countOver">Vencidas: 0</span>
+      <span class="cat" id="countPend">Pendientes: 0</span>
+    </div>
+  </div>
+
+  <h3>Rutina diaria (30-45 min)</h3>
+  <div class="grid two">
+    <div class="routine">
+      <h4>☀️ Mañana (15 min)</h4>
+      <label><input type="checkbox" data-rut="m1"> Revisar mensajes respondidos</label>
+      <label><input type="checkbox" data-rut="m2"> Enviar 5 mensajes nuevos</label>
+      <label><input type="checkbox" data-rut="m3"> Seguimiento a prospectos pendientes</label>
+    </div>
+    <div class="routine">
+      <h4>🌤️ Medio día (5 min)</h4>
+      <label><input type="checkbox" data-rut="d1"> Revisar respuestas en Facebook/Instagram</label>
+      <label><input type="checkbox" data-rut="d2"> Responder comentarios</label>
+    </div>
+    <div class="routine">
+      <h4>🌙 Noche (10 min)</h4>
+      <label><input type="checkbox" data-rut="n1"> Actualizar hoja de prospectos</label>
+      <label><input type="checkbox" data-rut="n2"> Preparar mensajes para mañana</label>
+      <label><input type="checkbox" data-rut="n3"> Buscar 5 negocios nuevos</label>
+    </div>
+    <div class="routine">
+      <h4>📅 Semana</h4>
+      <label><input type="checkbox" data-rut="s1"> Viernes: llenar métricas semanales</label>
+      <label><input type="checkbox" data-rut="s2"> Dom/Lun: reunión de socios 30 min</label>
+      <label><input type="checkbox" data-rut="s3"> Revisar meta: 50 contactos</label>
+    </div>
+  </div>
+
+  <h3>Tareas del cerebro <span class="cat">tareas.json</span></h3>
+  <div id="taskList"></div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="form-row one">
+      <div><label for="newTask" id="taskLbl">Tarea nueva (para ti)</label><input id="newTask" placeholder="Ej: Enviar seguimiento a Barbería López"></div>
+    </div>
+    <div class="form-row">
+      <div><label for="newTaskDue">Vence</label><input type="date" id="newTaskDue"></div>
+      <div style="display:flex;align-items:flex-end;gap:8px">
+        <button class="btn" id="addTask">+ Agregar tarea</button>
+        <button class="btn ghost hidden" id="cancelTaskEdit">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tab" id="tab-prospectos" role="tabpanel" aria-labelledby="tb-prospectos" tabindex="0">
+  <h2>Prospectos <span class="cat">data/prospectos.json</span></h2>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="form-row">
+      <div><label for="pNombre" id="pNombreLbl">Nombre *</label><input id="pNombre" placeholder="Juan Pérez"></div>
+      <div><label for="pNegocio" id="pNegocioLbl">Negocio *</label><input id="pNegocio" placeholder="Barbería El Corte"></div>
+    </div>
+    <div class="form-row">
+      <div><label for="pTel">Teléfono / WhatsApp</label><input id="pTel" placeholder="33 1234 5678"></div>
+      <div><label for="pFuente">Fuente</label>
+        <select id="pFuente">
+          <option>Facebook</option><option>Instagram</option><option>Google Maps</option><option>Contacto personal</option><option>Presencial</option><option>Otro</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row one">
+      <div><label for="pNotas">Notas</label><input id="pNotas" placeholder="Sin web, activo en FB, mejor horario: tarde"></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="addProspect">+ Agregar prospecto</button>
+      <button class="btn ghost hidden" id="cancelPEdit">Cancelar edición</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
+    <select id="filterEstado" style="width:auto" aria-label="Filtrar prospectos por estado">
+      <option value="">Todos los estados</option>
+      <option>Nuevo</option><option>Contactado</option><option>Respondió</option><option>Reunión</option><option>Cotizado</option><option>Cerrado</option><option>Sin respuesta</option>
+    </select>
+    <button class="btn ghost small" id="copyTsv">📋 Copiar para Google Sheets</button>
+    <span style="flex:1"></span>
+    <span class="cat" id="pCount"></span>
+  </div>
+
+  <div class="p-list" id="pList"></div>
+</section>
+
+<section class="tab" id="tab-mensajes" role="tabpanel" aria-labelledby="tb-mensajes" tabindex="0">
+  <h2>Mensajes al cerebro <span class="cat">data/mensajes.json</span></h2>
+  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Escribe lo que necesites de mí: preparar un mensaje para un prospecto, una cotización, decidir el siguiente paso, dudas, bloqueos. <b style="color:var(--txt)">El cerebro responde cuando le digas «revisa la app» o «ya terminé»</b> — las respuestas nuevas aparecen con el contador 🔴 en esta pestaña.</p>
+
+  <div class="card" style="margin-bottom:16px">
+    <label for="mInput">Tu mensaje</label>
+    <textarea id="mInput" placeholder="Ej: El prospecto Barbería El Corte quiere una página. Prepara el mensaje de contacto y la cotización."></textarea>
+    <div style="margin-top:10px"><button class="btn" id="sendMsg">📤 Enviar al cerebro</button></div>
+  </div>
+
+  <div id="mList"></div>
+</section>
+
+<section class="tab" id="tab-metricas" role="tabpanel" aria-labelledby="tb-metricas" tabindex="0">
+  <h2>Métricas <span class="cat">calculado de prospectos.json</span></h2>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
+    <div class="stat"><b id="mWeek">0</b><span>Contactos esta semana</span><div class="goal">meta: 50</div></div>
+    <div class="stat"><b id="mTotal">0</b><span>Prospectos totales</span></div>
+    <div class="stat"><b id="mResp">0</b><span>Respuestas</span></div>
+    <div class="stat"><b id="mCot">0</b><span>Cotizaciones</span></div>
+    <div class="stat"><b id="mCierre">0</b><span>Cierres</span><div class="goal">meta mes: 3</div></div>
+    <div class="stat"><b id="mTasks">0%</b><span>Tareas completadas</span></div>
+  </div>
+
+  <h3>Por estado</h3>
+  <div class="card" id="estadoBars"></div>
+
+  <h3>Canal de origen</h3>
+  <div class="card" id="fuenteBars"></div>
+
+  <div class="help" style="margin-top:18px;background:#1a1508;border-color:#5c4a0d;color:#ffd98a">
+    <b>Regla de oro:</b> si no está en la hoja, no existe. Copia los prospectos a Google Sheets con el botón 📋 y llena las métricas todos los viernes.
+  </div>
+</section>
+
+<section class="tab" id="tab-ayuda" role="tabpanel" aria-labelledby="tb-ayuda" tabindex="0">
+  <h2>Cómo funciona el circuito</h2>
+  <div class="card" style="line-height:1.9;font-size:14px">
+    <b style="color:var(--accent)">1. El cerebro (IA) escribe</b> → actualiza <code>app/tareas.json</code> con lo que debe hacer hoy.<br>
+    <b style="color:var(--accent)">2. Tú ejecutas</b> → marcas tareas, agregas prospectos, escribes mensajes.<br>
+    <b style="color:var(--accent)">3. Guardas</b> → con la carpeta conectada, todo se guarda solo en los JSON.<br>
+    <b style="color:var(--accent)">4. El cerebro lee</b> → cuando le digas "revisa la app" o "ya terminé", leo los JSON y te doy el siguiente paso.<br><br>
+    <b>Sincronizar (⟳):</b> vuelve a leer los archivos por si el cerebro los actualizó desde fuera (nuevas tareas o respuestas).<br>
+    <b>Conectar carpeta:</b> selecciona <code>app/</code> una sola vez; el navegador recuerda el permiso.<br>
+    <b>Sin conexión a archivos:</b> la app funciona en modo local (navegador) pero el cerebro NO verá los cambios; conecta la carpeta para el circuito completo.<br><br>
+    <b>Metodologías incrustadas:</b> rutina diaria de ventas (Fase 4), pipeline de ventas Nuevo→Contactado→Respondió→Reunión→Cotizado→Cerrado, meta 50 contactos/semana y 3 clientes/mes.
+  </div>
+</section>
+
+</main>
+
+<footer>D.Softworks OS · Soluciones Digitales para Negocios Locales · los datos viven en <b>app/data/*.json</b> y <b>app/tareas.json</b></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+
+let dirHandle=null, fileHandles={};
+let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]}};
+let editingTask=null, editingP=null;
+let toastTimer=null;
+
+function hideToast(){$('#toast').classList.remove('show')}
+function toast(t,kind,action){
+  const e=$('#toast');
+  e.className='toast';
+  e.innerHTML='';
+  const span=document.createElement('span');span.textContent=t;e.appendChild(span);
+  if(kind==='err')e.classList.add('err');
+  if(action){
+    const b=document.createElement('button');b.className='btn ghost small';b.textContent=action.label;
+    b.addEventListener('click',()=>{hideToast();action.fn()});
+    e.appendChild(b);
+  }
+  e.classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(hideToast,action?6000:2600);
+}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function fmtDate(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function today(){return fmtDate(new Date())}
+function weekStart(){const d=new Date();const day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);return fmtDate(d)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function stamp(){const d=new Date();return fmtDate(d)+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+
+function seenIds(){try{return new Set(JSON.parse(localStorage.getItem('dsw-seen-msgs')||'[]'))}catch(e){return new Set()}}
+function unseenCount(){const s=seenIds();return state.mensajes.mensajes.filter(m=>m.estado==='atendido'&&m.respuesta&&!s.has(m.id)).length}
+function markSeen(){
+  const s=seenIds();let ch=false;
+  state.mensajes.mensajes.forEach(m=>{if(m.estado==='atendido'&&m.respuesta&&!s.has(m.id)){s.add(m.id);ch=true}});
+  if(ch)localStorage.setItem('dsw-seen-msgs',JSON.stringify([...s]));
+  updateBadge();
+}
+function updateBadge(){
+  const n=unseenCount(),b=$('#msgBadge');
+  b.textContent=n;b.classList.toggle('hidden',!n);
+}
+
+async function idbOpen(){return new Promise((res,rej)=>{const r=indexedDB.open('dsw-os',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function idbSet(k,v){const db=await idbOpen();return new Promise((res,rej)=>{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+async function idbGet(k){const db=await idbOpen();return new Promise((res,rej)=>{const tx=db.transaction('kv','readonly');const q=tx.objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+
+function setConn(mode){
+  const dot=$('#connDot'),txt=$('#connTxt');
+  dot.className='dot'+(mode==='file'?' on':mode==='local'?' local':'');
+  txt.textContent=mode==='file'?'Conectado a app/':mode==='local'?'Modo local (solo navegador)':mode==='err'?'Error al guardar en disco':'Sin conexión a archivos';
+}
+
+async function readJSON(name,sub){
+  try{
+    let h=dirHandle;
+    if(sub)h=await h.getDirectoryHandle(sub);
+    const fh=await h.getFileHandle(name);
+    const f=await fh.getFile();
+    const txt=await f.text();
+    try{return JSON.parse(txt)}
+    catch(e){toast('⚠️ '+name+' tiene JSON inválido; ignoro ese archivo.','err');return null}
+  }catch(e){return null}
+}
+async function writeJSON(name,obj,sub){
+  if(!dirHandle)return false;
+  try{
+    let h=dirHandle;
+    if(sub)h=await h.getDirectoryHandle(sub,{create:true});
+    const fh=await h.getFileHandle(name,{create:true});
+    const w=await fh.createWritable();
+    await w.write(JSON.stringify(obj,null,2));
+    await w.close();
+    return true;
+  }catch(e){console.error(e);return false}
+}
+
+async function save(which){
+  const targets=[];
+  if(which==='tareas'||!which){state.tareas.actualizado=stamp();targets.push(['tareas.json',state.tareas,null])}
+  if(which==='prospectos'||!which){state.prospectos.actualizado=stamp();targets.push(['prospectos.json',state.prospectos,'data'])}
+  if(which==='mensajes'||!which){state.mensajes.actualizado=stamp();targets.push(['mensajes.json',state.mensajes,'data'])}
+  localStorage.setItem('dsw-state',JSON.stringify(state));
+  if(!dirHandle)return true;
+  let ok=true;
+  for(const[n,o,s]of targets){if(!await writeJSON(n,o,s))ok=false}
+  if(!ok){setConn('err');toast('No pude guardar en disco. Tus cambios están solo en el navegador; reconecta la carpeta.','err')}
+  else setConn('file');
+  return ok;
+}
+
+async function loadAll(){
+  const cache=localStorage.getItem('dsw-state');
+  if(cache){try{state=JSON.parse(cache)}catch(e){}}
+  if(dirHandle){
+    const t=await readJSON('tareas.json');
+    const p=await readJSON('prospectos.json','data');
+    const m=await readJSON('mensajes.json','data');
+    if(t)state.tareas=t;
+    if(p)state.prospectos=p;
+    if(m)state.mensajes=m;
+    localStorage.setItem('dsw-state',JSON.stringify(state));
+  }
+  renderAll();
+}
+
+async function connect(){
+  if(!window.showDirectoryPicker){toast('Tu navegador no soporta acceso a archivos. Usa Edge o Chrome.','err');return}
+  try{
+    dirHandle=await window.showDirectoryPicker({mode:'readwrite'});
+    let app=dirHandle;
+    try{app=await dirHandle.getDirectoryHandle('app')}catch(e){}
+    let probe=null;
+    try{probe=await app.getFileHandle('tareas.json')}catch(e){}
+    if(probe)dirHandle=app;
+    await idbSet('handle',dirHandle);
+    await loadAll();
+    setConn('file');
+    $('#onboard').classList.add('hidden');
+    localStorage.setItem('dsw-onboard','1');
+    toast('Carpeta conectada. Todo se guarda en los JSON.');
+  }catch(e){toast('Conexión cancelada')}
+}
+
+async function restore(){
+  if(!window.showDirectoryPicker){setConn('local');return}
+  try{
+    const h=await idbGet('handle');
+    if(!h){setConn('none');return}
+    const q=await h.queryPermission({mode:'readwrite'});
+    if(q==='granted'){dirHandle=h;setConn('file')}
+    else if(q==='prompt'){setConn('none')}
+    else{setConn('none')}
+  }catch(e){setConn('none')}
+}
+
+$$('nav button').forEach(b=>b.addEventListener('click',()=>{
+  $$('nav button').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false')});
+  $$('.tab').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  b.setAttribute('aria-selected','true');
+  $('#tab-'+b.dataset.tab).classList.add('active');
+  if(b.dataset.tab==='mensajes'){markSeen();renderMensajes()}
+}));
+
+function dueChip(d){
+  if(!d)return'';
+  const t=today();
+  if(d<t)return`<span class="due over">Vencida ${esc(d)}</span>`;
+  if(d===t)return`<span class="due">Vence hoy</span>`;
+  return`<span class="due ok">${esc(d)}</span>`;
+}
+
+function startTaskEdit(id){
+  const t=state.tareas.tareas.find(x=>x.id===id);if(!t)return;
+  editingTask=id;
+  $('#newTask').value=t.titulo;
+  $('#newTaskDue').value=t.vence||'';
+  $('#taskLbl').textContent='Editar tarea';
+  $('#addTask').textContent='Guardar cambios';
+  $('#cancelTaskEdit').classList.remove('hidden');
+  $('#newTask').focus();
+}
+function endTaskEdit(){
+  editingTask=null;
+  $('#newTask').value='';$('#newTaskDue').value='';
+  $('#taskLbl').textContent='Tarea nueva (para ti)';
+  $('#addTask').textContent='+ Agregar tarea';
+  $('#cancelTaskEdit').classList.add('hidden');
+}
+async function delTask(id){
+  const arr=state.tareas.tareas;
+  const i=arr.findIndex(x=>x.id===id);if(i<0)return;
+  const t=arr[i];
+  if(!confirm(`¿Eliminar la tarea «${t.titulo}»?`))return;
+  const rm=arr.splice(i,1)[0];
+  await save('tareas');renderTasks();
+  toast('Tarea eliminada','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('tareas');renderTasks();toast('Tarea restaurada')}});
+}
+
+function renderTasks(){
+  const list=$('#taskList');
+  const arr=[...state.tareas.tareas].sort((a,b)=>{
+    if(a.hecha!==b.hecha)return a.hecha?1:-1;
+    return(a.vence||'9999')<(b.vence||'9999')?-1:1;
+  });
+  if(!arr.length){list.innerHTML='<div class="card" style="color:var(--muted)">Sin tareas. El cerebro las agregará en tareas.json.</div>'}
+  else{
+    list.innerHTML=arr.map(t=>`
+      <div class="task${t.hecha?' done':''}">
+        <input type="checkbox" data-task="${esc(t.id)}"${t.hecha?' checked':''} aria-label="Completar ${esc(t.titulo)}">
+        <div class="body">
+          <div class="title">${esc(t.titulo)}</div>
+          ${t.detalle?`<div class="detail">${esc(t.detalle)}</div>`:''}
+          <div class="meta">
+            ${t.categoria?`<span class="cat">${esc(t.categoria)}</span>`:''}
+            ${t.vence?dueChip(t.vence):''}
+            ${t.origen==='cerebro'?'<span class="cat">🧠 del cerebro</span>':''}
+            <span style="flex:1"></span>
+            <button class="btn ghost small" data-tedit="${esc(t.id)}" title="Editar tarea" aria-label="Editar tarea ${esc(t.titulo)}">✏️</button>
+            <button class="btn ghost small" data-tdel="${esc(t.id)}" title="Eliminar tarea" aria-label="Eliminar tarea ${esc(t.titulo)}">✕</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+  const total=arr.length,done=arr.filter(t=>t.hecha).length;
+  const pend=total-done;
+  const hoy=arr.filter(t=>!t.hecha&&t.vence===today()).length;
+  const over=arr.filter(t=>!t.hecha&&t.vence&&t.vence<today()).length;
+  $('#progTxt').textContent=`${done} de ${total} completadas`;
+  $('#progPct').textContent=total?Math.round(done/total*100)+'%':'0%';
+  $('#progBar').style.transform='scaleX('+(total?done/total:0)+')';
+  $('#countToday').textContent='Vencen hoy: '+hoy;
+  $('#countOver').textContent='Vencidas: '+over;
+  $('#countPend').textContent='Pendientes: '+pend;
+  const mT=$('#mTasks');if(mT)mT.textContent=total?Math.round(done/total*100)+'%':'0%';
+  $$('[data-task]').forEach(cb=>cb.addEventListener('change',async()=>{
+    const t=state.tareas.tareas.find(x=>x.id===cb.dataset.task);
+    if(t){t.hecha=cb.checked;t.hechoFecha=cb.checked?stamp():'';await save('tareas');renderTasks();toast(cb.checked?'Tarea completada ✓':'Tarea reabierta')}
+  }));
+  $$('[data-tedit]').forEach(b=>b.addEventListener('click',()=>startTaskEdit(b.dataset.tedit)));
+  $$('[data-tdel]').forEach(b=>b.addEventListener('click',()=>delTask(b.dataset.tdel)));
+}
+
+const ESTADOS=['Nuevo','Contactado','Respondió','Reunión','Cotizado','Cerrado','Sin respuesta'];
+const EST_CLS={'Nuevo':'nuevo','Contactado':'contactado','Respondió':'respondio','Reunión':'reunion','Cotizado':'cotizado','Cerrado':'cerrado','Sin respuesta':'sinrep'};
+
+function startPEdit(id){
+  const p=state.prospectos.prospectos.find(x=>x.id===id);if(!p)return;
+  editingP=id;
+  $('#pNombre').value=p.nombre;
+  $('#pNegocio').value=p.negocio;
+  $('#pTel').value=p.telefono||'';
+  if([...$('#pFuente').options].some(o=>o.value===p.fuente))$('#pFuente').value=p.fuente;
+  $('#pNotas').value=p.notas||'';
+  $('#pNombreLbl').textContent='Nombre * (editando)';
+  $('#pNegocioLbl').textContent='Negocio * (editando)';
+  $('#addProspect').textContent='Guardar cambios';
+  $('#cancelPEdit').classList.remove('hidden');
+  $('#pNombre').focus();
+}
+function endPEdit(){
+  editingP=null;
+  ['pNombre','pNegocio','pTel','pNotas'].forEach(i=>$('#'+i).value='');
+  $('#pFuente').selectedIndex=0;
+  $('#pNombreLbl').textContent='Nombre *';
+  $('#pNegocioLbl').textContent='Negocio *';
+  $('#addProspect').textContent='+ Agregar prospecto';
+  $('#cancelPEdit').classList.add('hidden');
+}
+async function delProspect(id){
+  const arr=state.prospectos.prospectos;
+  const i=arr.findIndex(x=>x.id===id);if(i<0)return;
+  const p=arr[i];
+  if(!confirm(`¿Eliminar a ${p.nombre} — ${p.negocio}?`))return;
+  const rm=arr.splice(i,1)[0];
+  await save('prospectos');renderProspectos();renderMetrics();
+  toast('Prospecto eliminado','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('prospectos');renderProspectos();renderMetrics();toast('Prospecto restaurado')}});
+}
+
+function renderProspectos(){
+  const f=$('#filterEstado').value;
+  const arr=[...state.prospectos.prospectos].filter(p=>!f||p.estado===f).reverse();
+  $('#pCount').textContent=state.prospectos.prospectos.length+' en total';
+  const el=$('#pList');
+  if(!arr.length){
+    const total=state.prospectos.prospectos.length;
+    el.innerHTML='<div class="card" style="color:var(--muted)">'+
+      (total===0?'Sin prospectos aún. Agrega el primero arriba 👆':
+       f?`Ninguno con estado «${esc(f)}». Cambia el filtro para ver los ${total}.`:'Ningún prospecto.')+
+      '</div>';return;
+  }
+  el.innerHTML=arr.map(p=>`
+    <div class="p-item">
+      <div class="info">
+        <div class="neg">${esc(p.nombre)} — ${esc(p.negocio)}</div>
+        <div class="sub">${esc(p.telefono||'sin teléfono')} · ${esc(p.fuente)} · ${esc((p.fecha||'').slice(0,10))}${p.notas?' · '+esc(p.notas):''}</div>
+      </div>
+      <span class="chip ${EST_CLS[p.estado]||'nuevo'}">${esc(p.estado)}</span>
+      <select data-pstate="${esc(p.id)}" aria-label="Estado de ${esc(p.nombre)}">${ESTADOS.map(e=>`<option${e===p.estado?' selected':''}>${e}</option>`).join('')}</select>
+      <button class="btn ghost small" data-pedit="${esc(p.id)}" title="Editar" aria-label="Editar ${esc(p.nombre)}">✏️</button>
+      <button class="btn ghost small" data-pdel="${esc(p.id)}" title="Eliminar" aria-label="Eliminar ${esc(p.nombre)}">✕</button>
+    </div>`).join('');
+  $$('[data-pstate]').forEach(s=>s.addEventListener('change',async()=>{
+    const p=state.prospectos.prospectos.find(x=>x.id===s.dataset.pstate);
+    if(p){p.estado=s.value;p.actualizado=stamp();await save('prospectos');renderProspectos();renderMetrics()}
+  }));
+  $$('[data-pedit]').forEach(b=>b.addEventListener('click',()=>startPEdit(b.dataset.pedit)));
+  $$('[data-pdel]').forEach(b=>b.addEventListener('click',()=>delProspect(b.dataset.pdel)));
+}
+
+function renderMensajes(){
+  const el=$('#mList');
+  const s=seenIds();
+  const arr=[...state.mensajes.mensajes].reverse();
+  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">No has enviado mensajes al cerebro todavía.</div>';updateBadge();return}
+  el.innerHTML=arr.map(m=>{
+    const unseen=m.estado==='atendido'&&m.respuesta&&!s.has(m.id);
+    return`
+    <div class="msg${unseen?' new':''}">
+      <div class="head">
+        <span>${esc(m.fecha||'')}</span>
+        <span class="st ${m.estado==='atendido'?'listo':'pend'}">${m.estado==='atendido'?'✓ Atendido':'⏳ Pendiente'}</span>
+      </div>
+      <div class="txt">${esc(m.texto)}</div>
+      ${m.respuesta?`<div class="resp"><b>🧠 Cerebro:</b><br>${esc(m.respuesta)}</div>`:''}
+    </div>`}).join('');
+  updateBadge();
+}
+
+function bars(data,total){
+  const max=Math.max(...Object.values(data),1);
+  return Object.entries(data).map(([k,v])=>`
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <span style="width:130px;font-size:13px">${esc(k)}</span>
+      <div style="flex:1;height:14px;background:var(--bg);border-radius:7px;overflow:hidden">
+        <i style="display:block;height:100%;width:${Math.round(v/max*100)}%;background:var(--accent);border-radius:7px"></i>
+      </div>
+      <span style="width:40px;text-align:right;font-size:13px;font-weight:700">${v}</span>
+    </div>`).join('');
+}
+
+function renderMetrics(){
+  const ps=state.prospectos.prospectos;
+  const ws=weekStart();
+  const week=ps.filter(p=>(p.fecha||'').slice(0,10)>=ws).length;
+  const byEst={};ESTADOS.forEach(e=>byEst[e]=0);
+  ps.forEach(p=>{byEst[p.estado]=(byEst[p.estado]||0)+1});
+  const byF={};
+  ps.forEach(p=>{const f=p.fuente||'Otro';byF[f]=(byF[f]||0)+1});
+  $('#mWeek').textContent=week;
+  $('#mTotal').textContent=ps.length;
+  $('#mResp').textContent=(byEst['Respondió']||0)+(byEst['Reunión']||0)+(byEst['Cotizado']||0)+(byEst['Cerrado']||0);
+  $('#mCot').textContent=(byEst['Cotizado']||0)+(byEst['Cerrado']||0);
+  $('#mCierre').textContent=byEst['Cerrado']||0;
+  $('#estadoBars').innerHTML=bars(byEst);
+  $('#fuenteBars').innerHTML=Object.keys(byF).length?bars(byF):'<span style="color:var(--muted);font-size:13px">Sin datos todavía.</span>';
+}
+
+function renderAll(){renderTasks();renderProspectos();renderMensajes();renderMetrics();updateBadge()}
+
+$('#btnConnect').addEventListener('click',connect);
+$('#btnSync').addEventListener('click',async()=>{
+  if(!dirHandle){toast('Sin carpeta conectada: datos locales');return}
+  const bm=JSON.stringify(state.mensajes),bt=JSON.stringify(state.tareas);
+  await loadAll();
+  const parts=[];
+  if(JSON.stringify(state.mensajes)!==bm)parts.push('respuestas nuevas');
+  if(JSON.stringify(state.tareas)!==bt)parts.push('tareas nuevas');
+  toast(parts.length?'⟳ Sincronizado: '+parts.join(' + ')+' 🧠':'⟳ Sincronizado, sin cambios');
+});
+
+$('#dismissOnboard').addEventListener('click',()=>{$('#onboard').classList.add('hidden');localStorage.setItem('dsw-onboard','1')});
+
+$('#cancelTaskEdit').addEventListener('click',endTaskEdit);
+$('#cancelPEdit').addEventListener('click',endPEdit);
+
+$('#addTask').addEventListener('click',async()=>{
+  const v=$('#newTask').value.trim();
+  if(!v){toast('Escribe la tarea primero','err');return}
+  if(editingTask){
+    const t=state.tareas.tareas.find(x=>x.id===editingTask);
+    if(t){t.titulo=v;t.vence=$('#newTaskDue').value}
+    endTaskEdit();
+    await save('tareas');renderTasks();toast('Tarea actualizada ✓');
+    return;
+  }
+  state.tareas.tareas.push({id:uid(),titulo:v,detalle:'',categoria:'Personal',vence:$('#newTaskDue').value||today(),hecha:false,origen:'tu'});
+  $('#newTask').value='';$('#newTaskDue').value='';
+  await save('tareas');renderTasks();toast('Tarea agregada');
+});
+$('#newTask').addEventListener('keydown',e=>{if(e.key==='Enter')$('#addTask').click()});
+
+$('#addProspect').addEventListener('click',async()=>{
+  const n=$('#pNombre').value.trim(),neg=$('#pNegocio').value.trim();
+  if(!n||!neg){toast('Nombre y negocio son obligatorios','err');return}
+  if(editingP){
+    const p=state.prospectos.prospectos.find(x=>x.id===editingP);
+    if(p){p.nombre=n;p.negocio=neg;p.telefono=$('#pTel').value.trim();p.fuente=$('#pFuente').value;p.notas=$('#pNotas').value.trim();p.actualizado=stamp()}
+    endPEdit();
+    await save('prospectos');renderProspectos();renderMetrics();toast('Prospecto actualizado ✓');
+    return;
+  }
+  state.prospectos.prospectos.push({id:uid(),nombre:n,negocio:neg,telefono:$('#pTel').value.trim(),fuente:$('#pFuente').value,notas:$('#pNotas').value.trim(),estado:'Nuevo',fecha:stamp(),actualizado:stamp()});
+  ['pNombre','pNegocio','pTel','pNotas'].forEach(i=>$('#'+i).value='');
+  await save('prospectos');renderProspectos();renderMetrics();toast('Prospecto agregado ✓');
+});
+
+$('#filterEstado').addEventListener('change',renderProspectos);
+
+$('#copyTsv').addEventListener('click',()=>{
+  const f=$('#filterEstado').value;
+  const arr=[...state.prospectos.prospectos].filter(p=>!f||p.estado===f).reverse();
+  const rows=[['Nombre','Negocio','Teléfono','Fuente','Estado','Fecha','Notas']];
+  arr.forEach(p=>rows.push([p.nombre,p.negocio,p.telefono||'',p.fuente,p.estado,(p.fecha||'').slice(0,10),p.notas||'']));
+  const tsv=rows.map(r=>r.map(c=>String(c).replace(/\t|\n/g,' ')).join('\t')).join('\n');
+  navigator.clipboard.writeText(tsv).then(()=>{
+    toast(f?`Copiado (${arr.length} con estado «${f}»). Pega en Google Sheets (Ctrl+V)`:'Copiado. Pega en Google Sheets (Ctrl+V)');
+  }).catch(()=>toast('No se pudo copiar','err'));
+});
+
+$('#sendMsg').addEventListener('click',async()=>{
+  const t=$('#mInput').value.trim();
+  if(!t){toast('Escribe tu mensaje primero','err');return}
+  state.mensajes.mensajes.push({id:uid(),texto:t,fecha:stamp(),estado:'pendiente',respuesta:''});
+  $('#mInput').value='';
+  await save('mensajes');renderMensajes();
+  toast('Mensaje enviado. Dime «revisa la app» cuando quieras que lo atienda 🧠');
+});
+
+$$('[data-rut]').forEach(cb=>{
+  const key='dsw-rut-'+today()+'-'+cb.dataset.rut;
+  if(localStorage.getItem(key))cb.checked=true;
+  cb.addEventListener('change',()=>{cb.checked?localStorage.setItem(key,'1'):localStorage.removeItem(key)});
+});
+
+window.addEventListener('focus',async()=>{
+  if(!dirHandle)return;
+  const before={t:JSON.stringify(state.tareas),p:JSON.stringify(state.prospectos),m:JSON.stringify(state.mensajes)};
+  await loadAll();
+  const parts=[];
+  if(JSON.stringify(state.tareas)!==before.t)parts.push('tareas actualizadas');
+  if(JSON.stringify(state.mensajes)!==before.m)parts.push('respuestas del cerebro');
+  if(JSON.stringify(state.prospectos)!==before.p)parts.push('prospectos cambiaron');
+  if(parts.length)toast('⟳ Cambios del cerebro: '+parts.join(' · ')+' 🧠');
+  updateBadge();
+});
+
+(async()=>{
+  if(localStorage.getItem('dsw-onboard'))$('#onboard').classList.add('hidden');
+  await restore();
+  await loadAll();
+  if(!dirHandle)setConn(localStorage.getItem('dsw-state')?'local':'none');
+})();
+</script>
+</body>
+</html>
