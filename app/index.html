@@ -3,425 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>D.Softworks OS — Panel de operación</title>
+<title>D.Softworks OS — Panel de operacion</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='%230d121c' stroke='%2363cfe4' stroke-width='4'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='17' font-weight='700' fill='%23eef3fa'%3EDSW%3C/text%3E%3C/svg%3E">
-<style>
-:root{
-  color-scheme:dark;
-  --bg:#0d121c;--panel:#141b2a;--panel2:#1b2436;--line:#2c3a54;--txt:#eef3fa;--muted:#93a3bd;
-  --accent:#63cfe4;--accent2:#a8e4f0;--btn:#63cfe4;--btn-ink:#0b1017;--btn-danger:#c0392b;--btn-ok:#1d7a44;--ok:#2ecc71;--warn:#f39c12;--danger:#e74c3c;
-  --radius:10px;
-}
-*{box-sizing:border-box;margin:0;padding:0;scrollbar-width:thin;scrollbar-color:var(--line) var(--bg)}
-::-webkit-scrollbar{width:10px;height:10px}
-::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::selection{background:rgba(99,207,228,.35)}
-html{color-scheme:dark}
-body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:14px;min-height:100vh;caret-color:var(--accent)}
-button{font-family:inherit;cursor:pointer}
-input,select,textarea{font-family:inherit;font-size:14px;background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:9px 11px;width:100%}
-input:focus,select:focus,textarea:focus{border-color:var(--accent)}
-:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
-textarea{resize:vertical;min-height:80px}
-
-header{display:flex;align-items:center;gap:14px;padding:14px 22px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
-header img{height:36px;width:36px;object-fit:cover;border-radius:50%;border:1px solid rgba(99,207,228,.55)}
-.brand{font-weight:700;font-size:16px;letter-spacing:.3px}
-.brand span{color:var(--accent)}
-.spacer{flex:1}
-.status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--danger);display:inline-block}
-.dot.on{background:var(--accent);position:relative}
-.dot.on::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid var(--accent);animation:live 2.2s ease-out infinite}
-.dot.local{background:var(--warn)}
-@keyframes live{0%{transform:scale(.6);opacity:.9}70%{opacity:.15}100%{transform:scale(2);opacity:0}}
-@media(prefers-reduced-motion:reduce){.dot.on::after{animation:none;display:none}.progress i,.toast{transition:none}}
-
-.btn{background:var(--btn);border:none;color:var(--btn-ink);padding:9px 16px;border-radius:8px;font-weight:700;font-size:13px}
-.btn:hover{filter:brightness(1.1)}
-.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
-.btn.small{padding:7px 12px;font-size:12px;border-radius:6px}
-.btn.danger{background:var(--btn-danger)}
-.btn.ok{background:var(--btn-ok)}
-
-nav{display:flex;gap:4px;padding:10px 22px 0;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
-nav button{background:none;border:none;color:var(--muted);padding:10px 16px;font-size:14px;font-weight:600;border-bottom:2px solid transparent;border-radius:0}
-nav button.active{color:var(--txt);border-bottom-color:var(--accent)}
-nav button:hover{color:var(--txt)}
-.badge{display:inline-block;min-width:18px;padding:1px 5px;border-radius:99px;background:var(--btn-danger);color:#fff;font-size:12px;font-weight:800;text-align:center;margin-left:5px;vertical-align:top;line-height:1.3}
-
-main{padding:22px;max-width:1100px;margin:0 auto}
-.tab{display:none}
-.tab.active{display:block}
-h2{font-size:18px;margin-bottom:14px}
-h3{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin:18px 0 8px}
-
-.grid{display:grid;gap:14px}
-.grid.two{grid-template-columns:1fr 1fr}
-@media(max-width:800px){.grid.two{grid-template-columns:1fr}}
-
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
-.progress{height:10px;background:var(--bg);border-radius:6px;overflow:hidden;margin:10px 0}
-.progress i{display:block;height:100%;width:100%;background:var(--accent);border-radius:6px;transform:scaleX(0);transform-origin:left;transition:transform .3s ease-out}
-
-.chip{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:700}
-.chip.nuevo{background:#2a3245;color:#aab3c5}
-.chip.contactado{background:#1a3a6b;color:#6ea8ff}
-.chip.respondio{background:#0d4f5c;color:#5ce0e0}
-.chip.reunion{background:#3d2a6b;color:#b79bff}
-.chip.cotizado{background:#5c3d0d;color:#ffc46b}
-.chip.cerrado{background:#14471f;color:#6fe08a}
-.chip.sinrep{background:#5c1a1a;color:#ff8a8a}
-.cat{font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--panel2);color:var(--muted)}
-
-.task{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:8px}
-.task.done{opacity:.5}
-.task input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);margin-top:2px;flex-shrink:0}
-.task .body{flex:1;min-width:0}
-.task .title{font-weight:600}
-.task.done .title{text-decoration:line-through}
-.task .detail{color:var(--muted);font-size:13px;margin-top:4px;white-space:pre-wrap}
-.task .meta{display:flex;gap:8px;align-items:center;margin-top:7px;flex-wrap:wrap}
-.due{font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;background:#5c3d0d;color:#ffc46b}
-.due.over{background:#5c1a1a;color:#ff8a8a}
-.due.ok{background:#14471f;color:#6fe08a}
-
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.form-row.one{grid-template-columns:1fr}
-label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:600}
-
-.p-list{display:flex;flex-direction:column;gap:8px}
-.p-item{display:flex;gap:12px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;flex-wrap:wrap}
-.p-item .info{flex:1;min-width:180px}
-.p-item .neg{font-weight:700}
-.p-item .sub{color:var(--muted);font-size:12px;margin-top:2px}
-.p-item select{width:auto;min-width:130px;padding:6px 8px}
-
-.msg{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:10px}
-.msg.new{border-color:var(--accent2)}
-.msg .head{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-bottom:6px}
-.msg .txt{white-space:pre-wrap}
-.msg .resp{margin-top:10px;padding:10px 12px;background:#0f2733;border:1px solid #1f5f72;border-radius:6px;color:#c9edf6;white-space:pre-wrap}
-.st{font-weight:700;font-size:12px;padding:2px 8px;border-radius:6px}
-.st.pend{background:#5c3d0d;color:#ffc46b}
-.st.listo{background:#14471f;color:#6fe08a}
-
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-align:center}
-.stat b{display:block;font-size:30px;color:var(--accent);font-variant-numeric:tabular-nums}
-.stat span{font-size:12px;color:var(--muted)}
-.stat .goal{font-size:12px;color:var(--muted);margin-top:4px}
-
-.routine{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:8px}
-.routine h4{font-size:13px;margin-bottom:8px;color:var(--accent)}
-.routine label{display:flex;gap:9px;align-items:center;color:var(--txt);font-weight:500;margin-bottom:6px;cursor:pointer}
-.routine input{width:16px;height:16px;accent-color:var(--accent)}
-
-.help{background:#0f2733;border:1px solid #1f5f72;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:13px;line-height:1.6;color:#c9edf6}
-.help ol{margin-left:18px}
-.hidden{display:none!important}
-footer{padding:20px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:30px}
-.toast{position:fixed;bottom:24px;right:24px;background:var(--panel2);border:1px solid var(--accent);color:var(--txt);padding:12px 18px;border-radius:8px;font-size:13px;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;z-index:100;display:flex;gap:12px;align-items:center;max-width:min(420px,calc(100vw - 48px))}
-.toast.show{opacity:1;transform:translateY(0);pointer-events:auto}
-.toast.err{border-color:var(--danger)}
-.toast .btn{padding:5px 10px;font-size:12px}
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<symbol id="i-dash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+<symbol id="i-funnel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="22,3 2,3 10,15 14,21 14,15 22,3"/><line x1="14" y1="15" x2="22" y2="15"/></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12V7H5a2 2 0 010-4h14v4"/><path d="M3 5v14a2 2 0 002 2h16v-5"/><path d="M18 12a2 2 0 100 4 2 2 0 000-4z"/></symbol>
+<symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+<symbol id="i-timeline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-report" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+<symbol id="i-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></symbol>
+<symbol id="i-grip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
+<symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="9 18 15 12 9 6"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+<symbol id="i-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22c-4.97 0-9-3.58-9-8 0-3.77 2.79-6.87 5.5-8 .83 1.89.94 3.73.5 5.5-1.24-2.33-1.67-4.75-1-6.5.2-.4.4-.8.6-1.2.2.4.4.8.6 1.2.66 1.75.23 4.17-1 6.5 2.71 1.13 5.5 4.23 5.5 8 0 4.42-4.03 8-9 8z"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c4.33-.5 7.5-3.25 8-8.33"/><path d="M6 20l2-4 2 4"/><path d="M18 20l-2-4-2 4"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
+</svg>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<nav class="drawer-panel" id="drawerPanel">
+  <button class="close-drawer" id="closeDrawer" aria-label="Cerrar menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="brand-section"><span class="brand">DSW <span>OS</span></span></div>
+  <nav id="drawerNav" role="tablist" aria-label="Secciones"></nav>
+</nav>
+
+<header class="app-header">
+  <button class="btn ghost small mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   <img src="../logo_DSW.jpg" alt="D.Softworks" onerror="this.style.display='none'">
   <div class="brand">D.Softworks <span>OS</span></div>
   <div class="spacer"></div>
-  <div class="status"><span class="dot" id="connDot"></span><span id="connTxt">Sin conexión a archivos</span></div>
-  <button class="btn ghost small" id="btnSync" title="Releer archivos del disco">⟳ Sincronizar</button>
-  <button class="btn small" id="btnConnect">📁 Conectar carpeta</button>
+  <div class="status"><span class="dot" id="connDot"></span><span id="connTxt">Sin conexion a archivos</span><span class="badge hidden" id="msgBadge">0</span></div>
+  <button class="btn ghost small" id="btnSync" title="Releer archivos del disco"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg> Sincronizar</button>
+  <button class="btn small" id="btnConnect"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg> Conectar carpeta</button>
 </header>
 
-<nav role="tablist" aria-label="Secciones del panel">
-  <button class="active" role="tab" id="tb-hoy" aria-controls="tab-hoy" aria-selected="true" data-tab="hoy">📋 Hoy</button>
-  <button role="tab" id="tb-prospectos" aria-controls="tab-prospectos" aria-selected="false" data-tab="prospectos">🎯 Prospectos</button>
-  <button role="tab" id="tb-clientes" aria-controls="tab-clientes" aria-selected="false" data-tab="clientes">💼 Clientes</button>
-  <button role="tab" id="tb-cotizaciones" aria-controls="tab-cotizaciones" aria-selected="false" data-tab="cotizaciones">📄 Cotizaciones</button>
-  <button role="tab" id="tb-finanzas" aria-controls="tab-finanzas" aria-selected="false" data-tab="finanzas">💰 Finanzas</button>
-  <button role="tab" id="tb-contenido" aria-controls="tab-contenido" aria-selected="false" data-tab="contenido">📅 Contenido</button>
-  <button role="tab" id="tb-mensajes" aria-controls="tab-mensajes" aria-selected="false" data-tab="mensajes">🧠 Mensajes<span class="badge hidden" id="msgBadge" aria-label="respuestas nuevas del cerebro">0</span></button>
-  <button role="tab" id="tb-metricas" aria-controls="tab-metricas" aria-selected="false" data-tab="metricas">📊 Métricas</button>
-  <button role="tab" id="tb-ayuda" aria-controls="tab-ayuda" aria-selected="false" data-tab="ayuda">❓ Ayuda</button>
-</nav>
+<div class="app-layout">
+<aside class="app-sidebar" id="appSidebar">
+  <div class="brand-section"><span class="brand">DSW <span>OS</span></span></div>
+  <nav id="sidebarNav" role="tablist" aria-label="Secciones"></nav>
+  <div class="sidebar-footer">D.Softworks OS · Guadalajara, Jal</div>
+</aside>
 
-<main>
+<main class="app-main">
 
-<section class="tab active" id="tab-hoy" role="tabpanel" aria-labelledby="tb-hoy" tabindex="0">
-  <div class="help hidden" id="onboard">
-    <b>Primera vez:</b>
-    <ol>
-      <li>Da clic en <b>📁 Conectar carpeta</b> y selecciona la carpeta <code>app/</code> de este repo.</li>
-      <li>Con eso, todo lo que marques aquí se guarda en los archivos JSON que el cerebro (la IA) lee.</li>
-      <li>Cuando termines algo, marca la tarea y agrega un mensaje en <b>🧠 Mensajes</b> si necesitas que yo prepare el siguiente paso.</li>
-    </ol>
-    <button class="btn small" id="dismissOnboard" style="margin-top:8px">Entendido</button>
+<!-- ============ DASHBOARD ============ -->
+<section class="tab-panel active" id="tab-dashboard" role="tabpanel" aria-labelledby="tb-dashboard" tabindex="0">
+  <h2>Dashboard</h2>
+  <div class="kpi-grid" id="dashKPIs"></div>
+  <div class="grid two" style="margin-bottom:18px">
+    <div class="card" id="dashPriorities"></div>
+    <div class="card" id="dashEmbudo"></div>
   </div>
-
-  <h2>Progreso de tareas</h2>
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;font-size:13px">
-      <span id="progTxt">0 de 0 completadas</span>
-      <span style="color:var(--muted)" id="progPct">0%</span>
-    </div>
-    <div class="progress"><i id="progBar"></i></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <span class="cat" id="countToday">Vencen hoy: 0</span>
-      <span class="cat" id="countOver">Vencidas: 0</span>
-      <span class="cat" id="countPend">Pendientes: 0</span>
-    </div>
-  </div>
-
-  <h3>Rutina diaria (30-45 min)</h3>
   <div class="grid two">
-    <div class="routine">
-      <h4>☀️ Mañana (15 min)</h4>
-      <label><input type="checkbox" data-rut="m1"> Revisar mensajes respondidos</label>
-      <label><input type="checkbox" data-rut="m2"> Enviar 5 mensajes nuevos</label>
-      <label><input type="checkbox" data-rut="m3"> Seguimiento a prospectos pendientes</label>
-    </div>
-    <div class="routine">
-      <h4>🌤️ Medio día (5 min)</h4>
-      <label><input type="checkbox" data-rut="d1"> Revisar respuestas en Facebook/Instagram</label>
-      <label><input type="checkbox" data-rut="d2"> Responder comentarios</label>
-    </div>
-    <div class="routine">
-      <h4>🌙 Noche (10 min)</h4>
-      <label><input type="checkbox" data-rut="n1"> Actualizar hoja de prospectos</label>
-      <label><input type="checkbox" data-rut="n2"> Preparar mensajes para mañana</label>
-      <label><input type="checkbox" data-rut="n3"> Buscar 5 negocios nuevos</label>
-    </div>
-    <div class="routine">
-      <h4>📅 Semana</h4>
-      <label><input type="checkbox" data-rut="s1"> Viernes: llenar métricas semanales</label>
-      <label><input type="checkbox" data-rut="s2"> Dom/Lun: reunión de socios 30 min</label>
-      <label><input type="checkbox" data-rut="s3"> Revisar meta: 50 contactos</label>
-    </div>
+    <div class="card" id="dashEngine"></div>
+    <div class="card" id="dashAgenda"></div>
   </div>
-
-  <h3>Tareas del cerebro <span class="cat">tareas.json</span></h3>
-  <div id="taskList"></div>
-
-  <div class="card" style="margin-top:14px">
-    <div class="form-row one">
-      <div><label for="newTask" id="taskLbl">Tarea nueva (para ti)</label><input id="newTask" placeholder="Ej: Enviar seguimiento a Barbería López"></div>
-    </div>
-    <div class="form-row">
-      <div><label for="newTaskDue">Vence</label><input type="date" id="newTaskDue"></div>
-      <div style="display:flex;align-items:flex-end;gap:8px">
-        <button class="btn" id="addTask">+ Agregar tarea</button>
-        <button class="btn ghost hidden" id="cancelTaskEdit">Cancelar</button>
-      </div>
-    </div>
+  <div class="grid two" style="margin-top:14px">
+    <div class="card" id="dashMovimientos"></div>
+    <div class="card" id="dashSistema"></div>
   </div>
 </section>
 
-<section class="tab" id="tab-prospectos" role="tabpanel" aria-labelledby="tb-prospectos" tabindex="0">
-  <h2>Prospectos <span class="cat">data/prospectos.json</span></h2>
-
-  <div class="card" style="margin-bottom:16px">
-    <div class="form-row">
-      <div><label for="pNombre" id="pNombreLbl">Nombre *</label><input id="pNombre" placeholder="Juan Pérez"></div>
-      <div><label for="pNegocio" id="pNegocioLbl">Negocio *</label><input id="pNegocio" placeholder="Barbería El Corte"></div>
-    </div>
-    <div class="form-row">
-      <div><label for="pTel">Teléfono / WhatsApp</label><input id="pTel" placeholder="33 1234 5678"></div>
-      <div><label for="pFuente">Fuente</label>
-        <select id="pFuente">
-          <option>Facebook</option><option>Instagram</option><option>Google Maps</option><option>Contacto personal</option><option>Presencial</option><option>Otro</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row one">
-      <div><label for="pNotas">Notas</label><input id="pNotas" placeholder="Sin web, activo en FB, mejor horario: tarde"></div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn" id="addProspect">+ Agregar prospecto</button>
-      <button class="btn ghost hidden" id="cancelPEdit">Cancelar edición</button>
-    </div>
-  </div>
-
+<!-- ============ PIPELINE ============ -->
+<section class="tab-panel" id="tab-pipeline" role="tabpanel" aria-labelledby="tb-pipeline" tabindex="0">
+  <h2>Pipeline <span class="cat" id="pipeSub"></span></h2>
+  <div class="grid three" style="margin-bottom:14px" id="pipeKPIs"></div>
+  <div class="card" style="margin-bottom:16px" id="prospectFormCard"></div>
   <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
-    <select id="filterEstado" style="width:auto" aria-label="Filtrar prospectos por estado">
-      <option value="">Todos los estados</option>
-      <option>Nuevo</option><option>Contactado</option><option>Respondió</option><option>Reunión</option><option>Cotizado</option><option>Cerrado</option><option>Sin respuesta</option>
-    </select>
-    <button class="btn ghost small" id="copyTsv">📋 Copiar para Google Sheets</button>
+    <select id="filterEstado" style="width:auto" aria-label="Filtrar por estado"><option value="">Todos los estados</option><option>Nuevo</option><option>Contactado</option><option>Respondió</option><option>Reunión</option><option>Cotizado</option><option>Cerrado</option><option>Sin respuesta</option></select>
+    <select id="pipeFilterFuente" style="width:auto" aria-label="Filtrar por fuente"><option value="">Todas las fuentes</option></select>
+    <button class="btn ghost small" id="copyTsv">Copiar TSV</button>
     <span style="flex:1"></span>
-    <span class="cat" id="pCount"></span>
   </div>
-
-  <div class="p-list" id="pList"></div>
+  <div class="kanban" id="kanban"></div>
 </section>
 
-<section class="tab" id="tab-clientes" role="tabpanel" aria-labelledby="tb-clientes" tabindex="0">
-  <h2>Clientes y proyectos <span class="cat">data/clientes.json</span></h2>
-  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Cuando un prospecto quede en <b style="color:var(--txt)">Cerrado</b>, pásalo aquí 💼 y controla anticipo, saldo y entrega. Regla: nada se entrega sin cobrar el saldo.</p>
-
-  <div class="card" style="margin-bottom:16px">
-    <div class="form-row">
-      <div><label for="cCliente" id="cClienteLbl">Cliente *</label><input id="cCliente" placeholder="María López"></div>
-      <div><label for="cNegocio" id="cNegocioLbl">Negocio *</label><input id="cNegocio" placeholder="Café El Grano"></div>
-    </div>
-    <div class="form-row">
-      <div><label for="cServicio">Servicio</label>
-        <select id="cServicio">
-          <option>Página web básica</option><option>Landing page</option><option>Catálogo digital</option><option>Paquete web + catálogo</option><option>Paquete completo</option><option>Tienda en línea</option><option>Sistema a medida</option><option>App móvil</option><option>Configuración de redes</option><option>Mantenimiento</option><option>Consultoría</option>
-        </select>
-      </div>
-      <div><label for="cPrecio">Precio total (MXN)</label><input type="number" id="cPrecio" placeholder="1500" min="0"></div>
-    </div>
-    <div class="form-row">
-      <div><label for="cAnticipo">Anticipo recibido (MXN)</label><input type="number" id="cAnticipo" placeholder="750" min="0"></div>
-      <div><label for="cEstado">Estado del proyecto</label>
-        <select id="cEstado"><option>En desarrollo</option><option>En revisión</option><option>Esperando pago</option><option>Entregado</option></select>
-      </div>
-    </div>
-    <div class="form-row">
-      <div><label for="cInicio">Fecha de inicio</label><input type="date" id="cInicio"></div>
-      <div><label for="cEntrega">Fecha de entrega</label><input type="date" id="cEntrega"></div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn" id="addCliente">+ Agregar cliente</button>
-      <button class="btn ghost hidden" id="cancelCEdit">Cancelar edición</button>
-    </div>
-  </div>
-
-  <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
-    <span class="cat" id="cCount"></span>
-    <span class="cat" id="cIngresos"></span>
-    <span class="cat" id="cPendCobro"></span>
-  </div>
-
-  <div class="p-list" id="cList"></div>
+<!-- ============ PROYECTOS ============ -->
+<section class="tab-panel" id="tab-proyectos" role="tabpanel" aria-labelledby="tb-proyectos" tabindex="0">
+  <h2>Proyectos <span class="cat" id="proySub"></span></h2>
+  <div class="grid two" style="margin-bottom:14px" id="proyKPIs"></div>
+  <div class="card" style="margin-bottom:16px" id="proyFormCard"></div>
+  <div class="p-list" id="proyList"></div>
 </section>
 
-<section class="tab" id="tab-cotizaciones" role="tabpanel" aria-labelledby="tb-cotizaciones" tabindex="0">
-  <h2>Cotizaciones <span class="cat">data/cotizaciones.json</span></h2>
-  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Toda cotización: válida 15 días, anticipo 50%, transferencia o efectivo. Si no está aquí, no se envió.</p>
+<!-- ============ AGENDA ============ -->
+<section class="tab-panel" id="tab-agenda" role="tabpanel" aria-labelledby="tb-agenda" tabindex="0">
+  <h2>Agenda <span class="cat">Reuniones</span></h2>
+  <div class="card" style="margin-bottom:16px" id="agendaFormCard"></div>
+  <div id="agendaList"></div>
+</section>
 
-  <div class="card" style="margin-bottom:16px">
-    <div class="form-row">
-      <div><label for="qProspecto" id="qProspectoLbl">Prospecto / cliente *</label><input id="qProspecto" placeholder="Barbería El Corte"></div>
-      <div><label for="qServicio">Servicio</label><input id="qServicio" placeholder="Landing page + WhatsApp"></div>
-    </div>
-    <div class="form-row">
-      <div><label for="qPrecio">Precio (MXN)</label><input type="number" id="qPrecio" placeholder="1500" min="0"></div>
-      <div><label for="qFecha">Fecha de envío</label><input type="date" id="qFecha"></div>
-    </div>
-    <div class="form-row">
-      <div><label for="qRespuesta">Respuesta</label>
-        <select id="qRespuesta"><option>Pendiente</option><option>Aceptada</option><option>Rechazada</option><option>Sin respuesta</option></select>
-      </div>
-      <div><label for="qSeg">Seguimiento (fecha)</label><input type="date" id="qSeg"></div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn" id="addCot">+ Registrar cotización</button>
-      <button class="btn ghost hidden" id="cancelQEdit">Cancelar edición</button>
-    </div>
-  </div>
-
+<!-- ============ COTIZACIONES ============ -->
+<section class="tab-panel" id="tab-cotizaciones" role="tabpanel" aria-labelledby="tb-cotizaciones" tabindex="0">
+  <h2>Cotizaciones <span class="cat">Cotizaciones</span></h2>
+  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Toda cotizacion: valida 15 dias, anticipo 50%, transferencia o efectivo. Si no esta aqui, no se envio.</p>
   <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:14px">
     <div class="stat"><b id="qTotal">0</b><span>Enviadas</span></div>
-    <div class="stat"><b id="qAcept">0</b><span>Aceptadas</span><div class="goal">meta: 30%</div></div>
+    <div class="stat"><b id="qAcept">0</b><span>Aceptadas</span></div>
     <div class="stat"><b id="qMonto">$0</b><span>Monto aceptado</span></div>
-    <div class="stat"><b id="qPend">0</b><span>Pendientes de seguimiento</span></div>
+    <div class="stat"><b id="qPend">0</b><span>Pendientes</span></div>
   </div>
-
-  <div class="p-list" id="qList"></div>
+  <div class="card" style="margin-bottom:16px" id="cotFormCard"></div>
+  <div class="p-list" id="cotList"></div>
 </section>
 
-<section class="tab" id="tab-finanzas" role="tabpanel" aria-labelledby="tb-finanzas" tabindex="0">
-  <h2>Finanzas <span class="cat">data/finanzas.json</span></h2>
-
+<!-- ============ FINANZAS ============ -->
+<section class="tab-panel" id="tab-finanzas" role="tabpanel" aria-labelledby="tb-finanzas" tabindex="0">
+  <h2>Finanzas <span class="cat">Finanzas</span></h2>
   <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:14px">
     <div class="stat"><b id="fIngresos">$0</b><span>Ingresos del mes</span></div>
     <div class="stat"><b id="fEgresos">$0</b><span>Egresos del mes</span></div>
     <div class="stat"><b id="fNeto">$0</b><span>Neto del mes</span></div>
     <div class="stat"><b id="fMeta">$0</b><span>Meta del mes</span></div>
   </div>
-
   <div class="card" style="margin-bottom:16px">
-    <div style="display:flex;justify-content:space-between;font-size:13px">
-      <span>Avance hacia la meta</span><span style="color:var(--muted)" id="fPct">0%</span>
-    </div>
+    <div style="display:flex;justify-content:space-between;font-size:13px"><span>Avance hacia la meta</span><span style="color:var(--muted)" id="fPct">0%</span></div>
     <div class="progress"><i id="fBar"></i></div>
     <div class="form-row" style="margin-bottom:0">
       <div><label for="fMetaInput">Editar meta mensual (MXN)</label><input type="number" id="fMetaInput" min="0" step="500"></div>
       <div style="display:flex;align-items:flex-end"><button class="btn ghost" id="saveMeta">Guardar meta</button></div>
     </div>
   </div>
-
-  <div class="card" style="margin-bottom:16px">
-    <div class="form-row">
-      <div><label for="fFecha">Fecha</label><input type="date" id="fFecha"></div>
-      <div><label for="fTipo">Tipo</label>
-        <select id="fTipo"><option value="ingreso">💰 Ingreso</option><option value="egreso">📤 Egreso</option></select>
-      </div>
-    </div>
-    <div class="form-row">
-      <div><label for="fConcepto">Concepto *</label><input id="fConcepto" placeholder="Anticipo web Café El Grano"></div>
-      <div><label for="fMonto">Monto (MXN) *</label><input type="number" id="fMonto" placeholder="750" min="0"></div>
-    </div>
-    <div class="form-row">
-      <div><label for="fCat">Categoría</label>
-        <select id="fCat"><option>Anticipo</option><option>Saldo final</option><option>Mantenimiento</option><option>Proyecto extra</option><option>Dominio/hosting</option><option>Herramientas</option><option>Otro</option></select>
-      </div>
-      <div style="display:flex;align-items:flex-end"><button class="btn" id="addMov">+ Registrar movimiento</button></div>
-    </div>
-  </div>
-
+  <div class="card" style="margin-bottom:16px" id="movFormCard"></div>
   <h3>Movimientos del mes</h3>
   <div class="p-list" id="fList"></div>
 </section>
 
-<section class="tab" id="tab-contenido" role="tabpanel" aria-labelledby="tb-contenido" tabindex="0">
-  <h2>Contenido <span class="cat">data/contenido.json</span></h2>
-  <div class="help" id="nextPost" style="margin-bottom:14px">Próxima publicación: —</div>
-
-  <div class="card" style="margin-bottom:16px">
-    <div class="form-row">
-      <div><label for="kTitulo" id="kTituloLbl">Título *</label><input id="kTitulo" placeholder="Portafolio — Café El Grano"></div>
-      <div><label for="kTipo">Tipo</label>
-        <select id="kTipo"><option>Portafolio</option><option>Educativo</option><option>Oferta</option><option>Detrás de escena</option></select>
-      </div>
-    </div>
-    <div class="form-row">
-      <div><label for="kFecha">Fecha de publicación</label><input type="date" id="kFecha"></div>
-      <div><label for="kEnlace">Enlace (cuando esté publicada)</label><input id="kEnlace" placeholder="https://facebook.com/..."></div>
-    </div>
-    <div class="form-row one">
-      <div><label for="kArchivo">Archivo / texto fuente</label><input id="kArchivo" placeholder="07-Marketing/Publicaciones/Portafolio-01-GMFire.md"></div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn" id="addPost">+ Agregar publicación</button>
-      <button class="btn ghost hidden" id="cancelKEdit">Cancelar edición</button>
-    </div>
-  </div>
-
+<!-- ============ CONTENIDO ============ -->
+<section class="tab-panel" id="tab-contenido" role="tabpanel" aria-labelledby="tb-contenido" tabindex="0">
+  <h2>Contenido <span class="cat">Contenido</span></h2>
+  <div class="help" id="nextPost" style="margin-bottom:14px">Proxima publicacion: —</div>
+  <div class="card" style="margin-bottom:16px" id="contFormCard"></div>
   <div class="p-list" id="kList"></div>
 </section>
 
-<section class="tab" id="tab-mensajes" role="tabpanel" aria-labelledby="tb-mensajes" tabindex="0">
-  <h2>Mensajes al cerebro <span class="cat">data/mensajes.json</span></h2>
-  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Escribe lo que necesites de mí: preparar un mensaje para un prospecto, una cotización, decidir el siguiente paso, dudas, bloqueos. <b style="color:var(--txt)">El cerebro responde cuando le digas «revisa la app» o «ya terminé»</b> — las respuestas nuevas aparecen con el contador 🔴 en esta pestaña.</p>
-
+<!-- ============ MENSAJES ============ -->
+<section class="tab-panel" id="tab-mensajes" role="tabpanel" aria-labelledby="tb-mensajes" tabindex="0">
+  <h2>Mensajes al cerebro <span class="cat">Mensajes</span></h2>
+  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Escribe lo que necesites de mi: preparar un mensaje para un prospecto, una cotizacion, decidir el siguiente paso, dudas, bloqueos. <b style="color:var(--txt)">El cerebro responde cuando me dices «revisa la app» o «ya terminé»</b> — las respuestas nuevas aparecen con el contador en Mensajes.</p>
   <div class="card" style="margin-bottom:16px">
     <label for="mInput">Tu mensaje</label>
     <textarea id="mInput" placeholder="Ej: El prospecto Barbería El Corte quiere una página. Prepara el mensaje de contacto y la cotización."></textarea>
-    <div style="margin-top:10px"><button class="btn" id="sendMsg">📤 Enviar al cerebro</button></div>
+    <div style="margin-top:10px"><button class="btn" id="sendMsg">Enviar al cerebro</button></div>
   </div>
-
   <div id="mList"></div>
 </section>
 
-<section class="tab" id="tab-metricas" role="tabpanel" aria-labelledby="tb-metricas" tabindex="0">
-  <h2>Métricas <span class="cat">calculado de prospectos.json</span></h2>
+<!-- ============ MÉTRICAS ============ -->
+<section class="tab-panel" id="tab-metricas" role="tabpanel" aria-labelledby="tb-metricas" tabindex="0">
+  <h2>Métricas <span class="cat">Calculado</span></h2>
   <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
     <div class="stat"><b id="mWeek">0</b><span>Contactos esta semana</span><div class="goal">meta: 50</div></div>
     <div class="stat"><b id="mTotal">0</b><span>Prospectos totales</span></div>
@@ -432,811 +188,109 @@ footer{padding:20px;text-align:center;color:var(--muted);font-size:12px;border-t
     <div class="stat"><b id="mClientes">0</b><span>Clientes activos</span></div>
     <div class="stat"><b id="mMes">$0</b><span>Ingresos del mes</span><div class="goal" id="mMetaPct">meta: $10,000</div></div>
   </div>
-
   <h3>Por estado</h3>
   <div class="card" id="estadoBars"></div>
-
-  <h3>Canal de origen</h3>
+  <h3 style="margin-top:18px">Canal de origen</h3>
   <div class="card" id="fuenteBars"></div>
-
-  <div class="help" style="margin-top:18px;background:#1a1508;border-color:#5c4a0d;color:#ffd98a">
-    <b>Regla de oro:</b> si no está en la hoja, no existe. Copia los prospectos a Google Sheets con el botón 📋 y llena las métricas todos los viernes.
-  </div>
+  <h3 style="margin-top:18px">Ingresos por mes</h3>
+  <div class="card" id="sparklineCard"></div>
+  <div class="help" style="margin-top:18px;background:#1a1508;border-color:#5c4a0d;color:#ffd98a">Regla de oro: si no esta en la hoja, no existe. Copia los prospectos a Google Sheets con el botón Copiar TSV y llena las métricas todos los viernes.</div>
 </section>
 
-<section class="tab" id="tab-ayuda" role="tabpanel" aria-labelledby="tb-ayuda" tabindex="0">
-  <h2>Cómo funciona el circuito</h2>
-  <div class="card" style="line-height:1.9;font-size:14px">
-    <b style="color:var(--accent)">1. El cerebro (IA) escribe</b> → actualiza <code>app/tareas.json</code> con lo que debe hacer hoy.<br>
+<!-- ============ TAREAS ============ -->
+<section class="tab-panel" id="tab-tareas" role="tabpanel" aria-labelledby="tb-tareas" tabindex="0">
+  <h2>Tareas <span class="cat">Tareas</span></h2>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;font-size:13px">
+      <span id="progTxt">0 de 0 completadas</span>
+      <span style="color:var(--muted)" id="progPct">0%</span>
+    </div>
+    <div class="progress"><i id="progBar"></i></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <span class="cat" id="countToday">Vencen hoy: 0</span>
+      <span class="cat" id="countOver">Vencidas: 0</span>
+      <span class="cat" id="countPend">Pendientes: 0</span>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="form-row one">
+      <div><label for="newTask">Tarea nueva</label><input id="newTask" placeholder="Ej: Enviar seguimiento a Barbería López"></div>
+    </div>
+    <div class="form-row">
+      <div><label for="newTaskDue">Vence</label><input type="date" id="newTaskDue"></div>
+      <div style="display:flex;align-items:flex-end;gap:8px">
+        <button class="btn" id="addTask">+ Agregar tarea</button>
+        <button class="btn ghost hidden" id="cancelTaskEdit">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  <div id="taskList"></div>
+</section>
+
+<!-- ============ BITÁCORA ============ -->
+<section class="tab-panel" id="tab-bitacora" role="tabpanel" aria-labelledby="tb-bitacora" tabindex="0">
+  <h2>Bitácora <span class="cat">Bitácora</span></h2>
+  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:14px">
+    <span id="bitCount">0 eventos</span>
+    <span style="color:var(--muted)" id="bitDesde"></span>
+  </div>
+  <div class="timeline" id="bitList"></div>
+</section>
+
+<!-- ============ REPORTES ============ -->
+<section class="tab-panel" id="tab-reportes" role="tabpanel" aria-labelledby="tb-reportes" tabindex="0">
+  <h2>Reportes <span class="cat">Reportes</span></h2>
+  <div style="display:flex;gap:10px;margin-bottom:14px;align-items:center;flex-wrap:wrap">
+    <button class="btn" id="genReporte">Generar reporte de la semana</button>
+    <label style="font-size:13px;color:var(--muted)">Semana:</label>
+    <select id="reporteWeek" style="width:auto"></select>
+  </div>
+  <div id="reporteActual"></div>
+  <h3 style="margin-top:18px">Historial</h3>
+  <div id="reportesList"></div>
+</section>
+
+<!-- ============ AYUDA ============ -->
+<section class="tab-panel" id="tab-ayuda" role="tabpanel" aria-labelledby="tb-ayuda" tabindex="0">
+  <h2>Ayuda</h2>
+  <div class="card" id="ayudaBody" style="line-height:1.9;font-size:14px">
+    <b style="color:var(--accent)">1. El cerebro (IA) escribe</b> → actualiza app/tareas.json con lo que debe hacer hoy.<br>
     <b style="color:var(--accent)">2. Tú ejecutas</b> → marcas tareas, agregas prospectos, escribes mensajes.<br>
-    <b style="color:var(--accent)">3. Guardas</b> → con la carpeta conectada, todo se guarda solo en los JSON.<br>
-    <b style="color:var(--accent)">4. El cerebro lee</b> → cuando le digas "revisa la app" o "ya terminé", leo los JSON y te doy el siguiente paso.<br><br>
-    <b>🎯 Prospectos → 💼 Clientes:</b> cuando un prospecto quede en «Cerrado», dale a 💼 y completa precio, anticipo y entrega.<br>
-    <b>📄 Cotizaciones:</b> registra cada cotización enviada; el viernes revisas tasa de aceptación (meta 30%).<br>
-    <b>💰 Finanzas:</b> cada anticipo y saldo va aquí; la barra te dice qué tan cerca estás de la meta del mes.<br>
-    <b>📅 Contenido:</b> 1 publicación cada 2 días — la pestaña te recuerda cuál sigue.<br><br>
-    <b>Sincronizar (⟳):</b> vuelve a leer los archivos por si el cerebro los actualizó desde fuera (nuevas tareas o respuestas).<br>
-    <b>Conectar carpeta:</b> selecciona <code>app/</code> una sola vez; el navegador recuerda el permiso.<br>
-    <b>Sin conexión a archivos:</b> la app funciona en modo local (navegador) pero el cerebro NO verá los cambios; conecta la carpeta para el circuito completo.<br><br>
-    <b>Metodologías incrustadas:</b> ritua diario 60 min y meta $10k/mes (MODO-MILLONARIO.md), pipeline Nuevo→Contactado→Respondió→Reunión→Cotizado→Cerrado, 50 contactos/semana, anticipo 50% obligatorio.
+    <b style="color:var(--accent)">3. Guardas</b> → con la carpeta conectada, todo se guarda en los JSON.<br>
+    <b style="color:var(--accent)">4. El cerebro lee</b> → cuando me dices "revisa la app" o "ya terminé", leo los JSON y te doy el siguiente paso.<br><br>
+    <b>Tablero (Dashboard):</b> KPIs en vivo, embudo, reglas, proximas reuniones, ultimos movimientos.<br>
+    <b>Pipeline:</b> Kanban con arrastrar-soltar, montos en MXN, probabilidad por etapa.<br>
+    <b>Proyectos:</b> clientes con anticipo, saldo y entrega. Al Entregar → aviso de cobro.<br>
+    <b>Agenda:</b> reuniones con resultado obligatorio al marcar Realizada.<br>
+    <b>Cotizaciones:</b> documento imprimible, copiar texto para WhatsApp.<br>
+    <b>Motor de reglas:</b> alertas que no dejan escapar dinero.<br>
+    <b>Bitácora:</b> cada acción queda registrada para la historia.<br>
+    <b>Reportes:</b> genero el de la semana con KPIs vs meta.<br><br>
+    <b>Sincronizar:</b> vuelve a leer los archivos por si el cerebro los actualizó desde fuera.<br>
+    <b>Conectar carpeta:</b> selecciona app/ una sola vez; el navegador recuerda el permiso.<br>
+    <b>Sin conexión a archivos:</b> la app funciona en modo local (navegador) pero el cerebro NO vera los cambios.<br><br>
+    <b>Metodologías:</b> ritua diario 60 min y meta $10k/mes, pipeline Nuevo→Contactado→Respondió→Reunión→Cotizado→Cerrado, 50 contactos/semana, anticipo 50% obligatorio.
   </div>
 </section>
 
-</main>
+<!-- ============ MODAL COTIZACIÓN DOCUMENTO ============ -->
+<div class="modal-overlay" id="cotDocModal">
+  <div class="modal" id="cotDocContent"></div>
+</div>
 
-<footer>D.Softworks OS · Panel de control de la empresa · los datos viven en <b>app/tareas.json</b> + <b>app/data/*.json</b> (prospectos, clientes, cotizaciones, finanzas, contenido, mensajes)</footer>
+<!-- ============ MODAL VER COTIZACIÓN ============ -->
+<div class="modal-overlay" id="verCotModal">
+  <div class="modal" id="verCotContent"></div>
+</div>
+
+<div id="onboard" class="onboard-banner"><b>¡Bienvenido a D.Softworks OS!</b><br><br>La app funciona inmediatamente — solo abre tu navegador.<br><br>- <b>Doble click en app/index.html</b> → todo listo, sin servidor.<br>- <b>Si quieres guardar en archivos</b>: sirve con serve.bat y conecta carpeta.<br><br>Cuando termines, diles <b>"revisa la app"</b> o <b>"ya terminé"</b>.<br><button class="btn ghost small" id="dismissOnboard">Entendido, empezar</button></div>
+</main>
+</div>
+
+<footer class="no-print">D.Softworks OS · Panel de control de la empresa · los datos viven en app/tareas.json + app/data/*.json (prospectos, clientes, cotizaciones, finanzas, contenido, mensajes, agenda, bitacora, reportes)</footer>
 <div class="toast" id="toast"></div>
 
-<script>
-const $=s=>document.querySelector(s);
-const $$=s=>document.querySelectorAll(s);
-
-let dirHandle=null, fileHandles={};
-let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]},clientes:{actualizado:'',clientes:[]},cotizaciones:{actualizado:'',cotizaciones:[]},finanzas:{actualizado:'',metaMes:10000,movimientos:[]},contenido:{actualizado:'',publicaciones:[]}};
-function normalizeState(){
-  if(!state.clientes||!Array.isArray(state.clientes.clientes))state.clientes={actualizado:'',clientes:[]};
-  if(!state.cotizaciones||!Array.isArray(state.cotizaciones.cotizaciones))state.cotizaciones={actualizado:'',cotizaciones:[]};
-  if(!state.finanzas||!Array.isArray(state.finanzas.movimientos))state.finanzas={actualizado:'',metaMes:10000,movimientos:[]};
-  if(!state.contenido||!Array.isArray(state.contenido.publicaciones))state.contenido={actualizado:'',publicaciones:[]};
-  if(!state.finanzas.metaMes)state.finanzas.metaMes=10000;
-}
-let editingTask=null, editingP=null;
-let toastTimer=null;
-
-function hideToast(){$('#toast').classList.remove('show')}
-function toast(t,kind,action){
-  const e=$('#toast');
-  e.className='toast';
-  e.innerHTML='';
-  const span=document.createElement('span');span.textContent=t;e.appendChild(span);
-  if(kind==='err')e.classList.add('err');
-  if(action){
-    const b=document.createElement('button');b.className='btn ghost small';b.textContent=action.label;
-    b.addEventListener('click',()=>{hideToast();action.fn()});
-    e.appendChild(b);
-  }
-  e.classList.add('show');
-  clearTimeout(toastTimer);toastTimer=setTimeout(hideToast,action?6000:2600);
-}
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
-function fmtDate(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function today(){return fmtDate(new Date())}
-function weekStart(){const d=new Date();const day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);return fmtDate(d)}
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function stamp(){const d=new Date();return fmtDate(d)+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
-
-function seenIds(){try{return new Set(JSON.parse(localStorage.getItem('dsw-seen-msgs')||'[]'))}catch(e){return new Set()}}
-function unseenCount(){const s=seenIds();return state.mensajes.mensajes.filter(m=>m.estado==='atendido'&&m.respuesta&&!s.has(m.id)).length}
-function markSeen(){
-  const s=seenIds();let ch=false;
-  state.mensajes.mensajes.forEach(m=>{if(m.estado==='atendido'&&m.respuesta&&!s.has(m.id)){s.add(m.id);ch=true}});
-  if(ch)localStorage.setItem('dsw-seen-msgs',JSON.stringify([...s]));
-  updateBadge();
-}
-function updateBadge(){
-  const n=unseenCount(),b=$('#msgBadge');
-  b.textContent=n;b.classList.toggle('hidden',!n);
-}
-
-async function idbOpen(){return new Promise((res,rej)=>{const r=indexedDB.open('dsw-os',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
-async function idbSet(k,v){const db=await idbOpen();return new Promise((res,rej)=>{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
-async function idbGet(k){const db=await idbOpen();return new Promise((res,rej)=>{const tx=db.transaction('kv','readonly');const q=tx.objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
-
-function setConn(mode){
-  const dot=$('#connDot'),txt=$('#connTxt');
-  dot.className='dot'+(mode==='file'?' on':mode==='local'?' local':'');
-  txt.textContent=mode==='file'?'Conectado a app/':mode==='local'?'Modo local (solo navegador)':mode==='err'?'Error al guardar en disco':'Sin conexión a archivos';
-}
-
-async function readJSON(name,sub){
-  try{
-    let h=dirHandle;
-    if(sub)h=await h.getDirectoryHandle(sub);
-    const fh=await h.getFileHandle(name);
-    const f=await fh.getFile();
-    const txt=await f.text();
-    try{return JSON.parse(txt)}
-    catch(e){toast('⚠️ '+name+' tiene JSON inválido; ignoro ese archivo.','err');return null}
-  }catch(e){return null}
-}
-async function writeJSON(name,obj,sub){
-  if(!dirHandle)return false;
-  try{
-    let h=dirHandle;
-    if(sub)h=await h.getDirectoryHandle(sub,{create:true});
-    const fh=await h.getFileHandle(name,{create:true});
-    const w=await fh.createWritable();
-    await w.write(JSON.stringify(obj,null,2));
-    await w.close();
-    return true;
-  }catch(e){console.error(e);return false}
-}
-
-async function save(which){
-  const targets=[];
-  if(which==='tareas'||!which){state.tareas.actualizado=stamp();targets.push(['tareas.json',state.tareas,null])}
-  if(which==='prospectos'||!which){state.prospectos.actualizado=stamp();targets.push(['prospectos.json',state.prospectos,'data'])}
-  if(which==='mensajes'||!which){state.mensajes.actualizado=stamp();targets.push(['mensajes.json',state.mensajes,'data'])}
-  if(which==='clientes'||!which){state.clientes.actualizado=stamp();targets.push(['clientes.json',state.clientes,'data'])}
-  if(which==='cotizaciones'||!which){state.cotizaciones.actualizado=stamp();targets.push(['cotizaciones.json',state.cotizaciones,'data'])}
-  if(which==='finanzas'||!which){state.finanzas.actualizado=stamp();targets.push(['finanzas.json',state.finanzas,'data'])}
-  if(which==='contenido'||!which){state.contenido.actualizado=stamp();targets.push(['contenido.json',state.contenido,'data'])}
-  normalizeState();
-  localStorage.setItem('dsw-state',JSON.stringify(state));
-  if(!dirHandle)return true;
-  let ok=true;
-  for(const[n,o,s]of targets){if(!await writeJSON(n,o,s))ok=false}
-  if(!ok){setConn('err');toast('No pude guardar en disco. Tus cambios están solo en el navegador; reconecta la carpeta.','err')}
-  else setConn('file');
-  return ok;
-}
-
-async function loadAll(){
-  const cache=localStorage.getItem('dsw-state');
-  if(cache){try{state=JSON.parse(cache)}catch(e){}}
-  normalizeState();
-  if(dirHandle){
-    const t=await readJSON('tareas.json');
-    const p=await readJSON('prospectos.json','data');
-    const m=await readJSON('mensajes.json','data');
-    const cl=await readJSON('clientes.json','data');
-    const co=await readJSON('cotizaciones.json','data');
-    const fi=await readJSON('finanzas.json','data');
-    const ct=await readJSON('contenido.json','data');
-    if(t)state.tareas=t;
-    if(p)state.prospectos=p;
-    if(m)state.mensajes=m;
-    if(cl)state.clientes=cl;
-    if(co)state.cotizaciones=co;
-    if(fi)state.finanzas=fi;
-    if(ct)state.contenido=ct;
-    normalizeState();
-    localStorage.setItem('dsw-state',JSON.stringify(state));
-  }
-  renderAll();
-}
-
-async function connect(){
-  if(!window.showDirectoryPicker){toast('Tu navegador no soporta acceso a archivos. Usa Edge o Chrome.','err');return}
-  try{
-    dirHandle=await window.showDirectoryPicker({mode:'readwrite'});
-    let app=dirHandle;
-    try{app=await dirHandle.getDirectoryHandle('app')}catch(e){}
-    let probe=null;
-    try{probe=await app.getFileHandle('tareas.json')}catch(e){}
-    if(probe)dirHandle=app;
-    await idbSet('handle',dirHandle);
-    await loadAll();
-    setConn('file');
-    $('#onboard').classList.add('hidden');
-    localStorage.setItem('dsw-onboard','1');
-    toast('Carpeta conectada. Todo se guarda en los JSON.');
-  }catch(e){toast('Conexión cancelada')}
-}
-
-async function restore(){
-  if(!window.showDirectoryPicker){setConn('local');return}
-  try{
-    const h=await idbGet('handle');
-    if(!h){setConn('none');return}
-    const q=await h.queryPermission({mode:'readwrite'});
-    if(q==='granted'){dirHandle=h;setConn('file')}
-    else if(q==='prompt'){setConn('none')}
-    else{setConn('none')}
-  }catch(e){setConn('none')}
-}
-
-$$('nav button').forEach(b=>b.addEventListener('click',()=>{
-  $$('nav button').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false')});
-  $$('.tab').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');
-  b.setAttribute('aria-selected','true');
-  $('#tab-'+b.dataset.tab).classList.add('active');
-  if(b.dataset.tab==='mensajes'){markSeen();renderMensajes()}
-}));
-
-function dueChip(d){
-  if(!d)return'';
-  const t=today();
-  if(d<t)return`<span class="due over">Vencida ${esc(d)}</span>`;
-  if(d===t)return`<span class="due">Vence hoy</span>`;
-  return`<span class="due ok">${esc(d)}</span>`;
-}
-
-function startTaskEdit(id){
-  const t=state.tareas.tareas.find(x=>x.id===id);if(!t)return;
-  editingTask=id;
-  $('#newTask').value=t.titulo;
-  $('#newTaskDue').value=t.vence||'';
-  $('#taskLbl').textContent='Editar tarea';
-  $('#addTask').textContent='Guardar cambios';
-  $('#cancelTaskEdit').classList.remove('hidden');
-  $('#newTask').focus();
-}
-function endTaskEdit(){
-  editingTask=null;
-  $('#newTask').value='';$('#newTaskDue').value='';
-  $('#taskLbl').textContent='Tarea nueva (para ti)';
-  $('#addTask').textContent='+ Agregar tarea';
-  $('#cancelTaskEdit').classList.add('hidden');
-}
-async function delTask(id){
-  const arr=state.tareas.tareas;
-  const i=arr.findIndex(x=>x.id===id);if(i<0)return;
-  const t=arr[i];
-  if(!confirm(`¿Eliminar la tarea «${t.titulo}»?`))return;
-  const rm=arr.splice(i,1)[0];
-  await save('tareas');renderTasks();
-  toast('Tarea eliminada','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('tareas');renderTasks();toast('Tarea restaurada')}});
-}
-
-function renderTasks(){
-  const list=$('#taskList');
-  const arr=[...state.tareas.tareas].sort((a,b)=>{
-    if(a.hecha!==b.hecha)return a.hecha?1:-1;
-    return(a.vence||'9999')<(b.vence||'9999')?-1:1;
-  });
-  if(!arr.length){list.innerHTML='<div class="card" style="color:var(--muted)">Sin tareas. El cerebro las agregará en tareas.json.</div>'}
-  else{
-    list.innerHTML=arr.map(t=>`
-      <div class="task${t.hecha?' done':''}">
-        <input type="checkbox" data-task="${esc(t.id)}"${t.hecha?' checked':''} aria-label="Completar ${esc(t.titulo)}">
-        <div class="body">
-          <div class="title">${esc(t.titulo)}</div>
-          ${t.detalle?`<div class="detail">${esc(t.detalle)}</div>`:''}
-          <div class="meta">
-            ${t.categoria?`<span class="cat">${esc(t.categoria)}</span>`:''}
-            ${t.vence?dueChip(t.vence):''}
-            ${t.origen==='cerebro'?'<span class="cat">🧠 del cerebro</span>':''}
-            <span style="flex:1"></span>
-            <button class="btn ghost small" data-tedit="${esc(t.id)}" title="Editar tarea" aria-label="Editar tarea ${esc(t.titulo)}">✏️</button>
-            <button class="btn ghost small" data-tdel="${esc(t.id)}" title="Eliminar tarea" aria-label="Eliminar tarea ${esc(t.titulo)}">✕</button>
-          </div>
-        </div>
-      </div>`).join('');
-  }
-  const total=arr.length,done=arr.filter(t=>t.hecha).length;
-  const pend=total-done;
-  const hoy=arr.filter(t=>!t.hecha&&t.vence===today()).length;
-  const over=arr.filter(t=>!t.hecha&&t.vence&&t.vence<today()).length;
-  $('#progTxt').textContent=`${done} de ${total} completadas`;
-  $('#progPct').textContent=total?Math.round(done/total*100)+'%':'0%';
-  $('#progBar').style.transform='scaleX('+(total?done/total:0)+')';
-  $('#countToday').textContent='Vencen hoy: '+hoy;
-  $('#countOver').textContent='Vencidas: '+over;
-  $('#countPend').textContent='Pendientes: '+pend;
-  const mT=$('#mTasks');if(mT)mT.textContent=total?Math.round(done/total*100)+'%':'0%';
-  $$('[data-task]').forEach(cb=>cb.addEventListener('change',async()=>{
-    const t=state.tareas.tareas.find(x=>x.id===cb.dataset.task);
-    if(t){t.hecha=cb.checked;t.hechoFecha=cb.checked?stamp():'';await save('tareas');renderTasks();toast(cb.checked?'Tarea completada ✓':'Tarea reabierta')}
-  }));
-  $$('[data-tedit]').forEach(b=>b.addEventListener('click',()=>startTaskEdit(b.dataset.tedit)));
-  $$('[data-tdel]').forEach(b=>b.addEventListener('click',()=>delTask(b.dataset.tdel)));
-}
-
-const ESTADOS=['Nuevo','Contactado','Respondió','Reunión','Cotizado','Cerrado','Sin respuesta'];
-const EST_CLS={'Nuevo':'nuevo','Contactado':'contactado','Respondió':'respondio','Reunión':'reunion','Cotizado':'cotizado','Cerrado':'cerrado','Sin respuesta':'sinrep'};
-
-function startPEdit(id){
-  const p=state.prospectos.prospectos.find(x=>x.id===id);if(!p)return;
-  editingP=id;
-  $('#pNombre').value=p.nombre;
-  $('#pNegocio').value=p.negocio;
-  $('#pTel').value=p.telefono||'';
-  if([...$('#pFuente').options].some(o=>o.value===p.fuente))$('#pFuente').value=p.fuente;
-  $('#pNotas').value=p.notas||'';
-  $('#pNombreLbl').textContent='Nombre * (editando)';
-  $('#pNegocioLbl').textContent='Negocio * (editando)';
-  $('#addProspect').textContent='Guardar cambios';
-  $('#cancelPEdit').classList.remove('hidden');
-  $('#pNombre').focus();
-}
-function endPEdit(){
-  editingP=null;
-  ['pNombre','pNegocio','pTel','pNotas'].forEach(i=>$('#'+i).value='');
-  $('#pFuente').selectedIndex=0;
-  $('#pNombreLbl').textContent='Nombre *';
-  $('#pNegocioLbl').textContent='Negocio *';
-  $('#addProspect').textContent='+ Agregar prospecto';
-  $('#cancelPEdit').classList.add('hidden');
-}
-async function delProspect(id){
-  const arr=state.prospectos.prospectos;
-  const i=arr.findIndex(x=>x.id===id);if(i<0)return;
-  const p=arr[i];
-  if(!confirm(`¿Eliminar a ${p.nombre} — ${p.negocio}?`))return;
-  const rm=arr.splice(i,1)[0];
-  await save('prospectos');renderProspectos();renderMetrics();
-  toast('Prospecto eliminado','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('prospectos');renderProspectos();renderMetrics();toast('Prospecto restaurado')}});
-}
-
-function renderProspectos(){
-  const f=$('#filterEstado').value;
-  const arr=[...state.prospectos.prospectos].filter(p=>!f||p.estado===f).reverse();
-  $('#pCount').textContent=state.prospectos.prospectos.length+' en total';
-  const el=$('#pList');
-  if(!arr.length){
-    const total=state.prospectos.prospectos.length;
-    el.innerHTML='<div class="card" style="color:var(--muted)">'+
-      (total===0?'Sin prospectos aún. Agrega el primero arriba 👆':
-       f?`Ninguno con estado «${esc(f)}». Cambia el filtro para ver los ${total}.`:'Ningún prospecto.')+
-      '</div>';return;
-  }
-  el.innerHTML=arr.map(p=>`
-    <div class="p-item">
-      <div class="info">
-        <div class="neg">${esc(p.nombre)} — ${esc(p.negocio)}</div>
-        <div class="sub">${esc(p.telefono||'sin teléfono')} · ${esc(p.fuente)} · ${esc((p.fecha||'').slice(0,10))}${p.notas?' · '+esc(p.notas):''}</div>
-      </div>
-      <span class="chip ${EST_CLS[p.estado]||'nuevo'}">${esc(p.estado)}</span>
-      <select data-pstate="${esc(p.id)}" aria-label="Estado de ${esc(p.nombre)}">${ESTADOS.map(e=>`<option${e===p.estado?' selected':''}>${e}</option>`).join('')}</select>
-      ${p.estado==='Cerrado'?`<button class="btn ghost small" data-promote="${esc(p.id)}" title="Convertir en cliente">💼</button>`:''}
-      <button class="btn ghost small" data-pedit="${esc(p.id)}" title="Editar" aria-label="Editar ${esc(p.nombre)}">✏️</button>
-      <button class="btn ghost small" data-pdel="${esc(p.id)}" title="Eliminar" aria-label="Eliminar ${esc(p.nombre)}">✕</button>
-    </div>`).join('');
-  $$('[data-pstate]').forEach(s=>s.addEventListener('change',async()=>{
-    const p=state.prospectos.prospectos.find(x=>x.id===s.dataset.pstate);
-    if(p){p.estado=s.value;p.actualizado=stamp();await save('prospectos');renderProspectos();renderMetrics()}
-  }));
-  $$('[data-promote]').forEach(b=>b.addEventListener('click',()=>{
-    const p=state.prospectos.prospectos.find(x=>x.id===b.dataset.promote);if(!p)return;
-    endCEdit();
-    $('#cCliente').value=p.nombre;$('#cNegocio').value=p.negocio;
-    goTab('clientes');$('#cPrecio').focus();
-    toast('Completa precio y anticipo, luego «+ Agregar cliente» 💼');
-  }));
-  $$('[data-pedit]').forEach(b=>b.addEventListener('click',()=>startPEdit(b.dataset.pedit)));
-  $$('[data-pdel]').forEach(b=>b.addEventListener('click',()=>delProspect(b.dataset.pdel)));
-}
-
-function renderMensajes(){
-  const el=$('#mList');
-  const s=seenIds();
-  const arr=[...state.mensajes.mensajes].reverse();
-  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">No has enviado mensajes al cerebro todavía.</div>';updateBadge();return}
-  el.innerHTML=arr.map(m=>{
-    const unseen=m.estado==='atendido'&&m.respuesta&&!s.has(m.id);
-    return`
-    <div class="msg${unseen?' new':''}">
-      <div class="head">
-        <span>${esc(m.fecha||'')}</span>
-        <span class="st ${m.estado==='atendido'?'listo':'pend'}">${m.estado==='atendido'?'✓ Atendido':'⏳ Pendiente'}</span>
-      </div>
-      <div class="txt">${esc(m.texto)}</div>
-      ${m.respuesta?`<div class="resp"><b>🧠 Cerebro:</b><br>${esc(m.respuesta)}</div>`:''}
-    </div>`}).join('');
-  updateBadge();
-}
-
-function bars(data,total){
-  const max=Math.max(...Object.values(data),1);
-  return Object.entries(data).map(([k,v])=>`
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-      <span style="width:130px;font-size:13px">${esc(k)}</span>
-      <div style="flex:1;height:14px;background:var(--bg);border-radius:7px;overflow:hidden">
-        <i style="display:block;height:100%;width:${Math.round(v/max*100)}%;background:var(--accent);border-radius:7px"></i>
-      </div>
-      <span style="width:40px;text-align:right;font-size:13px;font-weight:700">${v}</span>
-    </div>`).join('');
-}
-
-function renderMetrics(){
-  const ps=state.prospectos.prospectos;
-  const ws=weekStart();
-  const week=ps.filter(p=>(p.fecha||'').slice(0,10)>=ws).length;
-  const byEst={};ESTADOS.forEach(e=>byEst[e]=0);
-  ps.forEach(p=>{byEst[p.estado]=(byEst[p.estado]||0)+1});
-  const byF={};
-  ps.forEach(p=>{const f=p.fuente||'Otro';byF[f]=(byF[f]||0)+1});
-  const resp=(byEst['Respondió']||0)+(byEst['Reunión']||0)+(byEst['Cotizado']||0)+(byEst['Cerrado']||0);
-  $('#mWeek').textContent=week;
-  $('#mTotal').textContent=ps.length;
-  $('#mResp').textContent=resp;
-  $('#mRespPct').textContent=(ps.length?Math.round(resp/ps.length*100):0)+'% de contacto';
-  $('#mCot').textContent=(byEst['Cotizado']||0)+(byEst['Cerrado']||0);
-  $('#mCierre').textContent=byEst['Cerrado']||0;
-  $('#estadoBars').innerHTML=bars(byEst);
-  $('#fuenteBars').innerHTML=Object.keys(byF).length?bars(byF):'<span style="color:var(--muted);font-size:13px">Sin datos todavía.</span>';
-  const activos=(state.clientes.clientes||[]).filter(c=>c.estado!=='Entregado').length;
-  $('#mClientes').textContent=activos;
-  const mk=today().slice(0,7);
-  const ing=(state.finanzas.movimientos||[]).filter(m=>(m.fecha||'').slice(0,7)===mk&&m.tipo==='ingreso').reduce((s,m)=>s+Number(m.monto||0),0);
-  $('#mMes').textContent=mxn(ing);
-  $('#mMetaPct').textContent='meta: '+mxn(state.finanzas.metaMes||0);
-}
-
-function renderAll(){renderTasks();renderProspectos();renderMensajes();renderMetrics();renderClientes();renderCotizaciones();renderFinanzas();renderContenido();updateBadge()}
-
-/* ====== MÓDULOS DE EMPRESA ====== */
-const CL_EST={'En desarrollo':'contactado','En revisión':'cotizado','Esperando pago':'reunion','Entregado':'cerrado'};
-const Q_EST={'Pendiente':'cotizado','Aceptada':'cerrado','Rechazada':'sinrep','Sin respuesta':'sinrep'};
-const K_EST={'Pendiente':'cotizado','Publicada':'cerrado'};
-function mxn(n){return '$'+Number(n||0).toLocaleString('es-MX')}
-function goTab(name){const b=document.querySelector('nav button[data-tab="'+name+'"]');if(b)b.click()}
-function resetDateDefaults(){['cInicio','cEntrega','qFecha','kFecha','fFecha'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=today()})}
-
-/* ---- Clientes ---- */
-let editingC=null;
-function startCEdit(id){
-  const c=state.clientes.clientes.find(x=>x.id===id);if(!c)return;
-  editingC=id;
-  $('#cCliente').value=c.cliente;$('#cNegocio').value=c.negocio;
-  if([...$('#cServicio').options].some(o=>o.value===c.servicio))$('#cServicio').value=c.servicio;
-  $('#cPrecio').value=c.precio??'';$('#cAnticipo').value=c.anticipo??'';
-  if([...$('#cEstado').options].some(o=>o.value===c.estado))$('#cEstado').value=c.estado;
-  $('#cInicio').value=c.fechaInicio||'';$('#cEntrega').value=c.fechaEntrega||'';
-  $('#cClienteLbl').textContent='Cliente * (editando)';$('#cNegocioLbl').textContent='Negocio * (editando)';
-  $('#addCliente').textContent='Guardar cambios';$('#cancelCEdit').classList.remove('hidden');
-  $('#cCliente').focus();
-}
-function endCEdit(){
-  editingC=null;
-  ['cCliente','cNegocio','cPrecio','cAnticipo'].forEach(i=>$('#'+i).value='');
-  $('#cServicio').selectedIndex=0;$('#cEstado').selectedIndex=0;$('#cInicio').value=today();$('#cEntrega').value='';
-  $('#cClienteLbl').textContent='Cliente *';$('#cNegocioLbl').textContent='Negocio *';
-  $('#addCliente').textContent='+ Agregar cliente';$('#cancelCEdit').classList.add('hidden');
-}
-async function delCliente(id){
-  const arr=state.clientes.clientes;const i=arr.findIndex(x=>x.id===id);if(i<0)return;
-  const c=arr[i];if(!confirm(`¿Eliminar el proyecto de ${c.cliente} — ${c.negocio}?`))return;
-  const rm=arr.splice(i,1)[0];
-  await save('clientes');renderClientes();renderMetrics();
-  toast('Cliente eliminado','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('clientes');renderClientes();renderMetrics();toast('Cliente restaurado')}});
-}
-function renderClientes(){
-  const arr=[...state.clientes.clientes].reverse();
-  const total=arr.length;
-  const facturado=arr.reduce((s,c)=>s+Number(c.precio||0),0);
-  const porCobrar=arr.filter(c=>c.estado!=='Entregado').reduce((s,c)=>s+Math.max(0,Number(c.precio||0)-Number(c.anticipo||0)),0);
-  $('#cCount').textContent=total+' proyecto(s)';
-  $('#cIngresos').textContent='Facturado: '+mxn(facturado);
-  $('#cPendCobro').textContent='Por cobrar: '+mxn(porCobrar);
-  const el=$('#cList');
-  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">Sin clientes aún. Cuando un prospecto quede en «Cerrado», pásalo aquí con 💼 👆</div>';return}
-  el.innerHTML=arr.map(c=>`
-    <div class="p-item">
-      <div class="info">
-        <div class="neg">${esc(c.cliente)} — ${esc(c.negocio)}</div>
-        <div class="sub">${esc(c.servicio||'—')} · Total ${mxn(c.precio)} · Anticipo ${mxn(c.anticipo)} · Saldo ${mxn(Math.max(0,Number(c.precio||0)-Number(c.anticipo||0)))}${c.fechaEntrega?' · Entrega '+esc(c.fechaEntrega):''}</div>
-      </div>
-      <span class="chip ${CL_EST[c.estado]||'nuevo'}">${esc(c.estado)}</span>
-      <select data-cstate="${esc(c.id)}" aria-label="Estado de ${esc(c.cliente)}">${['En desarrollo','En revisión','Esperando pago','Entregado'].map(e=>`<option${e===c.estado?' selected':''}>${e}</option>`).join('')}</select>
-      <button class="btn ghost small" data-cedit="${esc(c.id)}" title="Editar" aria-label="Editar proyecto">✏️</button>
-      <button class="btn ghost small" data-cdel="${esc(c.id)}" title="Eliminar" aria-label="Eliminar proyecto">✕</button>
-    </div>`).join('');
-  $$('[data-cstate]').forEach(s=>s.addEventListener('change',async()=>{
-    const c=state.clientes.clientes.find(x=>x.id===s.dataset.cstate);
-    if(c){c.estado=s.value;c.actualizado=stamp();await save('clientes');renderClientes();renderMetrics();toast(s.value==='Entregado'?'Proyecto entregado ✓ — cobra el saldo y pide testimonio':'Estado actualizado')}
-  }));
-  $$('[data-cedit]').forEach(b=>b.addEventListener('click',()=>startCEdit(b.dataset.cedit)));
-  $$('[data-cdel]').forEach(b=>b.addEventListener('click',()=>delCliente(b.dataset.cdel)));
-}
-
-/* ---- Cotizaciones ---- */
-let editingQ=null;
-function startQEdit(id){
-  const q=state.cotizaciones.cotizaciones.find(x=>x.id===id);if(!q)return;
-  editingQ=id;
-  $('#qProspecto').value=q.prospecto;$('#qServicio').value=q.servicio||'';$('#qPrecio').value=q.precio??'';
-  $('#qFecha').value=q.fechaEnvio||'';$('#qSeg').value=q.seguimiento||'';
-  if([...$('#qRespuesta').options].some(o=>o.value===q.respuesta))$('#qRespuesta').value=q.respuesta;
-  $('#qProspectoLbl').textContent='Prospecto / cliente * (editando)';
-  $('#addCot').textContent='Guardar cambios';$('#cancelQEdit').classList.remove('hidden');
-  $('#qProspecto').focus();
-}
-function endQEdit(){
-  editingQ=null;
-  ['qProspecto','qServicio','qPrecio','qSeg'].forEach(i=>$('#'+i).value='');
-  $('#qFecha').value=today();$('#qRespuesta').selectedIndex=0;
-  $('#qProspectoLbl').textContent='Prospecto / cliente *';
-  $('#addCot').textContent='+ Registrar cotización';$('#cancelQEdit').classList.add('hidden');
-}
-async function delCot(id){
-  const arr=state.cotizaciones.cotizaciones;const i=arr.findIndex(x=>x.id===id);if(i<0)return;
-  const q=arr[i];if(!confirm(`¿Eliminar la cotización de ${q.prospecto}?`))return;
-  const rm=arr.splice(i,1)[0];
-  await save('cotizaciones');renderCotizaciones();renderMetrics();
-  toast('Cotización eliminada','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('cotizaciones');renderCotizaciones();renderMetrics();toast('Cotización restaurada')}});
-}
-function renderCotizaciones(){
-  const arr=[...state.cotizaciones.cotizaciones].sort((a,b)=>(b.fechaEnvio||'')<(a.fechaEnvio||'')?-1:1);
-  const total=arr.length;
-  const acept=arr.filter(q=>q.respuesta==='Aceptada');
-  const pend=arr.filter(q=>q.respuesta==='Pendiente');
-  const monto=acept.reduce((s,q)=>s+Number(q.precio||0),0);
-  $('#qTotal').textContent=total;
-  $('#qAcept').textContent=total?Math.round(acept.length/total*100)+'%':'0%';
-  $('#qMonto').textContent=mxn(monto);
-  $('#qPend').textContent=pend.length;
-  const el=$('#qList');
-  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">Sin cotizaciones. Registra cada una que envíes — el viernes mides tu tasa de aceptación (meta 30%).</div>';return}
-  el.innerHTML=arr.map(q=>`
-    <div class="p-item">
-      <div class="info">
-        <div class="neg">${esc(q.prospecto)} — ${mxn(q.precio)}</div>
-        <div class="sub">${esc(q.servicio||'—')} · enviada ${esc(q.fechaEnvio||'—')}${q.seguimiento?' · seguimiento '+esc(q.seguimiento):''}</div>
-      </div>
-      <span class="chip ${Q_EST[q.respuesta]||'cotizado'}">${esc(q.respuesta)}</span>
-      <select data-qstate="${esc(q.id)}" aria-label="Respuesta de ${esc(q.prospecto)}">${['Pendiente','Aceptada','Rechazada','Sin respuesta'].map(e=>`<option${e===q.respuesta?' selected':''}>${e}</option>`).join('')}</select>
-      <button class="btn ghost small" data-qedit="${esc(q.id)}" title="Editar" aria-label="Editar cotización">✏️</button>
-      <button class="btn ghost small" data-qdel="${esc(q.id)}" title="Eliminar" aria-label="Eliminar cotización">✕</button>
-    </div>`).join('');
-  $$('[data-qstate]').forEach(s=>s.addEventListener('change',async()=>{
-    const q=state.cotizaciones.cotizaciones.find(x=>x.id===s.dataset.qstate);
-    if(q){
-      const antes=q.respuesta;q.respuesta=s.value;q.actualizado=stamp();
-      await save('cotizaciones');renderCotizaciones();renderMetrics();
-      if(s.value==='Aceptada'&&antes!=='Aceptada')toast('🎉 ¡Cotización aceptada! Cobra el anticipo del 50% y pásala a 💼 Clientes');
-    }
-  }));
-  $$('[data-qedit]').forEach(b=>b.addEventListener('click',()=>startQEdit(b.dataset.qedit)));
-  $$('[data-qdel]').forEach(b=>b.addEventListener('click',()=>delCot(b.dataset.qdel)));
-}
-
-/* ---- Finanzas ---- */
-async function delMov(id){
-  const arr=state.finanzas.movimientos;const i=arr.findIndex(x=>x.id===id);if(i<0)return;
-  const m=arr[i];if(!confirm(`¿Eliminar el movimiento «${m.concepto}»?`))return;
-  const rm=arr.splice(i,1)[0];
-  await save('finanzas');renderFinanzas();renderMetrics();
-  toast('Movimiento eliminado','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('finanzas');renderFinanzas();renderMetrics();toast('Movimiento restaurado')}});
-}
-function renderFinanzas(){
-  const mk=today().slice(0,7);
-  const mes=(state.finanzas.movimientos||[]).filter(m=>(m.fecha||'').slice(0,7)===mk);
-  const ing=mes.filter(m=>m.tipo==='ingreso').reduce((s,m)=>s+Number(m.monto||0),0);
-  const egr=mes.filter(m=>m.tipo==='egreso').reduce((s,m)=>s+Number(m.monto||0),0);
-  const meta=Number(state.finanzas.metaMes||0);
-  const pct=meta?Math.round(ing/meta*100):0;
-  $('#fIngresos').textContent=mxn(ing);
-  $('#fEgresos').textContent=mxn(egr);
-  $('#fNeto').textContent=mxn(ing-egr);
-  $('#fMeta').textContent=mxn(meta);
-  $('#fPct').textContent=pct+'%';
-  $('#fBar').style.transform='scaleX('+(meta?Math.min(1,ing/meta):0)+')';
-  $('#fMetaInput').value=meta;
-  const arr=[...state.finanzas.movimientos].sort((a,b)=>(b.fecha||'')<(a.fecha||'')?-1:1);
-  const el=$('#fList');
-  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">Sin movimientos. Registra cada anticipo y saldo que cobres 💰</div>';return}
-  el.innerHTML=arr.map(m=>`
-    <div class="p-item">
-      <div class="info">
-        <div class="neg" style="color:${m.tipo==='ingreso'?'var(--ok)':'#ff8a8a'}">${m.tipo==='ingreso'?'+':'−'}${mxn(m.monto)} · ${esc(m.concepto)}</div>
-        <div class="sub">${esc(m.fecha||'')} · ${esc(m.categoria||'Otro')}${(m.fecha||'').slice(0,7)===mk?' · este mes':''}</div>
-      </div>
-      <span class="chip ${m.tipo==='ingreso'?'cerrado':'sinrep'}">${m.tipo==='ingreso'?'Ingreso':'Egreso'}</span>
-      <button class="btn ghost small" data-fdel="${esc(m.id)}" title="Eliminar" aria-label="Eliminar movimiento">✕</button>
-    </div>`).join('');
-  $$('[data-fdel]').forEach(b=>b.addEventListener('click',()=>delMov(b.dataset.fdel)));
-}
-
-/* ---- Contenido ---- */
-let editingK=null;
-function startKEdit(id){
-  const k=state.contenido.publicaciones.find(x=>x.id===id);if(!k)return;
-  editingK=id;
-  $('#kTitulo').value=k.titulo;$('#kFecha').value=k.fecha||'';$('#kEnlace').value=k.enlace||'';$('#kArchivo').value=k.archivo||'';
-  if([...$('#kTipo').options].some(o=>o.value===k.tipo))$('#kTipo').value=k.tipo;
-  $('#kTituloLbl').textContent='Título * (editando)';
-  $('#addPost').textContent='Guardar cambios';$('#cancelKEdit').classList.remove('hidden');
-  $('#kTitulo').focus();
-}
-function endKEdit(){
-  editingK=null;
-  ['kTitulo','kEnlace','kArchivo'].forEach(i=>$('#'+i).value='');
-  $('#kFecha').value=today();$('#kTipo').selectedIndex=0;
-  $('#kTituloLbl').textContent='Título *';
-  $('#addPost').textContent='+ Agregar publicación';$('#cancelKEdit').classList.add('hidden');
-}
-async function delPost(id){
-  const arr=state.contenido.publicaciones;const i=arr.findIndex(x=>x.id===id);if(i<0)return;
-  const k=arr[i];if(!confirm(`¿Eliminar «${k.titulo}» del calendario?`))return;
-  const rm=arr.splice(i,1)[0];
-  await save('contenido');renderContenido();
-  toast('Publicación eliminada','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('contenido');renderContenido();toast('Publicación restaurada')}});
-}
-function renderContenido(){
-  const arr=[...state.contenido.publicaciones].sort((a,b)=>(a.fecha||'9999')<(b.fecha||'9999')?-1:1);
-  const next=arr.filter(k=>k.estado==='Pendiente').sort((a,b)=>(a.fecha||'9999')<(b.fecha||'9999')?-1:1)[0];
-  $('#nextPost').innerHTML=next
-    ? `<b>Próxima publicación:</b> ${esc(next.titulo)} — <b>${esc(next.fecha||'sin fecha')}</b> · ${esc(next.tipo||'')} · fuente: <code>${esc(next.archivo||'—')}</code><br>Regla: 1 cada 2 días en Facebook e Instagram.`
-    : `No hay publicaciones pendientes. Agrega la siguiente arriba 👆 (1 cada 2 días).`;
-  const el=$('#kList');
-  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">Calendario vacío. Agrega las publicaciones de 07-Marketing/Publicaciones/.</div>';return}
-  el.innerHTML=arr.map(k=>`
-    <div class="p-item">
-      <div class="info">
-        <div class="neg">${esc(k.titulo)}</div>
-        <div class="sub">${esc(k.tipo||'—')} · ${esc(k.fecha||'—')}${k.archivo?' · '+esc(k.archivo):''}${k.enlace?' · <a href="'+esc(k.enlace)+'" target="_blank" rel="noopener" style="color:var(--accent)">ver publicación</a>':''}</div>
-      </div>
-      <span class="chip ${K_EST[k.estado]||'cotizado'}">${esc(k.estado||'Pendiente')}</span>
-      <select data-kstate="${esc(k.id)}" aria-label="Estado de ${esc(k.titulo)}">${['Pendiente','Publicada'].map(e=>`<option${e===k.estado?' selected':''}>${e}</option>`).join('')}</select>
-      <button class="btn ghost small" data-kedit="${esc(k.id)}" title="Editar" aria-label="Editar publicación">✏️</button>
-      <button class="btn ghost small" data-kdel="${esc(k.id)}" title="Eliminar" aria-label="Eliminar publicación">✕</button>
-    </div>`).join('');
-  $$('[data-kstate]').forEach(s=>s.addEventListener('change',async()=>{
-    const k=state.contenido.publicaciones.find(x=>x.id===s.dataset.kstate);
-    if(k){
-      k.estado=s.value;k.actualizado=stamp();
-      if(s.value==='Publicada'&&!k.enlace){const u=prompt('Pega el enlace de la publicación (opcional):','');if(u!==null)k.enlace=u.trim()}
-      await save('contenido');renderContenido();
-      toast(s.value==='Publicada'?'Publicación marcada como hecha ✓':'Estado actualizado');
-    }
-  }));
-  $$('[data-kedit]').forEach(b=>b.addEventListener('click',()=>startKEdit(b.dataset.kedit)));
-  $$('[data-kdel]').forEach(b=>b.addEventListener('click',()=>delPost(b.dataset.kdel)));
-}
-
-function extraSnap(){return JSON.stringify([state.clientes,state.cotizaciones,state.finanzas,state.contenido])}
-
-$('#btnConnect').addEventListener('click',connect);
-$('#btnSync').addEventListener('click',async()=>{
-  if(!dirHandle){toast('Sin carpeta conectada: datos locales');return}
-  const bm=JSON.stringify(state.mensajes),bt=JSON.stringify(state.tareas),bx=extraSnap();
-  await loadAll();
-  const parts=[];
-  if(JSON.stringify(state.mensajes)!==bm)parts.push('respuestas nuevas');
-  if(JSON.stringify(state.tareas)!==bt)parts.push('tareas nuevas');
-  if(extraSnap()!==bx)parts.push('actualizaciones de clientes/finanzas/contenido');
-  toast(parts.length?'⟳ Sincronizado: '+parts.join(' + ')+' 🧠':'⟳ Sincronizado, sin cambios');
-});
-
-$('#dismissOnboard').addEventListener('click',()=>{$('#onboard').classList.add('hidden');localStorage.setItem('dsw-onboard','1')});
-
-$('#cancelTaskEdit').addEventListener('click',endTaskEdit);
-$('#cancelPEdit').addEventListener('click',endPEdit);
-
-$('#addTask').addEventListener('click',async()=>{
-  const v=$('#newTask').value.trim();
-  if(!v){toast('Escribe la tarea primero','err');return}
-  if(editingTask){
-    const t=state.tareas.tareas.find(x=>x.id===editingTask);
-    if(t){t.titulo=v;t.vence=$('#newTaskDue').value}
-    endTaskEdit();
-    await save('tareas');renderTasks();toast('Tarea actualizada ✓');
-    return;
-  }
-  state.tareas.tareas.push({id:uid(),titulo:v,detalle:'',categoria:'Personal',vence:$('#newTaskDue').value||today(),hecha:false,origen:'tu'});
-  $('#newTask').value='';$('#newTaskDue').value='';
-  await save('tareas');renderTasks();toast('Tarea agregada');
-});
-$('#newTask').addEventListener('keydown',e=>{if(e.key==='Enter')$('#addTask').click()});
-
-$('#addProspect').addEventListener('click',async()=>{
-  const n=$('#pNombre').value.trim(),neg=$('#pNegocio').value.trim();
-  if(!n||!neg){toast('Nombre y negocio son obligatorios','err');return}
-  if(editingP){
-    const p=state.prospectos.prospectos.find(x=>x.id===editingP);
-    if(p){p.nombre=n;p.negocio=neg;p.telefono=$('#pTel').value.trim();p.fuente=$('#pFuente').value;p.notas=$('#pNotas').value.trim();p.actualizado=stamp()}
-    endPEdit();
-    await save('prospectos');renderProspectos();renderMetrics();toast('Prospecto actualizado ✓');
-    return;
-  }
-  state.prospectos.prospectos.push({id:uid(),nombre:n,negocio:neg,telefono:$('#pTel').value.trim(),fuente:$('#pFuente').value,notas:$('#pNotas').value.trim(),estado:'Nuevo',fecha:stamp(),actualizado:stamp()});
-  ['pNombre','pNegocio','pTel','pNotas'].forEach(i=>$('#'+i).value='');
-  await save('prospectos');renderProspectos();renderMetrics();toast('Prospecto agregado ✓');
-});
-
-$('#filterEstado').addEventListener('change',renderProspectos);
-
-/* ---- Formularios de empresa ---- */
-$('#cancelCEdit').addEventListener('click',endCEdit);
-$('#cancelQEdit').addEventListener('click',endQEdit);
-$('#cancelKEdit').addEventListener('click',endKEdit);
-
-$('#addCliente').addEventListener('click',async()=>{
-  const cl=$('#cCliente').value.trim(),neg=$('#cNegocio').value.trim();
-  if(!cl||!neg){toast('Cliente y negocio son obligatorios','err');return}
-  const precio=Number($('#cPrecio').value||0),anticipo=Number($('#cAnticipo').value||0);
-  if(editingC){
-    const c=state.clientes.clientes.find(x=>x.id===editingC);
-    if(c){c.cliente=cl;c.negocio=neg;c.servicio=$('#cServicio').value;c.precio=precio;c.anticipo=anticipo;c.estado=$('#cEstado').value;c.fechaInicio=$('#cInicio').value;c.fechaEntrega=$('#cEntrega').value;c.actualizado=stamp()}
-    endCEdit();
-    await save('clientes');renderClientes();renderMetrics();toast('Proyecto actualizado ✓');
-    return;
-  }
-  state.clientes.clientes.push({id:uid(),cliente:cl,negocio:neg,servicio:$('#cServicio').value,precio:precio,anticipo:anticipo,estado:$('#cEstado').value,fechaInicio:$('#cInicio').value,fechaEntrega:$('#cEntrega').value,notas:'',fecha:stamp(),actualizado:stamp()});
-  ['cCliente','cNegocio','cPrecio','cAnticipo'].forEach(i=>$('#'+i).value='');$('#cEntrega').value='';
-  await save('clientes');renderClientes();renderMetrics();
-  toast(anticipo>0?'Cliente agregado ✓ — anticipo registrado en 💰 Finanzas':'Cliente agregado ✓ — recuerda cobrar el anticipo 50%');
-});
-
-$('#addCot').addEventListener('click',async()=>{
-  const pr=$('#qProspecto').value.trim();
-  if(!pr){toast('Escribe el prospecto o cliente','err');return}
-  const precio=Number($('#qPrecio').value||0);
-  if(editingQ){
-    const q=state.cotizaciones.cotizaciones.find(x=>x.id===editingQ);
-    if(q){q.prospecto=pr;q.servicio=$('#qServicio').value.trim();q.precio=precio;q.fechaEnvio=$('#qFecha').value;q.respuesta=$('#qRespuesta').value;q.seguimiento=$('#qSeg').value;q.actualizado=stamp()}
-    endQEdit();
-    await save('cotizaciones');renderCotizaciones();renderMetrics();toast('Cotización actualizada ✓');
-    return;
-  }
-  state.cotizaciones.cotizaciones.push({id:uid(),prospecto:pr,servicio:$('#qServicio').value.trim(),precio:precio,fechaEnvio:$('#qFecha').value||today(),respuesta:$('#qRespuesta').value,seguimiento:$('#qSeg').value,fecha:stamp(),actualizado:stamp()});
-  ['qProspecto','qServicio','qPrecio','qSeg'].forEach(i=>$('#'+i).value='');
-  await save('cotizaciones');renderCotizaciones();renderMetrics();
-  toast('Cotización registrada ✓ — válida 15 días, seguimiento en 3');
-});
-
-$('#saveMeta').addEventListener('click',async()=>{
-  const v=Number($('#fMetaInput').value||0);
-  if(v<0){toast('Meta inválida','err');return}
-  state.finanzas.metaMes=v;
-  await save('finanzas');renderFinanzas();renderMetrics();
-  toast('Meta del mes: '+mxn(v));
-});
-
-$('#addMov').addEventListener('click',async()=>{
-  const concepto=$('#fConcepto').value.trim(),monto=Number($('#fMonto').value||0);
-  if(!concepto||monto<=0){toast('Concepto y monto son obligatorios','err');return}
-  state.finanzas.movimientos.push({id:uid(),fecha:$('#fFecha').value||today(),tipo:$('#fTipo').value,concepto:concepto,monto:monto,categoria:$('#fCat').value,fechaReg:stamp(),actualizado:stamp()});
-  $('#fConcepto').value='';$('#fMonto').value='';
-  await save('finanzas');renderFinanzas();renderMetrics();
-  toast('Movimiento registrado ✓');
-});
-
-$('#addPost').addEventListener('click',async()=>{
-  const t=$('#kTitulo').value.trim();
-  if(!t){toast('Escribe el título','err');return}
-  if(editingK){
-    const k=state.contenido.publicaciones.find(x=>x.id===editingK);
-    if(k){k.titulo=t;k.tipo=$('#kTipo').value;k.fecha=$('#kFecha').value;k.enlace=$('#kEnlace').value.trim();k.archivo=$('#kArchivo').value.trim();k.actualizado=stamp()}
-    endKEdit();
-    await save('contenido');renderContenido();toast('Publicación actualizada ✓');
-    return;
-  }
-  state.contenido.publicaciones.push({id:uid(),titulo:t,tipo:$('#kTipo').value,fecha:$('#kFecha').value||today(),enlace:$('#kEnlace').value.trim(),archivo:$('#kArchivo').value.trim(),estado:'Pendiente',creado:stamp(),actualizado:stamp()});
-  ['kTitulo','kEnlace','kArchivo'].forEach(i=>$('#'+i).value='');
-  await save('contenido');renderContenido();
-  toast('Publicación agregada al calendario ✓');
-});
-
-$('#copyTsv').addEventListener('click',()=>{
-  const f=$('#filterEstado').value;
-  const arr=[...state.prospectos.prospectos].filter(p=>!f||p.estado===f).reverse();
-  const rows=[['Nombre','Negocio','Teléfono','Fuente','Estado','Fecha','Notas']];
-  arr.forEach(p=>rows.push([p.nombre,p.negocio,p.telefono||'',p.fuente,p.estado,(p.fecha||'').slice(0,10),p.notas||'']));
-  const tsv=rows.map(r=>r.map(c=>String(c).replace(/\t|\n/g,' ')).join('\t')).join('\n');
-  navigator.clipboard.writeText(tsv).then(()=>{
-    toast(f?`Copiado (${arr.length} con estado «${f}»). Pega en Google Sheets (Ctrl+V)`:'Copiado. Pega en Google Sheets (Ctrl+V)');
-  }).catch(()=>toast('No se pudo copiar','err'));
-});
-
-$('#sendMsg').addEventListener('click',async()=>{
-  const t=$('#mInput').value.trim();
-  if(!t){toast('Escribe tu mensaje primero','err');return}
-  state.mensajes.mensajes.push({id:uid(),texto:t,fecha:stamp(),estado:'pendiente',respuesta:''});
-  $('#mInput').value='';
-  await save('mensajes');renderMensajes();
-  toast('Mensaje enviado. Dime «revisa la app» cuando quieras que lo atienda 🧠');
-});
-
-$$('[data-rut]').forEach(cb=>{
-  const key='dsw-rut-'+today()+'-'+cb.dataset.rut;
-  if(localStorage.getItem(key))cb.checked=true;
-  cb.addEventListener('change',()=>{cb.checked?localStorage.setItem(key,'1'):localStorage.removeItem(key)});
-});
-
-window.addEventListener('focus',async()=>{
-  if(!dirHandle)return;
-  const before={t:JSON.stringify(state.tareas),p:JSON.stringify(state.prospectos),m:JSON.stringify(state.mensajes),x:extraSnap()};
-  await loadAll();
-  const parts=[];
-  if(JSON.stringify(state.tareas)!==before.t)parts.push('tareas actualizadas');
-  if(JSON.stringify(state.mensajes)!==before.m)parts.push('respuestas del cerebro');
-  if(JSON.stringify(state.prospectos)!==before.p)parts.push('prospectos cambiaron');
-  if(extraSnap()!==before.x)parts.push('clientes/finanzas/contenido cambiaron');
-  if(parts.length)toast('⟳ Cambios del cerebro: '+parts.join(' · ')+' 🧠');
-  updateBadge();
-});
-
-(async()=>{
-  if(localStorage.getItem('dsw-onboard'))$('#onboard').classList.add('hidden');
-  await restore();
-  await loadAll();
-  resetDateDefaults();
-  if(!dirHandle)setConn(localStorage.getItem('dsw-state')?'local':'none');
-})();
-</script>
+<script src="seed.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

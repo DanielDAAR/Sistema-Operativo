@@ -16,11 +16,24 @@ D.Softworks "Sistema Operativo" — business operations docs for a freelance web
 The user runs `app/index.html` in a browser (double-click, no server). Data files are the channel — read/write them directly:
 
 - **`app/tareas.json`** — YOU write tasks here (`titulo`, `detalle`, `categoria`, `vence` as `YYYY-MM-DD`, `hecha: false`, `origen: "cerebro"`, unique `id`). On each session start, read it: check which `hecha` flipped to `true` and factor that into your next instructions. Never delete user-added tasks (`origen: "tu"`); only append or update fields.
-- **`app/data/prospectos.json`** — user adds prospects via the app. Read to know pipeline state (`estado`: Nuevo → Contactado → Respondió → Reunión → Cotizado → Cerrado / Sin respuesta).
+- **`app/data/prospectos.json`** — user adds prospects via the app. Read to know pipeline state (`estado`: Nuevo → Contactado → Respondió → Reunión → Cotizado → Cerrado / Sin respuesta). Each prospect has `monto` (number, MXN).
 - **`app/data/mensajes.json`** — user's inbox to you. New items have `estado: "pendiente"`. **When the user says "revisa la app"/"ya terminé": read this first, then set `estado: "atendido"` and fill `respuesta` with your reply.** The app shows it under the message.
 - **`app/data/clientes.json` · `cotizaciones.json` · `finanzas.json` · `contenido.json`** — company-control modules (projects w/ anticipo/saldo, quotes, cash flow + monthly goal, content calendar). Read them on each session; you may also write tasks/answers about them (e.g. remind follow-ups on pending quotes, flag low content cadence). `finanzas.metaMes` is the monthly revenue goal (default $10,000 MXN).
+- **`app/data/agenda.json`** — reuniones con estados Próximamente/Realizada/Cancelada. Al marcar Realizada se pide `resultado` obligatorio.
+- **`app/data/bitacora.json`** — log de eventos de valor (solo append, máx 500). Cada mutación genera un evento.
+- **`app/data/reportes.json`** — reportes semanales generados por la app, completados por el cerebro.
 - JSON must stay valid (UTF-8, no trailing commas) or the app shows stale localStorage cache silently.
 - After updating any of these files, tell the user to hit **⟳ Sincronizar** in the app (or refocus the window).
+
+## App structure
+
+- `app/index.html` — solo markup + link a CSS + script src (sin JS inline)
+- `app/styles.css` — design system completo (tokens, componentes, print)
+- `app/app.js` — toda la lógica (state management, CRUDs, Dashboard, Kanban, reglas, bitácora, reportes)
+- **13 secciones**: Dashboard · Pipeline · Proyectos · Agenda · Cotizaciones · Finanzas · Contenido · Métricas · Tareas · Mensajes · Bitácora · Reportes · Ayuda
+- Pipeline es Kanban con drag-and-drop HTML5 y montos en MXN
+- Motor de reglas en Dashboard (alertas para no dejar escapar dinero)
+- Cotizaciones tienen documento imprimible (modal, `@media print`) y copia de texto para WhatsApp
 
 ## Execution state (as of 2026-09-22)
 
@@ -55,7 +68,7 @@ The user runs `app/index.html` in a browser (double-click, no server). Data file
 | `11-Automatizacion-Contratacion/` | Process automation, hiring plan, payroll costs, labor obligations |
 | `12-APIs-Tecnologias/` | APIs to integrate: billing, payments, email, AI, CRM, automation |
 | `prospecting/` | Active prospect lists and WhatsApp message drafts |
-| `app/` | Local ops app: `index.html` (double-click), `tareas.json`, `data/prospectos.json`, `data/mensajes.json` |
+| `app/` | Local ops app: `index.html` (double-click), `styles.css`, `app.js`, `tareas.json`, `data/prospectos.json`, `data/mensajes.json`, `data/clientes.json`, `data/cotizaciones.json`, `data/finanzas.json`, `data/contenido.json`, `data/agenda.json`, `data/bitacora.json`, `data/reportes.json` |
 
 ## Key facts
 
