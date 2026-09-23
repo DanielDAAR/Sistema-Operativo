@@ -1,1 +1,55 @@
-{"actualizado":"2026-09-23","eventos":[{"id":"b-001","fecha":"2026-09-23","tipo":"sistema","titulo":"Sistema DSW OS listo","detalle":"Datos de ejemplo limpiados — esperando datos reales","monto":0,"origen":"cerebro","actualizado":"2026-09-23"}]}
+{
+  "actualizado": "2026-09-23 02:33",
+  "eventos": [
+    {
+      "id": "b-001",
+      "fecha": "2026-09-23",
+      "tipo": "sistema",
+      "titulo": "Sistema DSW OS listo",
+      "detalle": "Datos de ejemplo limpiados — esperando datos reales",
+      "monto": 0,
+      "origen": "cerebro",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "b-002",
+      "fecha": "2026-09-23",
+      "tipo": "sistema",
+      "titulo": "Pipeline cargado con 10 prospectos reales",
+      "detalle": "Prospectos de PROSPECTOS-GDL.md cargados en la app: DEO Clinic, Tiny Smiles, Denticelis, La Matera, Alcalde, Somos Red, Dental Magaña, La Zapopana, PROJAL, Atelback",
+      "monto": 0,
+      "origen": "cerebro",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "mudug69zu5en7",
+      "fecha": "2026-09-23 02:31",
+      "tipo": "prospecto-cerrado",
+      "titulo": "Prospecto cerrado",
+      "detalle": "Daniel Aldana - danielsoftworks",
+      "monto": 10000,
+      "origen": "app",
+      "actualizado": "2026-09-23 02:31"
+    },
+    {
+      "id": "mudug9v60ltjq",
+      "fecha": "2026-09-23 02:31",
+      "tipo": "prospecto-cerrado",
+      "titulo": "Prospecto cerrado",
+      "detalle": "Daniel Aldana - danielsoftworks",
+      "monto": 10000,
+      "origen": "app",
+      "actualizado": "2026-09-23 02:31"
+    },
+    {
+      "id": "muduie7zrekvc",
+      "fecha": "2026-09-23 02:33",
+      "tipo": "reunion",
+      "titulo": "Reunion agregada",
+      "detalle": "necesitamos mandar mensajes a los clientes",
+      "monto": 0,
+      "origen": "app",
+      "actualizado": "2026-09-23 02:33"
+    }
+  ]
+}

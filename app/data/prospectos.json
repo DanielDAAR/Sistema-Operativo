@@ -1,1 +1,138 @@
-{"actualizado":"2026-09-23","prospectos":[]}
+{
+  "actualizado": "2026-09-23 02:31",
+  "prospectos": [
+    {
+      "id": "p-001",
+      "nombre": "Dr. Oscar Raygoza",
+      "negocio": "DEO Clinic",
+      "telefono": "",
+      "fuente": "Google",
+      "estado": "Nuevo",
+      "monto": 6000,
+      "fecha": "2026-09-23",
+      "notas": "Web en Wix sin citas online. Propuesta: sistema de citas + portal de pacientes. Buscar tel en deoclinic.com",
+      "actualizado": "2026-09-23 02:23"
+    },
+    {
+      "id": "p-002",
+      "nombre": "Dra. Ana Isabel Quintero",
+      "negocio": "Clínica Dental Tiny Smiles",
+      "telefono": "+52 33 3613 6217",
+      "fuente": "Doctoralia",
+      "estado": "Nuevo",
+      "monto": 2500,
+      "fecha": "2026-09-23",
+      "notas": "Sin web propia, solo Doctoralia. Propuesta: web + citas + WhatsApp",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "p-003",
+      "nombre": "Dra. Lucy Edith Barrón Celis",
+      "negocio": "Denticelis",
+      "telefono": "",
+      "fuente": "Doctoralia",
+      "estado": "Nuevo",
+      "monto": 2500,
+      "fecha": "2026-09-23",
+      "notas": "Sin web propia. Propuesta: web + gestión de pacientes. Tel en Doctoralia",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "p-004",
+      "nombre": "Gerencia",
+      "negocio": "Restaurant La Matera",
+      "telefono": "33 3616 1626",
+      "fuente": "Google",
+      "estado": "Nuevo",
+      "monto": 3500,
+      "fecha": "2026-09-23",
+      "notas": "Web lamatera.mx. Propuesta: reservaciones online + menú digital",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "p-005",
+      "nombre": "Gerencia",
+      "negocio": "Restaurante Alcalde",
+      "telefono": "33 3615 7400",
+      "fuente": "Google",
+      "estado": "Nuevo",
+      "monto": 3500,
+      "fecha": "2026-09-23",
+      "notas": "Web alcalde.com.mx. Propuesta: reservaciones + pedidos para llevar",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "p-006",
+      "nombre": "Equipo Somos Red GDL",
+      "negocio": "Somos Red GDL",
+      "telefono": "+52 33 2962 5857",
+      "fuente": "Web",
+      "estado": "Nuevo",
+      "monto": 0,
+      "fecha": "2026-09-23",
+      "notas": "Agencia de marketing. Propuesta: alianza estratégica (ellos marketing, nosotros desarrollo)",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "p-007",
+      "nombre": "Dra. Kimberley Mariana Pineda Cruz",
+      "negocio": "Dental Magaña",
+      "telefono": "",
+      "fuente": "Doctoralia",
+      "estado": "Nuevo",
+      "monto": 4500,
+      "fecha": "2026-09-23",
+      "notas": "Dos sucursales sin web centralizada. Propuesta: web multi-sucursal + citas online. Tel en Doctoralia",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "p-008",
+      "nombre": "Dr. (encontrar nombre)",
+      "negocio": "Clínica Dental La Zapopana",
+      "telefono": "+52 33 3613 6217",
+      "fuente": "Doctoralia",
+      "estado": "Nuevo",
+      "monto": 4500,
+      "fecha": "2026-09-23",
+      "notas": "Múltiples sucursales sin web profesional. Propuesta: web corporativa + citas multi-sucursal",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "p-009",
+      "nombre": "Mtra. Nora Alejandra Martín Galindo",
+      "negocio": "PROJAL",
+      "telefono": "33-3615-5557",
+      "fuente": "Google",
+      "estado": "Nuevo",
+      "monto": 8000,
+      "fecha": "2026-09-23",
+      "notas": "Financiera de PyMEs. Propuesta: sistema de gestión de créditos + portal de solicitud. Ext. 110",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "p-010",
+      "nombre": "Equipo Atelback",
+      "negocio": "Atelback",
+      "telefono": "+52 33 2051 2899",
+      "fuente": "Web",
+      "estado": "Nuevo",
+      "monto": 0,
+      "fecha": "2026-09-23",
+      "notas": "Agencia de web básicas ($8,000). Propuesta: alianza para proyectos complejos + referidos",
+      "actualizado": "2026-09-23"
+    },
+    {
+      "id": "mudue1s9yeenu",
+      "nombre": "Daniel Aldana",
+      "negocio": "danielsoftworks",
+      "telefono": "3312345678",
+      "fuente": "Instagram",
+      "monto": 10000,
+      "notas": "vamos a ser ricos",
+      "estado": "Cerrado",
+      "fecha": "2026-09-23 02:29",
+      "actualizado": "2026-09-23 02:31",
+      "fechaCierre": "2026-09-23"
+    }
+  ]
+}
