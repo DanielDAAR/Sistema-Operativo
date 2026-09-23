@@ -18,13 +18,14 @@ The user runs `app/index.html` in a browser (double-click, no server). Data file
 - **`app/tareas.json`** — YOU write tasks here (`titulo`, `detalle`, `categoria`, `vence` as `YYYY-MM-DD`, `hecha: false`, `origen: "cerebro"`, unique `id`). On each session start, read it: check which `hecha` flipped to `true` and factor that into your next instructions. Never delete user-added tasks (`origen: "tu"`); only append or update fields.
 - **`app/data/prospectos.json`** — user adds prospects via the app. Read to know pipeline state (`estado`: Nuevo → Contactado → Respondió → Reunión → Cotizado → Cerrado / Sin respuesta).
 - **`app/data/mensajes.json`** — user's inbox to you. New items have `estado: "pendiente"`. **When the user says "revisa la app"/"ya terminé": read this first, then set `estado: "atendido"` and fill `respuesta` with your reply.** The app shows it under the message.
+- **`app/data/clientes.json` · `cotizaciones.json` · `finanzas.json` · `contenido.json`** — company-control modules (projects w/ anticipo/saldo, quotes, cash flow + monthly goal, content calendar). Read them on each session; you may also write tasks/answers about them (e.g. remind follow-ups on pending quotes, flag low content cadence). `finanzas.metaMes` is the monthly revenue goal (default $10,000 MXN).
 - JSON must stay valid (UTF-8, no trailing commas) or the app shows stale localStorage cache silently.
 - After updating any of these files, tell the user to hit **⟳ Sincronizar** in the app (or refocus the window).
 
 ## Execution state (as of 2026-09-22)
 
 - Fases 1–4 of `PLAN-DE-ACCION.md` are ✅ complete (services, prices, portfolio, templates, sales system, prospecting system).
-- **Next: Fase 5 — prospección activa.** Immediate pending items from `00-Primeros-pasos.md`: publish `07-Marketing/Publicaciones/Portafolio-01-GMFire.md`, create the Google Sheets from `05-Prospectos/`, start contacting 10 businesses/day.
+- **Next: Fase 5 — prospección activa.** North star: **`MODO-MILLONARIO.md`** (ritua diario 60 min, meta 50 contactos/semana). Immediate pending items from `00-Primeros-pasos.md`: publish `07-Marketing/Publicaciones/Portafolio-01-GMFire.md`, create the Google Sheets from `05-Prospectos/`, send the 10 prospects already pre-loaded in `app/data/prospectos.json`.
 - Goals: 50 contacts/week, 3 closed clients in month 2, weekly metrics every Friday.
 
 ## Sources of truth (watch for conflicts)
@@ -40,7 +41,7 @@ The user runs `app/index.html` in a browser (double-click, no server). Data file
 
 | Directory | Purpose |
 |-----------|---------|
-| `00-Primeros-pasos.md`, `PLAN-DE-ACCION.md` | Execution plan + live status (read first) |
+| `00-Primeros-pasos.md`, `PLAN-DE-ACCION.md`, `MODO-MILLONARIO.md` | Execution plan + live status + daily money north star (read `MODO-MILLONARIO.md` first) |
 | `01-Empresa/` | Company identity, services, pricing, tech stack |
 | `02-Portafolio/` | Project folders (01-04), each with a `Ficha.md` + `capturas/` |
 | `03-Plantillas/` | Quote and diagnosis templates |

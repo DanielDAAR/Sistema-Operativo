@@ -79,7 +79,7 @@ Podemos hacer algo moderno y profesional. ¿Hablamos?
 ```
 Hola, buenas tardes. Soy Daniel de D.Softworks.
 
-Soy cliente frecuente de La Material y me encanta. Vi su página y me pareció buena, pero ¿les gustaría tener un sistema donde sus clientes puedan hacer reservaciones en línea y ver el menú actualizado?
+Soy cliente frecuente de La Matera y me encanta. Vi su página y me pareció buena, pero ¿les gustaría tener un sistema donde sus clientes puedan hacer reservaciones en línea y ver el menú actualizado?
 
 Muchos restaurantes en Guadalajara ya están implementando esto. ¿Les interesa saber más?
 ```

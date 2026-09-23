@@ -1,0 +1,75 @@
+{
+  "actualizado": "2026-09-22",
+  "publicaciones": [
+    {
+      "id": "k-gmfire",
+      "titulo": "Portafolio — GM Fire Services",
+      "tipo": "Portafolio",
+      "fecha": "2026-09-22",
+      "enlace": "",
+      "archivo": "07-Marketing/Publicaciones/Portafolio-01-GMFire.md",
+      "estado": "Pendiente",
+      "actualizado": "2026-09-22 09:00"
+    },
+    {
+      "id": "k-edu01",
+      "titulo": "Educativo — 5 Cosas que tu negocio necesita en internet",
+      "tipo": "Educativo",
+      "fecha": "2026-09-23",
+      "enlace": "",
+      "archivo": "07-Marketing/Publicaciones/Educativo-01-CincoCosas.md",
+      "estado": "Pendiente",
+      "actualizado": "2026-09-22 09:00"
+    },
+    {
+      "id": "k-nails",
+      "titulo": "Portafolio — Nails Studio",
+      "tipo": "Portafolio",
+      "fecha": "2026-09-25",
+      "enlace": "",
+      "archivo": "07-Marketing/Publicaciones/Portafolio-02-NailsStudio.md",
+      "estado": "Pendiente",
+      "actualizado": "2026-09-22 09:00"
+    },
+    {
+      "id": "k-edu02",
+      "titulo": "Educativo — ¿Página web o redes sociales?",
+      "tipo": "Educativo",
+      "fecha": "2026-09-27",
+      "enlace": "",
+      "archivo": "07-Marketing/Publicaciones/Educativo-02-PaginaVsRedes.md",
+      "estado": "Pendiente",
+      "actualizado": "2026-09-22 09:00"
+    },
+    {
+      "id": "k-oferta01",
+      "titulo": "Oferta — Disponibilidad para nuevos proyectos",
+      "tipo": "Oferta",
+      "fecha": "2026-09-29",
+      "enlace": "",
+      "archivo": "07-Marketing/Publicaciones/Oferta-01-Disponibilidad.md",
+      "estado": "Pendiente",
+      "actualizado": "2026-09-22 09:00"
+    },
+    {
+      "id": "k-casablanca",
+      "titulo": "Portafolio — Casa Blanca",
+      "tipo": "Portafolio",
+      "fecha": "2026-10-01",
+      "enlace": "",
+      "archivo": "07-Marketing/Publicaciones/Portafolio-03-CasaBlanca.md",
+      "estado": "Pendiente",
+      "actualizado": "2026-09-22 09:00"
+    },
+    {
+      "id": "k-vitalerect",
+      "titulo": "Portafolio — VitalErect",
+      "tipo": "Portafolio",
+      "fecha": "2026-10-03",
+      "enlace": "",
+      "archivo": "07-Marketing/Publicaciones/Portafolio-04-VitalErect.md",
+      "estado": "Pendiente",
+      "actualizado": "2026-09-22 09:00"
+    }
+  ]
+}

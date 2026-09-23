@@ -45,7 +45,7 @@ header img{height:36px;width:36px;object-fit:cover;border-radius:50%;border:1px 
 .btn.danger{background:var(--btn-danger)}
 .btn.ok{background:var(--btn-ok)}
 
-nav{display:flex;gap:4px;padding:10px 22px 0;background:var(--panel);border-bottom:1px solid var(--line)}
+nav{display:flex;gap:4px;padding:10px 22px 0;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
 nav button{background:none;border:none;color:var(--muted);padding:10px 16px;font-size:14px;font-weight:600;border-bottom:2px solid transparent;border-radius:0}
 nav button.active{color:var(--txt);border-bottom-color:var(--accent)}
 nav button:hover{color:var(--txt)}
@@ -141,6 +141,10 @@ footer{padding:20px;text-align:center;color:var(--muted);font-size:12px;border-t
 <nav role="tablist" aria-label="Secciones del panel">
   <button class="active" role="tab" id="tb-hoy" aria-controls="tab-hoy" aria-selected="true" data-tab="hoy">📋 Hoy</button>
   <button role="tab" id="tb-prospectos" aria-controls="tab-prospectos" aria-selected="false" data-tab="prospectos">🎯 Prospectos</button>
+  <button role="tab" id="tb-clientes" aria-controls="tab-clientes" aria-selected="false" data-tab="clientes">💼 Clientes</button>
+  <button role="tab" id="tb-cotizaciones" aria-controls="tab-cotizaciones" aria-selected="false" data-tab="cotizaciones">📄 Cotizaciones</button>
+  <button role="tab" id="tb-finanzas" aria-controls="tab-finanzas" aria-selected="false" data-tab="finanzas">💰 Finanzas</button>
+  <button role="tab" id="tb-contenido" aria-controls="tab-contenido" aria-selected="false" data-tab="contenido">📅 Contenido</button>
   <button role="tab" id="tb-mensajes" aria-controls="tab-mensajes" aria-selected="false" data-tab="mensajes">🧠 Mensajes<span class="badge hidden" id="msgBadge" aria-label="respuestas nuevas del cerebro">0</span></button>
   <button role="tab" id="tb-metricas" aria-controls="tab-metricas" aria-selected="false" data-tab="metricas">📊 Métricas</button>
   <button role="tab" id="tb-ayuda" aria-controls="tab-ayuda" aria-selected="false" data-tab="ayuda">❓ Ayuda</button>
@@ -255,6 +259,154 @@ footer{padding:20px;text-align:center;color:var(--muted);font-size:12px;border-t
   <div class="p-list" id="pList"></div>
 </section>
 
+<section class="tab" id="tab-clientes" role="tabpanel" aria-labelledby="tb-clientes" tabindex="0">
+  <h2>Clientes y proyectos <span class="cat">data/clientes.json</span></h2>
+  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Cuando un prospecto quede en <b style="color:var(--txt)">Cerrado</b>, pásalo aquí 💼 y controla anticipo, saldo y entrega. Regla: nada se entrega sin cobrar el saldo.</p>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="form-row">
+      <div><label for="cCliente" id="cClienteLbl">Cliente *</label><input id="cCliente" placeholder="María López"></div>
+      <div><label for="cNegocio" id="cNegocioLbl">Negocio *</label><input id="cNegocio" placeholder="Café El Grano"></div>
+    </div>
+    <div class="form-row">
+      <div><label for="cServicio">Servicio</label>
+        <select id="cServicio">
+          <option>Página web básica</option><option>Landing page</option><option>Catálogo digital</option><option>Paquete web + catálogo</option><option>Paquete completo</option><option>Tienda en línea</option><option>Sistema a medida</option><option>App móvil</option><option>Configuración de redes</option><option>Mantenimiento</option><option>Consultoría</option>
+        </select>
+      </div>
+      <div><label for="cPrecio">Precio total (MXN)</label><input type="number" id="cPrecio" placeholder="1500" min="0"></div>
+    </div>
+    <div class="form-row">
+      <div><label for="cAnticipo">Anticipo recibido (MXN)</label><input type="number" id="cAnticipo" placeholder="750" min="0"></div>
+      <div><label for="cEstado">Estado del proyecto</label>
+        <select id="cEstado"><option>En desarrollo</option><option>En revisión</option><option>Esperando pago</option><option>Entregado</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div><label for="cInicio">Fecha de inicio</label><input type="date" id="cInicio"></div>
+      <div><label for="cEntrega">Fecha de entrega</label><input type="date" id="cEntrega"></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="addCliente">+ Agregar cliente</button>
+      <button class="btn ghost hidden" id="cancelCEdit">Cancelar edición</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
+    <span class="cat" id="cCount"></span>
+    <span class="cat" id="cIngresos"></span>
+    <span class="cat" id="cPendCobro"></span>
+  </div>
+
+  <div class="p-list" id="cList"></div>
+</section>
+
+<section class="tab" id="tab-cotizaciones" role="tabpanel" aria-labelledby="tb-cotizaciones" tabindex="0">
+  <h2>Cotizaciones <span class="cat">data/cotizaciones.json</span></h2>
+  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Toda cotización: válida 15 días, anticipo 50%, transferencia o efectivo. Si no está aquí, no se envió.</p>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="form-row">
+      <div><label for="qProspecto" id="qProspectoLbl">Prospecto / cliente *</label><input id="qProspecto" placeholder="Barbería El Corte"></div>
+      <div><label for="qServicio">Servicio</label><input id="qServicio" placeholder="Landing page + WhatsApp"></div>
+    </div>
+    <div class="form-row">
+      <div><label for="qPrecio">Precio (MXN)</label><input type="number" id="qPrecio" placeholder="1500" min="0"></div>
+      <div><label for="qFecha">Fecha de envío</label><input type="date" id="qFecha"></div>
+    </div>
+    <div class="form-row">
+      <div><label for="qRespuesta">Respuesta</label>
+        <select id="qRespuesta"><option>Pendiente</option><option>Aceptada</option><option>Rechazada</option><option>Sin respuesta</option></select>
+      </div>
+      <div><label for="qSeg">Seguimiento (fecha)</label><input type="date" id="qSeg"></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="addCot">+ Registrar cotización</button>
+      <button class="btn ghost hidden" id="cancelQEdit">Cancelar edición</button>
+    </div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:14px">
+    <div class="stat"><b id="qTotal">0</b><span>Enviadas</span></div>
+    <div class="stat"><b id="qAcept">0</b><span>Aceptadas</span><div class="goal">meta: 30%</div></div>
+    <div class="stat"><b id="qMonto">$0</b><span>Monto aceptado</span></div>
+    <div class="stat"><b id="qPend">0</b><span>Pendientes de seguimiento</span></div>
+  </div>
+
+  <div class="p-list" id="qList"></div>
+</section>
+
+<section class="tab" id="tab-finanzas" role="tabpanel" aria-labelledby="tb-finanzas" tabindex="0">
+  <h2>Finanzas <span class="cat">data/finanzas.json</span></h2>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:14px">
+    <div class="stat"><b id="fIngresos">$0</b><span>Ingresos del mes</span></div>
+    <div class="stat"><b id="fEgresos">$0</b><span>Egresos del mes</span></div>
+    <div class="stat"><b id="fNeto">$0</b><span>Neto del mes</span></div>
+    <div class="stat"><b id="fMeta">$0</b><span>Meta del mes</span></div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;font-size:13px">
+      <span>Avance hacia la meta</span><span style="color:var(--muted)" id="fPct">0%</span>
+    </div>
+    <div class="progress"><i id="fBar"></i></div>
+    <div class="form-row" style="margin-bottom:0">
+      <div><label for="fMetaInput">Editar meta mensual (MXN)</label><input type="number" id="fMetaInput" min="0" step="500"></div>
+      <div style="display:flex;align-items:flex-end"><button class="btn ghost" id="saveMeta">Guardar meta</button></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="form-row">
+      <div><label for="fFecha">Fecha</label><input type="date" id="fFecha"></div>
+      <div><label for="fTipo">Tipo</label>
+        <select id="fTipo"><option value="ingreso">💰 Ingreso</option><option value="egreso">📤 Egreso</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div><label for="fConcepto">Concepto *</label><input id="fConcepto" placeholder="Anticipo web Café El Grano"></div>
+      <div><label for="fMonto">Monto (MXN) *</label><input type="number" id="fMonto" placeholder="750" min="0"></div>
+    </div>
+    <div class="form-row">
+      <div><label for="fCat">Categoría</label>
+        <select id="fCat"><option>Anticipo</option><option>Saldo final</option><option>Mantenimiento</option><option>Proyecto extra</option><option>Dominio/hosting</option><option>Herramientas</option><option>Otro</option></select>
+      </div>
+      <div style="display:flex;align-items:flex-end"><button class="btn" id="addMov">+ Registrar movimiento</button></div>
+    </div>
+  </div>
+
+  <h3>Movimientos del mes</h3>
+  <div class="p-list" id="fList"></div>
+</section>
+
+<section class="tab" id="tab-contenido" role="tabpanel" aria-labelledby="tb-contenido" tabindex="0">
+  <h2>Contenido <span class="cat">data/contenido.json</span></h2>
+  <div class="help" id="nextPost" style="margin-bottom:14px">Próxima publicación: —</div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="form-row">
+      <div><label for="kTitulo" id="kTituloLbl">Título *</label><input id="kTitulo" placeholder="Portafolio — Café El Grano"></div>
+      <div><label for="kTipo">Tipo</label>
+        <select id="kTipo"><option>Portafolio</option><option>Educativo</option><option>Oferta</option><option>Detrás de escena</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div><label for="kFecha">Fecha de publicación</label><input type="date" id="kFecha"></div>
+      <div><label for="kEnlace">Enlace (cuando esté publicada)</label><input id="kEnlace" placeholder="https://facebook.com/..."></div>
+    </div>
+    <div class="form-row one">
+      <div><label for="kArchivo">Archivo / texto fuente</label><input id="kArchivo" placeholder="07-Marketing/Publicaciones/Portafolio-01-GMFire.md"></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="addPost">+ Agregar publicación</button>
+      <button class="btn ghost hidden" id="cancelKEdit">Cancelar edición</button>
+    </div>
+  </div>
+
+  <div class="p-list" id="kList"></div>
+</section>
+
 <section class="tab" id="tab-mensajes" role="tabpanel" aria-labelledby="tb-mensajes" tabindex="0">
   <h2>Mensajes al cerebro <span class="cat">data/mensajes.json</span></h2>
   <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Escribe lo que necesites de mí: preparar un mensaje para un prospecto, una cotización, decidir el siguiente paso, dudas, bloqueos. <b style="color:var(--txt)">El cerebro responde cuando le digas «revisa la app» o «ya terminé»</b> — las respuestas nuevas aparecen con el contador 🔴 en esta pestaña.</p>
@@ -273,10 +425,12 @@ footer{padding:20px;text-align:center;color:var(--muted);font-size:12px;border-t
   <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
     <div class="stat"><b id="mWeek">0</b><span>Contactos esta semana</span><div class="goal">meta: 50</div></div>
     <div class="stat"><b id="mTotal">0</b><span>Prospectos totales</span></div>
-    <div class="stat"><b id="mResp">0</b><span>Respuestas</span></div>
+    <div class="stat"><b id="mResp">0</b><span>Respuestas</span><div class="goal" id="mRespPct">0% de contacto</div></div>
     <div class="stat"><b id="mCot">0</b><span>Cotizaciones</span></div>
     <div class="stat"><b id="mCierre">0</b><span>Cierres</span><div class="goal">meta mes: 3</div></div>
     <div class="stat"><b id="mTasks">0%</b><span>Tareas completadas</span></div>
+    <div class="stat"><b id="mClientes">0</b><span>Clientes activos</span></div>
+    <div class="stat"><b id="mMes">$0</b><span>Ingresos del mes</span><div class="goal" id="mMetaPct">meta: $10,000</div></div>
   </div>
 
   <h3>Por estado</h3>
@@ -297,16 +451,20 @@ footer{padding:20px;text-align:center;color:var(--muted);font-size:12px;border-t
     <b style="color:var(--accent)">2. Tú ejecutas</b> → marcas tareas, agregas prospectos, escribes mensajes.<br>
     <b style="color:var(--accent)">3. Guardas</b> → con la carpeta conectada, todo se guarda solo en los JSON.<br>
     <b style="color:var(--accent)">4. El cerebro lee</b> → cuando le digas "revisa la app" o "ya terminé", leo los JSON y te doy el siguiente paso.<br><br>
+    <b>🎯 Prospectos → 💼 Clientes:</b> cuando un prospecto quede en «Cerrado», dale a 💼 y completa precio, anticipo y entrega.<br>
+    <b>📄 Cotizaciones:</b> registra cada cotización enviada; el viernes revisas tasa de aceptación (meta 30%).<br>
+    <b>💰 Finanzas:</b> cada anticipo y saldo va aquí; la barra te dice qué tan cerca estás de la meta del mes.<br>
+    <b>📅 Contenido:</b> 1 publicación cada 2 días — la pestaña te recuerda cuál sigue.<br><br>
     <b>Sincronizar (⟳):</b> vuelve a leer los archivos por si el cerebro los actualizó desde fuera (nuevas tareas o respuestas).<br>
     <b>Conectar carpeta:</b> selecciona <code>app/</code> una sola vez; el navegador recuerda el permiso.<br>
     <b>Sin conexión a archivos:</b> la app funciona en modo local (navegador) pero el cerebro NO verá los cambios; conecta la carpeta para el circuito completo.<br><br>
-    <b>Metodologías incrustadas:</b> rutina diaria de ventas (Fase 4), pipeline de ventas Nuevo→Contactado→Respondió→Reunión→Cotizado→Cerrado, meta 50 contactos/semana y 3 clientes/mes.
+    <b>Metodologías incrustadas:</b> ritua diario 60 min y meta $10k/mes (MODO-MILLONARIO.md), pipeline Nuevo→Contactado→Respondió→Reunión→Cotizado→Cerrado, 50 contactos/semana, anticipo 50% obligatorio.
   </div>
 </section>
 
 </main>
 
-<footer>D.Softworks OS · Soluciones Digitales para Negocios Locales · los datos viven en <b>app/data/*.json</b> y <b>app/tareas.json</b></footer>
+<footer>D.Softworks OS · Panel de control de la empresa · los datos viven en <b>app/tareas.json</b> + <b>app/data/*.json</b> (prospectos, clientes, cotizaciones, finanzas, contenido, mensajes)</footer>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -314,7 +472,14 @@ const $=s=>document.querySelector(s);
 const $$=s=>document.querySelectorAll(s);
 
 let dirHandle=null, fileHandles={};
-let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]}};
+let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]},clientes:{actualizado:'',clientes:[]},cotizaciones:{actualizado:'',cotizaciones:[]},finanzas:{actualizado:'',metaMes:10000,movimientos:[]},contenido:{actualizado:'',publicaciones:[]}};
+function normalizeState(){
+  if(!state.clientes||!Array.isArray(state.clientes.clientes))state.clientes={actualizado:'',clientes:[]};
+  if(!state.cotizaciones||!Array.isArray(state.cotizaciones.cotizaciones))state.cotizaciones={actualizado:'',cotizaciones:[]};
+  if(!state.finanzas||!Array.isArray(state.finanzas.movimientos))state.finanzas={actualizado:'',metaMes:10000,movimientos:[]};
+  if(!state.contenido||!Array.isArray(state.contenido.publicaciones))state.contenido={actualizado:'',publicaciones:[]};
+  if(!state.finanzas.metaMes)state.finanzas.metaMes=10000;
+}
 let editingTask=null, editingP=null;
 let toastTimer=null;
 
@@ -392,6 +557,11 @@ async function save(which){
   if(which==='tareas'||!which){state.tareas.actualizado=stamp();targets.push(['tareas.json',state.tareas,null])}
   if(which==='prospectos'||!which){state.prospectos.actualizado=stamp();targets.push(['prospectos.json',state.prospectos,'data'])}
   if(which==='mensajes'||!which){state.mensajes.actualizado=stamp();targets.push(['mensajes.json',state.mensajes,'data'])}
+  if(which==='clientes'||!which){state.clientes.actualizado=stamp();targets.push(['clientes.json',state.clientes,'data'])}
+  if(which==='cotizaciones'||!which){state.cotizaciones.actualizado=stamp();targets.push(['cotizaciones.json',state.cotizaciones,'data'])}
+  if(which==='finanzas'||!which){state.finanzas.actualizado=stamp();targets.push(['finanzas.json',state.finanzas,'data'])}
+  if(which==='contenido'||!which){state.contenido.actualizado=stamp();targets.push(['contenido.json',state.contenido,'data'])}
+  normalizeState();
   localStorage.setItem('dsw-state',JSON.stringify(state));
   if(!dirHandle)return true;
   let ok=true;
@@ -404,13 +574,23 @@ async function save(which){
 async function loadAll(){
   const cache=localStorage.getItem('dsw-state');
   if(cache){try{state=JSON.parse(cache)}catch(e){}}
+  normalizeState();
   if(dirHandle){
     const t=await readJSON('tareas.json');
     const p=await readJSON('prospectos.json','data');
     const m=await readJSON('mensajes.json','data');
+    const cl=await readJSON('clientes.json','data');
+    const co=await readJSON('cotizaciones.json','data');
+    const fi=await readJSON('finanzas.json','data');
+    const ct=await readJSON('contenido.json','data');
     if(t)state.tareas=t;
     if(p)state.prospectos=p;
     if(m)state.mensajes=m;
+    if(cl)state.clientes=cl;
+    if(co)state.cotizaciones=co;
+    if(fi)state.finanzas=fi;
+    if(ct)state.contenido=ct;
+    normalizeState();
     localStorage.setItem('dsw-state',JSON.stringify(state));
   }
   renderAll();
@@ -590,12 +770,20 @@ function renderProspectos(){
       </div>
       <span class="chip ${EST_CLS[p.estado]||'nuevo'}">${esc(p.estado)}</span>
       <select data-pstate="${esc(p.id)}" aria-label="Estado de ${esc(p.nombre)}">${ESTADOS.map(e=>`<option${e===p.estado?' selected':''}>${e}</option>`).join('')}</select>
+      ${p.estado==='Cerrado'?`<button class="btn ghost small" data-promote="${esc(p.id)}" title="Convertir en cliente">💼</button>`:''}
       <button class="btn ghost small" data-pedit="${esc(p.id)}" title="Editar" aria-label="Editar ${esc(p.nombre)}">✏️</button>
       <button class="btn ghost small" data-pdel="${esc(p.id)}" title="Eliminar" aria-label="Eliminar ${esc(p.nombre)}">✕</button>
     </div>`).join('');
   $$('[data-pstate]').forEach(s=>s.addEventListener('change',async()=>{
     const p=state.prospectos.prospectos.find(x=>x.id===s.dataset.pstate);
     if(p){p.estado=s.value;p.actualizado=stamp();await save('prospectos');renderProspectos();renderMetrics()}
+  }));
+  $$('[data-promote]').forEach(b=>b.addEventListener('click',()=>{
+    const p=state.prospectos.prospectos.find(x=>x.id===b.dataset.promote);if(!p)return;
+    endCEdit();
+    $('#cCliente').value=p.nombre;$('#cNegocio').value=p.negocio;
+    goTab('clientes');$('#cPrecio').focus();
+    toast('Completa precio y anticipo, luego «+ Agregar cliente» 💼');
   }));
   $$('[data-pedit]').forEach(b=>b.addEventListener('click',()=>startPEdit(b.dataset.pedit)));
   $$('[data-pdel]').forEach(b=>b.addEventListener('click',()=>delProspect(b.dataset.pdel)));
@@ -640,25 +828,256 @@ function renderMetrics(){
   ps.forEach(p=>{byEst[p.estado]=(byEst[p.estado]||0)+1});
   const byF={};
   ps.forEach(p=>{const f=p.fuente||'Otro';byF[f]=(byF[f]||0)+1});
+  const resp=(byEst['Respondió']||0)+(byEst['Reunión']||0)+(byEst['Cotizado']||0)+(byEst['Cerrado']||0);
   $('#mWeek').textContent=week;
   $('#mTotal').textContent=ps.length;
-  $('#mResp').textContent=(byEst['Respondió']||0)+(byEst['Reunión']||0)+(byEst['Cotizado']||0)+(byEst['Cerrado']||0);
+  $('#mResp').textContent=resp;
+  $('#mRespPct').textContent=(ps.length?Math.round(resp/ps.length*100):0)+'% de contacto';
   $('#mCot').textContent=(byEst['Cotizado']||0)+(byEst['Cerrado']||0);
   $('#mCierre').textContent=byEst['Cerrado']||0;
   $('#estadoBars').innerHTML=bars(byEst);
   $('#fuenteBars').innerHTML=Object.keys(byF).length?bars(byF):'<span style="color:var(--muted);font-size:13px">Sin datos todavía.</span>';
+  const activos=(state.clientes.clientes||[]).filter(c=>c.estado!=='Entregado').length;
+  $('#mClientes').textContent=activos;
+  const mk=today().slice(0,7);
+  const ing=(state.finanzas.movimientos||[]).filter(m=>(m.fecha||'').slice(0,7)===mk&&m.tipo==='ingreso').reduce((s,m)=>s+Number(m.monto||0),0);
+  $('#mMes').textContent=mxn(ing);
+  $('#mMetaPct').textContent='meta: '+mxn(state.finanzas.metaMes||0);
 }
 
-function renderAll(){renderTasks();renderProspectos();renderMensajes();renderMetrics();updateBadge()}
+function renderAll(){renderTasks();renderProspectos();renderMensajes();renderMetrics();renderClientes();renderCotizaciones();renderFinanzas();renderContenido();updateBadge()}
+
+/* ====== MÓDULOS DE EMPRESA ====== */
+const CL_EST={'En desarrollo':'contactado','En revisión':'cotizado','Esperando pago':'reunion','Entregado':'cerrado'};
+const Q_EST={'Pendiente':'cotizado','Aceptada':'cerrado','Rechazada':'sinrep','Sin respuesta':'sinrep'};
+const K_EST={'Pendiente':'cotizado','Publicada':'cerrado'};
+function mxn(n){return '$'+Number(n||0).toLocaleString('es-MX')}
+function goTab(name){const b=document.querySelector('nav button[data-tab="'+name+'"]');if(b)b.click()}
+function resetDateDefaults(){['cInicio','cEntrega','qFecha','kFecha','fFecha'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=today()})}
+
+/* ---- Clientes ---- */
+let editingC=null;
+function startCEdit(id){
+  const c=state.clientes.clientes.find(x=>x.id===id);if(!c)return;
+  editingC=id;
+  $('#cCliente').value=c.cliente;$('#cNegocio').value=c.negocio;
+  if([...$('#cServicio').options].some(o=>o.value===c.servicio))$('#cServicio').value=c.servicio;
+  $('#cPrecio').value=c.precio??'';$('#cAnticipo').value=c.anticipo??'';
+  if([...$('#cEstado').options].some(o=>o.value===c.estado))$('#cEstado').value=c.estado;
+  $('#cInicio').value=c.fechaInicio||'';$('#cEntrega').value=c.fechaEntrega||'';
+  $('#cClienteLbl').textContent='Cliente * (editando)';$('#cNegocioLbl').textContent='Negocio * (editando)';
+  $('#addCliente').textContent='Guardar cambios';$('#cancelCEdit').classList.remove('hidden');
+  $('#cCliente').focus();
+}
+function endCEdit(){
+  editingC=null;
+  ['cCliente','cNegocio','cPrecio','cAnticipo'].forEach(i=>$('#'+i).value='');
+  $('#cServicio').selectedIndex=0;$('#cEstado').selectedIndex=0;$('#cInicio').value=today();$('#cEntrega').value='';
+  $('#cClienteLbl').textContent='Cliente *';$('#cNegocioLbl').textContent='Negocio *';
+  $('#addCliente').textContent='+ Agregar cliente';$('#cancelCEdit').classList.add('hidden');
+}
+async function delCliente(id){
+  const arr=state.clientes.clientes;const i=arr.findIndex(x=>x.id===id);if(i<0)return;
+  const c=arr[i];if(!confirm(`¿Eliminar el proyecto de ${c.cliente} — ${c.negocio}?`))return;
+  const rm=arr.splice(i,1)[0];
+  await save('clientes');renderClientes();renderMetrics();
+  toast('Cliente eliminado','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('clientes');renderClientes();renderMetrics();toast('Cliente restaurado')}});
+}
+function renderClientes(){
+  const arr=[...state.clientes.clientes].reverse();
+  const total=arr.length;
+  const facturado=arr.reduce((s,c)=>s+Number(c.precio||0),0);
+  const porCobrar=arr.filter(c=>c.estado!=='Entregado').reduce((s,c)=>s+Math.max(0,Number(c.precio||0)-Number(c.anticipo||0)),0);
+  $('#cCount').textContent=total+' proyecto(s)';
+  $('#cIngresos').textContent='Facturado: '+mxn(facturado);
+  $('#cPendCobro').textContent='Por cobrar: '+mxn(porCobrar);
+  const el=$('#cList');
+  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">Sin clientes aún. Cuando un prospecto quede en «Cerrado», pásalo aquí con 💼 👆</div>';return}
+  el.innerHTML=arr.map(c=>`
+    <div class="p-item">
+      <div class="info">
+        <div class="neg">${esc(c.cliente)} — ${esc(c.negocio)}</div>
+        <div class="sub">${esc(c.servicio||'—')} · Total ${mxn(c.precio)} · Anticipo ${mxn(c.anticipo)} · Saldo ${mxn(Math.max(0,Number(c.precio||0)-Number(c.anticipo||0)))}${c.fechaEntrega?' · Entrega '+esc(c.fechaEntrega):''}</div>
+      </div>
+      <span class="chip ${CL_EST[c.estado]||'nuevo'}">${esc(c.estado)}</span>
+      <select data-cstate="${esc(c.id)}" aria-label="Estado de ${esc(c.cliente)}">${['En desarrollo','En revisión','Esperando pago','Entregado'].map(e=>`<option${e===c.estado?' selected':''}>${e}</option>`).join('')}</select>
+      <button class="btn ghost small" data-cedit="${esc(c.id)}" title="Editar" aria-label="Editar proyecto">✏️</button>
+      <button class="btn ghost small" data-cdel="${esc(c.id)}" title="Eliminar" aria-label="Eliminar proyecto">✕</button>
+    </div>`).join('');
+  $$('[data-cstate]').forEach(s=>s.addEventListener('change',async()=>{
+    const c=state.clientes.clientes.find(x=>x.id===s.dataset.cstate);
+    if(c){c.estado=s.value;c.actualizado=stamp();await save('clientes');renderClientes();renderMetrics();toast(s.value==='Entregado'?'Proyecto entregado ✓ — cobra el saldo y pide testimonio':'Estado actualizado')}
+  }));
+  $$('[data-cedit]').forEach(b=>b.addEventListener('click',()=>startCEdit(b.dataset.cedit)));
+  $$('[data-cdel]').forEach(b=>b.addEventListener('click',()=>delCliente(b.dataset.cdel)));
+}
+
+/* ---- Cotizaciones ---- */
+let editingQ=null;
+function startQEdit(id){
+  const q=state.cotizaciones.cotizaciones.find(x=>x.id===id);if(!q)return;
+  editingQ=id;
+  $('#qProspecto').value=q.prospecto;$('#qServicio').value=q.servicio||'';$('#qPrecio').value=q.precio??'';
+  $('#qFecha').value=q.fechaEnvio||'';$('#qSeg').value=q.seguimiento||'';
+  if([...$('#qRespuesta').options].some(o=>o.value===q.respuesta))$('#qRespuesta').value=q.respuesta;
+  $('#qProspectoLbl').textContent='Prospecto / cliente * (editando)';
+  $('#addCot').textContent='Guardar cambios';$('#cancelQEdit').classList.remove('hidden');
+  $('#qProspecto').focus();
+}
+function endQEdit(){
+  editingQ=null;
+  ['qProspecto','qServicio','qPrecio','qSeg'].forEach(i=>$('#'+i).value='');
+  $('#qFecha').value=today();$('#qRespuesta').selectedIndex=0;
+  $('#qProspectoLbl').textContent='Prospecto / cliente *';
+  $('#addCot').textContent='+ Registrar cotización';$('#cancelQEdit').classList.add('hidden');
+}
+async function delCot(id){
+  const arr=state.cotizaciones.cotizaciones;const i=arr.findIndex(x=>x.id===id);if(i<0)return;
+  const q=arr[i];if(!confirm(`¿Eliminar la cotización de ${q.prospecto}?`))return;
+  const rm=arr.splice(i,1)[0];
+  await save('cotizaciones');renderCotizaciones();renderMetrics();
+  toast('Cotización eliminada','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('cotizaciones');renderCotizaciones();renderMetrics();toast('Cotización restaurada')}});
+}
+function renderCotizaciones(){
+  const arr=[...state.cotizaciones.cotizaciones].sort((a,b)=>(b.fechaEnvio||'')<(a.fechaEnvio||'')?-1:1);
+  const total=arr.length;
+  const acept=arr.filter(q=>q.respuesta==='Aceptada');
+  const pend=arr.filter(q=>q.respuesta==='Pendiente');
+  const monto=acept.reduce((s,q)=>s+Number(q.precio||0),0);
+  $('#qTotal').textContent=total;
+  $('#qAcept').textContent=total?Math.round(acept.length/total*100)+'%':'0%';
+  $('#qMonto').textContent=mxn(monto);
+  $('#qPend').textContent=pend.length;
+  const el=$('#qList');
+  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">Sin cotizaciones. Registra cada una que envíes — el viernes mides tu tasa de aceptación (meta 30%).</div>';return}
+  el.innerHTML=arr.map(q=>`
+    <div class="p-item">
+      <div class="info">
+        <div class="neg">${esc(q.prospecto)} — ${mxn(q.precio)}</div>
+        <div class="sub">${esc(q.servicio||'—')} · enviada ${esc(q.fechaEnvio||'—')}${q.seguimiento?' · seguimiento '+esc(q.seguimiento):''}</div>
+      </div>
+      <span class="chip ${Q_EST[q.respuesta]||'cotizado'}">${esc(q.respuesta)}</span>
+      <select data-qstate="${esc(q.id)}" aria-label="Respuesta de ${esc(q.prospecto)}">${['Pendiente','Aceptada','Rechazada','Sin respuesta'].map(e=>`<option${e===q.respuesta?' selected':''}>${e}</option>`).join('')}</select>
+      <button class="btn ghost small" data-qedit="${esc(q.id)}" title="Editar" aria-label="Editar cotización">✏️</button>
+      <button class="btn ghost small" data-qdel="${esc(q.id)}" title="Eliminar" aria-label="Eliminar cotización">✕</button>
+    </div>`).join('');
+  $$('[data-qstate]').forEach(s=>s.addEventListener('change',async()=>{
+    const q=state.cotizaciones.cotizaciones.find(x=>x.id===s.dataset.qstate);
+    if(q){
+      const antes=q.respuesta;q.respuesta=s.value;q.actualizado=stamp();
+      await save('cotizaciones');renderCotizaciones();renderMetrics();
+      if(s.value==='Aceptada'&&antes!=='Aceptada')toast('🎉 ¡Cotización aceptada! Cobra el anticipo del 50% y pásala a 💼 Clientes');
+    }
+  }));
+  $$('[data-qedit]').forEach(b=>b.addEventListener('click',()=>startQEdit(b.dataset.qedit)));
+  $$('[data-qdel]').forEach(b=>b.addEventListener('click',()=>delCot(b.dataset.qdel)));
+}
+
+/* ---- Finanzas ---- */
+async function delMov(id){
+  const arr=state.finanzas.movimientos;const i=arr.findIndex(x=>x.id===id);if(i<0)return;
+  const m=arr[i];if(!confirm(`¿Eliminar el movimiento «${m.concepto}»?`))return;
+  const rm=arr.splice(i,1)[0];
+  await save('finanzas');renderFinanzas();renderMetrics();
+  toast('Movimiento eliminado','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('finanzas');renderFinanzas();renderMetrics();toast('Movimiento restaurado')}});
+}
+function renderFinanzas(){
+  const mk=today().slice(0,7);
+  const mes=(state.finanzas.movimientos||[]).filter(m=>(m.fecha||'').slice(0,7)===mk);
+  const ing=mes.filter(m=>m.tipo==='ingreso').reduce((s,m)=>s+Number(m.monto||0),0);
+  const egr=mes.filter(m=>m.tipo==='egreso').reduce((s,m)=>s+Number(m.monto||0),0);
+  const meta=Number(state.finanzas.metaMes||0);
+  const pct=meta?Math.round(ing/meta*100):0;
+  $('#fIngresos').textContent=mxn(ing);
+  $('#fEgresos').textContent=mxn(egr);
+  $('#fNeto').textContent=mxn(ing-egr);
+  $('#fMeta').textContent=mxn(meta);
+  $('#fPct').textContent=pct+'%';
+  $('#fBar').style.transform='scaleX('+(meta?Math.min(1,ing/meta):0)+')';
+  $('#fMetaInput').value=meta;
+  const arr=[...state.finanzas.movimientos].sort((a,b)=>(b.fecha||'')<(a.fecha||'')?-1:1);
+  const el=$('#fList');
+  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">Sin movimientos. Registra cada anticipo y saldo que cobres 💰</div>';return}
+  el.innerHTML=arr.map(m=>`
+    <div class="p-item">
+      <div class="info">
+        <div class="neg" style="color:${m.tipo==='ingreso'?'var(--ok)':'#ff8a8a'}">${m.tipo==='ingreso'?'+':'−'}${mxn(m.monto)} · ${esc(m.concepto)}</div>
+        <div class="sub">${esc(m.fecha||'')} · ${esc(m.categoria||'Otro')}${(m.fecha||'').slice(0,7)===mk?' · este mes':''}</div>
+      </div>
+      <span class="chip ${m.tipo==='ingreso'?'cerrado':'sinrep'}">${m.tipo==='ingreso'?'Ingreso':'Egreso'}</span>
+      <button class="btn ghost small" data-fdel="${esc(m.id)}" title="Eliminar" aria-label="Eliminar movimiento">✕</button>
+    </div>`).join('');
+  $$('[data-fdel]').forEach(b=>b.addEventListener('click',()=>delMov(b.dataset.fdel)));
+}
+
+/* ---- Contenido ---- */
+let editingK=null;
+function startKEdit(id){
+  const k=state.contenido.publicaciones.find(x=>x.id===id);if(!k)return;
+  editingK=id;
+  $('#kTitulo').value=k.titulo;$('#kFecha').value=k.fecha||'';$('#kEnlace').value=k.enlace||'';$('#kArchivo').value=k.archivo||'';
+  if([...$('#kTipo').options].some(o=>o.value===k.tipo))$('#kTipo').value=k.tipo;
+  $('#kTituloLbl').textContent='Título * (editando)';
+  $('#addPost').textContent='Guardar cambios';$('#cancelKEdit').classList.remove('hidden');
+  $('#kTitulo').focus();
+}
+function endKEdit(){
+  editingK=null;
+  ['kTitulo','kEnlace','kArchivo'].forEach(i=>$('#'+i).value='');
+  $('#kFecha').value=today();$('#kTipo').selectedIndex=0;
+  $('#kTituloLbl').textContent='Título *';
+  $('#addPost').textContent='+ Agregar publicación';$('#cancelKEdit').classList.add('hidden');
+}
+async function delPost(id){
+  const arr=state.contenido.publicaciones;const i=arr.findIndex(x=>x.id===id);if(i<0)return;
+  const k=arr[i];if(!confirm(`¿Eliminar «${k.titulo}» del calendario?`))return;
+  const rm=arr.splice(i,1)[0];
+  await save('contenido');renderContenido();
+  toast('Publicación eliminada','',{label:'Deshacer',fn:async()=>{arr.splice(i,0,rm);await save('contenido');renderContenido();toast('Publicación restaurada')}});
+}
+function renderContenido(){
+  const arr=[...state.contenido.publicaciones].sort((a,b)=>(a.fecha||'9999')<(b.fecha||'9999')?-1:1);
+  const next=arr.filter(k=>k.estado==='Pendiente').sort((a,b)=>(a.fecha||'9999')<(b.fecha||'9999')?-1:1)[0];
+  $('#nextPost').innerHTML=next
+    ? `<b>Próxima publicación:</b> ${esc(next.titulo)} — <b>${esc(next.fecha||'sin fecha')}</b> · ${esc(next.tipo||'')} · fuente: <code>${esc(next.archivo||'—')}</code><br>Regla: 1 cada 2 días en Facebook e Instagram.`
+    : `No hay publicaciones pendientes. Agrega la siguiente arriba 👆 (1 cada 2 días).`;
+  const el=$('#kList');
+  if(!arr.length){el.innerHTML='<div class="card" style="color:var(--muted)">Calendario vacío. Agrega las publicaciones de 07-Marketing/Publicaciones/.</div>';return}
+  el.innerHTML=arr.map(k=>`
+    <div class="p-item">
+      <div class="info">
+        <div class="neg">${esc(k.titulo)}</div>
+        <div class="sub">${esc(k.tipo||'—')} · ${esc(k.fecha||'—')}${k.archivo?' · '+esc(k.archivo):''}${k.enlace?' · <a href="'+esc(k.enlace)+'" target="_blank" rel="noopener" style="color:var(--accent)">ver publicación</a>':''}</div>
+      </div>
+      <span class="chip ${K_EST[k.estado]||'cotizado'}">${esc(k.estado||'Pendiente')}</span>
+      <select data-kstate="${esc(k.id)}" aria-label="Estado de ${esc(k.titulo)}">${['Pendiente','Publicada'].map(e=>`<option${e===k.estado?' selected':''}>${e}</option>`).join('')}</select>
+      <button class="btn ghost small" data-kedit="${esc(k.id)}" title="Editar" aria-label="Editar publicación">✏️</button>
+      <button class="btn ghost small" data-kdel="${esc(k.id)}" title="Eliminar" aria-label="Eliminar publicación">✕</button>
+    </div>`).join('');
+  $$('[data-kstate]').forEach(s=>s.addEventListener('change',async()=>{
+    const k=state.contenido.publicaciones.find(x=>x.id===s.dataset.kstate);
+    if(k){
+      k.estado=s.value;k.actualizado=stamp();
+      if(s.value==='Publicada'&&!k.enlace){const u=prompt('Pega el enlace de la publicación (opcional):','');if(u!==null)k.enlace=u.trim()}
+      await save('contenido');renderContenido();
+      toast(s.value==='Publicada'?'Publicación marcada como hecha ✓':'Estado actualizado');
+    }
+  }));
+  $$('[data-kedit]').forEach(b=>b.addEventListener('click',()=>startKEdit(b.dataset.kedit)));
+  $$('[data-kdel]').forEach(b=>b.addEventListener('click',()=>delPost(b.dataset.kdel)));
+}
+
+function extraSnap(){return JSON.stringify([state.clientes,state.cotizaciones,state.finanzas,state.contenido])}
 
 $('#btnConnect').addEventListener('click',connect);
 $('#btnSync').addEventListener('click',async()=>{
   if(!dirHandle){toast('Sin carpeta conectada: datos locales');return}
-  const bm=JSON.stringify(state.mensajes),bt=JSON.stringify(state.tareas);
+  const bm=JSON.stringify(state.mensajes),bt=JSON.stringify(state.tareas),bx=extraSnap();
   await loadAll();
   const parts=[];
   if(JSON.stringify(state.mensajes)!==bm)parts.push('respuestas nuevas');
   if(JSON.stringify(state.tareas)!==bt)parts.push('tareas nuevas');
+  if(extraSnap()!==bx)parts.push('actualizaciones de clientes/finanzas/contenido');
   toast(parts.length?'⟳ Sincronizado: '+parts.join(' + ')+' 🧠':'⟳ Sincronizado, sin cambios');
 });
 
@@ -700,6 +1119,78 @@ $('#addProspect').addEventListener('click',async()=>{
 
 $('#filterEstado').addEventListener('change',renderProspectos);
 
+/* ---- Formularios de empresa ---- */
+$('#cancelCEdit').addEventListener('click',endCEdit);
+$('#cancelQEdit').addEventListener('click',endQEdit);
+$('#cancelKEdit').addEventListener('click',endKEdit);
+
+$('#addCliente').addEventListener('click',async()=>{
+  const cl=$('#cCliente').value.trim(),neg=$('#cNegocio').value.trim();
+  if(!cl||!neg){toast('Cliente y negocio son obligatorios','err');return}
+  const precio=Number($('#cPrecio').value||0),anticipo=Number($('#cAnticipo').value||0);
+  if(editingC){
+    const c=state.clientes.clientes.find(x=>x.id===editingC);
+    if(c){c.cliente=cl;c.negocio=neg;c.servicio=$('#cServicio').value;c.precio=precio;c.anticipo=anticipo;c.estado=$('#cEstado').value;c.fechaInicio=$('#cInicio').value;c.fechaEntrega=$('#cEntrega').value;c.actualizado=stamp()}
+    endCEdit();
+    await save('clientes');renderClientes();renderMetrics();toast('Proyecto actualizado ✓');
+    return;
+  }
+  state.clientes.clientes.push({id:uid(),cliente:cl,negocio:neg,servicio:$('#cServicio').value,precio:precio,anticipo:anticipo,estado:$('#cEstado').value,fechaInicio:$('#cInicio').value,fechaEntrega:$('#cEntrega').value,notas:'',fecha:stamp(),actualizado:stamp()});
+  ['cCliente','cNegocio','cPrecio','cAnticipo'].forEach(i=>$('#'+i).value='');$('#cEntrega').value='';
+  await save('clientes');renderClientes();renderMetrics();
+  toast(anticipo>0?'Cliente agregado ✓ — anticipo registrado en 💰 Finanzas':'Cliente agregado ✓ — recuerda cobrar el anticipo 50%');
+});
+
+$('#addCot').addEventListener('click',async()=>{
+  const pr=$('#qProspecto').value.trim();
+  if(!pr){toast('Escribe el prospecto o cliente','err');return}
+  const precio=Number($('#qPrecio').value||0);
+  if(editingQ){
+    const q=state.cotizaciones.cotizaciones.find(x=>x.id===editingQ);
+    if(q){q.prospecto=pr;q.servicio=$('#qServicio').value.trim();q.precio=precio;q.fechaEnvio=$('#qFecha').value;q.respuesta=$('#qRespuesta').value;q.seguimiento=$('#qSeg').value;q.actualizado=stamp()}
+    endQEdit();
+    await save('cotizaciones');renderCotizaciones();renderMetrics();toast('Cotización actualizada ✓');
+    return;
+  }
+  state.cotizaciones.cotizaciones.push({id:uid(),prospecto:pr,servicio:$('#qServicio').value.trim(),precio:precio,fechaEnvio:$('#qFecha').value||today(),respuesta:$('#qRespuesta').value,seguimiento:$('#qSeg').value,fecha:stamp(),actualizado:stamp()});
+  ['qProspecto','qServicio','qPrecio','qSeg'].forEach(i=>$('#'+i).value='');
+  await save('cotizaciones');renderCotizaciones();renderMetrics();
+  toast('Cotización registrada ✓ — válida 15 días, seguimiento en 3');
+});
+
+$('#saveMeta').addEventListener('click',async()=>{
+  const v=Number($('#fMetaInput').value||0);
+  if(v<0){toast('Meta inválida','err');return}
+  state.finanzas.metaMes=v;
+  await save('finanzas');renderFinanzas();renderMetrics();
+  toast('Meta del mes: '+mxn(v));
+});
+
+$('#addMov').addEventListener('click',async()=>{
+  const concepto=$('#fConcepto').value.trim(),monto=Number($('#fMonto').value||0);
+  if(!concepto||monto<=0){toast('Concepto y monto son obligatorios','err');return}
+  state.finanzas.movimientos.push({id:uid(),fecha:$('#fFecha').value||today(),tipo:$('#fTipo').value,concepto:concepto,monto:monto,categoria:$('#fCat').value,fechaReg:stamp(),actualizado:stamp()});
+  $('#fConcepto').value='';$('#fMonto').value='';
+  await save('finanzas');renderFinanzas();renderMetrics();
+  toast('Movimiento registrado ✓');
+});
+
+$('#addPost').addEventListener('click',async()=>{
+  const t=$('#kTitulo').value.trim();
+  if(!t){toast('Escribe el título','err');return}
+  if(editingK){
+    const k=state.contenido.publicaciones.find(x=>x.id===editingK);
+    if(k){k.titulo=t;k.tipo=$('#kTipo').value;k.fecha=$('#kFecha').value;k.enlace=$('#kEnlace').value.trim();k.archivo=$('#kArchivo').value.trim();k.actualizado=stamp()}
+    endKEdit();
+    await save('contenido');renderContenido();toast('Publicación actualizada ✓');
+    return;
+  }
+  state.contenido.publicaciones.push({id:uid(),titulo:t,tipo:$('#kTipo').value,fecha:$('#kFecha').value||today(),enlace:$('#kEnlace').value.trim(),archivo:$('#kArchivo').value.trim(),estado:'Pendiente',creado:stamp(),actualizado:stamp()});
+  ['kTitulo','kEnlace','kArchivo'].forEach(i=>$('#'+i).value='');
+  await save('contenido');renderContenido();
+  toast('Publicación agregada al calendario ✓');
+});
+
 $('#copyTsv').addEventListener('click',()=>{
   const f=$('#filterEstado').value;
   const arr=[...state.prospectos.prospectos].filter(p=>!f||p.estado===f).reverse();
@@ -728,12 +1219,13 @@ $$('[data-rut]').forEach(cb=>{
 
 window.addEventListener('focus',async()=>{
   if(!dirHandle)return;
-  const before={t:JSON.stringify(state.tareas),p:JSON.stringify(state.prospectos),m:JSON.stringify(state.mensajes)};
+  const before={t:JSON.stringify(state.tareas),p:JSON.stringify(state.prospectos),m:JSON.stringify(state.mensajes),x:extraSnap()};
   await loadAll();
   const parts=[];
   if(JSON.stringify(state.tareas)!==before.t)parts.push('tareas actualizadas');
   if(JSON.stringify(state.mensajes)!==before.m)parts.push('respuestas del cerebro');
   if(JSON.stringify(state.prospectos)!==before.p)parts.push('prospectos cambiaron');
+  if(extraSnap()!==before.x)parts.push('clientes/finanzas/contenido cambiaron');
   if(parts.length)toast('⟳ Cambios del cerebro: '+parts.join(' · ')+' 🧠');
   updateBadge();
 });
@@ -742,6 +1234,7 @@ window.addEventListener('focus',async()=>{
   if(localStorage.getItem('dsw-onboard'))$('#onboard').classList.add('hidden');
   await restore();
   await loadAll();
+  resetDateDefaults();
   if(!dirHandle)setConn(localStorage.getItem('dsw-state')?'local':'none');
 })();
 </script>
