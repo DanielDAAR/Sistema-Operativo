@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-09-23 22:26",
+  "actualizado": "2026-09-23 22:45",
   "eventos": [
     {
       "id": "b-001",
@@ -60,6 +60,16 @@
       "monto": 0,
       "origen": "cerebro",
       "actualizado": "2026-09-23"
+    },
+    {
+      "id": "b-004",
+      "fecha": "2026-09-23",
+      "tipo": "prospeccion",
+      "titulo": "Pipeline recargado con 12 prospectos nuevos (búsqueda en paralelo)",
+      "detalle": "Nuevos prospectos p-011 a p-022 de directorios mexicanos (Fresha + Sección Amarilla + Google): 5 barberías, 3 estéticas/salones, 3 gimnasios y 1 cafetería, todos sin web propia y con teléfono verificado. Vertientes: Zapopan y Guadalajara. Propuesta base: landing/web + botón WhatsApp. Tareas t-006 a t-008 creadas para enviar mensajes.",
+      "monto": 0,
+      "origen": "cerebro",
+      "actualizado": "2026-09-23 22:45"
     },
     {
       "id": "muf1594o337gp",

@@ -50,6 +50,33 @@
       "hecha": true,
       "origen": "cerebro",
       "hechoFecha": "2026-09-23 22:26"
+    },
+    {
+      "id": "t-006",
+      "titulo": "Enviar mensaje a barberías lote 1 (Vetro, Navajas de Hierro, Frisón, El ZarCortes)",
+      "detalle": "Nuevos prospectos p-011 a p-014 (prospectos.json). WhatsApp: Vetro 33 2491 3305, Navajas 33 3611 4587, Frisón 33 2846 5541, El ZarCortes 33 2033 0341. Mensajes listos en el campo 'mensaje' de cada uno.",
+      "categoria": "Ventas",
+      "vence": "2026-09-24",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-007",
+      "titulo": "Enviar mensaje a Barber Chuy, Studio 80, D'Mayis y Focus Salón",
+      "detalle": "Nuevos prospectos p-015 a p-018 (prospectos.json). WhatsApp: Barber Chuy 33 3787 7648, Studio 80 33 3015 3098, D'Mayis 33 3614 5959, Focus 33 3110 6130. Mensajes listos en cada uno.",
+      "categoria": "Ventas",
+      "vence": "2026-09-24",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-008",
+      "titulo": "Enviar mensaje a gimnasios y café (Nitro, Monster, Barras, Coffee Legacy)",
+      "detalle": "Nuevos prospectos p-019 a p-022 (prospectos.json). WhatsApp: Nitro 33 3110 6154, Monster 33 1578 0940, Barras y Mancuernas 33 3643 3268, The Coffee Legacy 33 2491 4269. Mensajes listos en cada uno.",
+      "categoria": "Ventas",
+      "vence": "2026-09-25",
+      "hecha": false,
+      "origen": "cerebro"
     }
   ]
 }
