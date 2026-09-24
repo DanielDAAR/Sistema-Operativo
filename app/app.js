@@ -1,4 +1,4 @@
-const $=s=>document.querySelector(s);
+﻿const $=s=>document.querySelector(s);
 const $$=s=>document.querySelectorAll(s);
 
 let dirHandle=null;
@@ -341,6 +341,44 @@ function checkRules(){
 var ESTADOS=['Nuevo','Contactado','Respondió','Reunión','Cotizado','Cerrado','Sin respuesta'];
 var PROB={'Nuevo':.10,'Contactado':.20,'Respondió':.40,'Reunión':.60,'Cotizado':.80,'Cerrado':1,'Sin respuesta':.05};
 var EST_CLS={'Nuevo':'nuevo','Contactado':'contactado','Respondió':'respondio','Reunión':'reunion','Cotizado':'cotizado','Cerrado':'cerrado','Sin respuesta':'sinrep'};
+function waNum(p){var d=String(p.telefono||'').replace(/\D/g,'');if(d.slice(0,2)==='52')d=d.slice(2);return d.length===10?('521'+d):(d.length?('52'+d):'')}
+var msgDirty=false;
+function offerLine(m,neg){
+  var t=String(neg||'').toLowerCase();m=Number(m||0);
+  var alta=/\b(financiera|empresa|consultor|asesor|inmobiliaria|projal)\b/.test(t)||/\b(sistema|portal|plataforma|sucursal|app|tienda)\b/.test(t);
+  if(alta||m>=4500)return 'Puedo desarrollarles un sistema a la medida (citas, gestión o portal) que centralice todo y les ahorre trabajo manual.';
+  if(/clin|dent|odontolog|doctor|medic/.test(t))return 'Puedo hacerles una web profesional con sistema de citas en línea y recordatorios automáticos para sus pacientes.';
+  if(/restaurant|restaurante|comida|bar|cafe|café|matera|alcalde/.test(t))return 'Puedo hacerles un sistema de reservaciones en línea y menú digital para que sus clientes reserven y pidan directo.';
+  if(/tienda|boutique|estetica|salon|salón|shop|store/.test(t))return 'Puedo hacerles un catálogo o tienda en línea profesional, fácil de administrar.';
+  return m>=2500?'Puedo hacerles una web profesional y a la medida de lo que necesitan.':'Puedo ayudarles con una presencia digital profesional para su negocio.';
+}
+function parseNota(s){
+  s=String(s||'');
+  var prop=(s.match(/[Pp]ropuesta\s*:\s*([^.]+)/)||[])[1];
+  var det=s.replace(/\s*(?:WhatsApp|Tel(?:\.|éfono))[^.]*\.?/gi,'').replace(/\.?\s*[Pp]ropuesta[^.]*\.?/g,'').replace(/\.{2,}/g,'.').trim();
+  return {det:det,prop:prop?prop.trim():''};
+}
+function buildMsg(p){
+  var n=(p.nombre||'').trim();var neg=(p.negocio||'').trim();
+  var generico=n&&!/^(gerencia|equipo)/i.test(n)&&!/encontrar/i.test(n);
+  var hola=generico?('Hola '+n+', soy Daniel de D.Softworks, un equipo de ingenieros de software en Guadalajara.'):'Hola, buenas tardes. Soy Daniel de D.Softworks, un equipo de ingenieros de software en Guadalajara.';
+  var t=parseNota(p.notas);
+  var lineas=[hola];
+  if(t.det){
+    var d=t.det.replace(/^[.\s]+/,'').replace(/[.\s]+$/,'');
+    d=d.replace(/^web en\s+/i,'su web está en ').replace(/^web\s+/i,'su web es ').replace(/^sin web propia\s*/i,'no tienen web propia').replace(/^sin web\s*/i,'no tienen web').replace(/^empresa\b/i,'su empresa').replace(/^clínica\b|^clinica\b/i,'su clínica').replace(/^financiera\b/i,'son una financiera').replace(/^restaurante\b|^restaurant\b/i,'su restaurante').replace(/^agencia\b/i,'su agencia');
+    lineas.push('Detecté que '+d.replace(/^([A-Z])/,function(c){return c.toLowerCase()})+'.');
+  }else if(neg){
+    lineas.push('Vi '+neg+' en Guadalajara y creo que pueden aprovechar mucho mejor el mundo digital.');
+  }
+  lineas.push(offerLine(p.monto,neg));
+  if(t.prop)lineas.push('En concreto les ayudaría con: '+t.prop+'.');
+  lineas.push('¿Podemos platicar 10 minutos? Sin compromiso.');
+  return lineas.join('\n\n');
+}
+function syncMsg(){if(msgDirty)return;var el=$('#pMensaje');if(!el)return;el.value=buildMsg({nombre:$('#pNombre')?$('#pNombre').value:'',negocio:$('#pNegocio')?$('#pNegocio').value:'',monto:Number($('#pMonto')?$('#pMonto').value:0),notas:$('#pNotas')?$('#pNotas').value:''})}
+function waMsg(p){return p.mensaje||buildMsg(p)}
+function waLink(p){var n=waNum(p);return n?('https://wa.me/'+n+'?text='+encodeURIComponent(waMsg(p))):''}
 function renderPipeline(){
   var f=$('#filterEstado')?$('#filterEstado').value:'';
   var ps=state.prospectos.prospectos;
@@ -360,7 +398,7 @@ function renderPipeline(){
     items.forEach(function(p){
       var montoCls=!p.monto?'sin-monto':'';
       var montoText=p.monto?mxn(p.monto):'sin monto';
-      colHtml+='<div class="kanban-card" draggable="true" data-pid="'+esc(p.id)+'"><div class="card-name">'+esc(p.nombre)+'</div><div class="card-biz">'+esc(p.negocio)+'</div><div class="card-monto '+montoCls+'">'+montoText+'</div><div class="card-meta"><span class="chip '+EST_CLS[est]+'">'+esc(est)+'</span><span class="card-days">'+(p.fecha||'').slice(0,10)+'</span></div><div class="card-actions"><button class="btn ghost small" data-pedit="'+esc(p.id)+'">Editar</button><button class="btn ghost small" data-pdel="'+esc(p.id)+'">Eliminar</button></div></div>';
+      colHtml+='<div class="kanban-card" draggable="true" data-pid="'+esc(p.id)+'"><div class="card-name">'+esc(p.nombre)+'</div><div class="card-biz">'+esc(p.negocio)+'</div><div class="card-monto '+montoCls+'">'+montoText+'</div><div class="card-meta"><span class="chip '+EST_CLS[est]+'">'+esc(est)+'</span><span class="card-days">'+(p.fecha||'').slice(0,10)+'</span></div>'+(p.telefono?'<div class="card-wa"><button class="btn wa small" data-wa="'+esc(p.id)+'" title="Enviar mensaje personalizado">WhatsApp</button><button class="btn ghost small" data-wacopy="'+esc(p.id)+'" title="Copiar mensaje">Copiar</button></div>':'<div class="card-wa none"><span class="wa-none">Sin teléfono</span></div>')+'<div class="card-actions"><button class="btn ghost small" data-pedit="'+esc(p.id)+'">Editar</button><button class="btn ghost small" data-pdel="'+esc(p.id)+'">Eliminar</button></div></div>';
     });
     return'<div class="kanban-col" data-estado="'+esc(est)+'"><div class="col-header">'+esc(est)+' <span class="count">'+items.length+'</span></div><div class="col-body" data-drop="'+esc(est)+'">'+colHtml+'</div></div>';
   });
@@ -368,6 +406,8 @@ function renderPipeline(){
   setupDragDrop();
   $$('[data-pedit]').forEach(function(b){b.addEventListener('click',function(){editingP=b.dataset.pedit;renderPipeline()})});
   $$('[data-pdel]').forEach(function(b){b.addEventListener('click',function(){delProspect(b.dataset.pdel)})});
+  $$('[data-wa]').forEach(function(b){b.addEventListener('click',function(){var p=state.prospectos.prospectos.find(function(x){return x.id===b.dataset.wa});if(!p)return;var url=waLink(p);if(!url){toast('Falta el teléfono de '+p.nombre,'err');return}window.open(url,'_blank')})});
+  $$('[data-wacopy]').forEach(function(b){b.addEventListener('click',function(){var p=state.prospectos.prospectos.find(function(x){return x.id===b.dataset.wacopy});if(!p)return;navigator.clipboard.writeText(waMsg(p)).then(function(){toast('Mensaje copiado, pégalo en WhatsApp'+(p.telefono?' ('+p.telefono+')':''))}).catch(function(){toast('No se pudo copiar','err')})})});
   $$('[data-drop]').forEach(function(zone){
     zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('drag-over')});
     zone.addEventListener('dragleave',function(){zone.classList.remove('drag-over')});
@@ -389,19 +429,22 @@ function setupDragDrop(){$$('.kanban-card').forEach(function(card){card.setAttri
 function renderProspectForm(){
   var card=$('#prospectFormCard');if(!card)return;
   var isEdit=!!editingP;
-  card.innerHTML='<h3>'+(isEdit?'Editar prospecto':'Agregar prospecto')+'</h3><div class="form-row"><div><label for="pNombre" id="pNombreLbl">Nombre *</label><input id="pNombre" placeholder="Juan Pérez"></div><div><label for="pNegocio" id="pNegocioLbl">Negocio *</label><input id="pNegocio" placeholder="Barbería El Corte"></div></div><div class="form-row"><div><label for="pTel">Teléfono</label><input id="pTel" placeholder="+52 33 1234 5678"></div><div><label for="pFuente">Fuente</label><select id="pFuente"><option>Instagram</option><option>Facebook</option><option>WhatsApp</option><option>Google</option><option>Email</option><option>Referido</option><option>Otro</option></select></div><div><label for="pMonto">Monto potencial (MXN)</label><input type="number" id="pMonto" min="0" placeholder="1500"></div><div style="display:flex;align-items:flex-end"><button class="btn" id="addProspect">'+(isEdit?'Guardar cambios':'+ Agregar prospecto')+'</button>'+(isEdit?'<button class="btn ghost" id="cancelPEdit" style="margin-left:8px">Cancelar</button>':'')+'</div></div><div class="form-row one"><div><label for="pNotas">Notas</label><input id="pNotas" placeholder="Qué quiere, presupuesto, urgencia"></div></div>';
-  if(isEdit){var p=state.prospectos.prospectos.find(function(x){return x.id===editingP});if(p){$('#pNombre').value=p.nombre;$('#pNegocio').value=p.negocio;$('#pTel').value=p.telefono||'';[...$('#pFuente').options].some(function(o){return o.value===p.fuente})&&($('#pFuente').value=p.fuente);$('#pMonto').value=p.monto??'';$('#pNotas').value=p.notas||''}}
+  card.innerHTML='<h3>'+(isEdit?'Editar prospecto':'Agregar prospecto')+'</h3><div class="form-row"><div><label for="pNombre" id="pNombreLbl">Nombre *</label><input id="pNombre" placeholder="Juan Pérez"></div><div><label for="pNegocio" id="pNegocioLbl">Negocio *</label><input id="pNegocio" placeholder="Barbería El Corte"></div></div><div class="form-row"><div><label for="pTel">Teléfono</label><input id="pTel" placeholder="+52 33 1234 5678"></div><div><label for="pFuente">Fuente</label><select id="pFuente"><option>Instagram</option><option>Facebook</option><option>WhatsApp</option><option>Google</option><option>Email</option><option>Referido</option><option>Otro</option></select></div><div><label for="pMonto">Monto potencial (MXN)</label><input type="number" id="pMonto" min="0" placeholder="1500"></div><div style="display:flex;align-items:flex-end"><button class="btn" id="addProspect">'+(isEdit?'Guardar cambios':'+ Agregar prospecto')+'</button>'+(isEdit?'<button class="btn ghost" id="cancelPEdit" style="margin-left:8px">Cancelar</button>':'')+'</div></div><div class="form-row one"><div><label for="pNotas">Notas</label><input id="pNotas" placeholder="Qué quiere, presupuesto, urgencia"></div></div><div class="form-row one"><div><label for="pMensaje">Mensaje personalizado (se envía con el botón WhatsApp)</label><textarea id="pMensaje" rows="4" placeholder="Se genera automáticamente según nombre, negocio, monto y notas..."></textarea><div style="margin-top:6px;display:flex;gap:8px;align-items:center"><button class="btn ghost small" id="regenMsg" type="button">Regenerar sugerencia</button><span style="font-size:11px;color:var(--muted)">Se personaliza solo con nombre, negocio, monto y notas</span></div></div></div>';
+  if(isEdit){var p=state.prospectos.prospectos.find(function(x){return x.id===editingP});if(p){$('#pNombre').value=p.nombre;$('#pNegocio').value=p.negocio;$('#pTel').value=p.telefono||'';[...$('#pFuente').options].some(function(o){return o.value===p.fuente})&&($('#pFuente').value=p.fuente);$('#pMonto').value=p.monto??'';$('#pNotas').value=p.notas||'';$('#pMensaje').value=p.mensaje||''}}
+  msgDirty=isEdit;
+  $('#regenMsg').addEventListener('click',function(){msgDirty=false;syncMsg()});
+  if(!isEdit){['pNombre','pNegocio','pMonto','pNotas'].forEach(function(id){$('#'+id).addEventListener('input',syncMsg)});$('#pMensaje').addEventListener('input',function(){msgDirty=true});syncMsg()}
   var ce=$('#cancelPEdit');if(ce)ce.addEventListener('click',endPEdit);
   $('#addProspect').addEventListener('click',async function(){
     var n=$('#pNombre').value.trim(),neg=$('#pNegocio').value.trim();
     if(!n||!neg){toast('Nombre y negocio son obligatorios','err');return}
     if(editingP){
       var p=state.prospectos.prospectos.find(function(x){return x.id===editingP});
-      if(p){p.nombre=n;p.negocio=neg;p.telefono=$('#pTel').value.trim();p.fuente=$('#pFuente').value;p.monto=Number($('#pMonto').value||0);p.notas=$('#pNotas').value.trim();p.actualizado=stamp()}
+      if(p){p.nombre=n;p.negocio=neg;p.telefono=$('#pTel').value.trim();p.fuente=$('#pFuente').value;p.monto=Number($('#pMonto').value||0);p.notas=$('#pNotas').value.trim();p.mensaje=$('#pMensaje').value.trim();p.actualizado=stamp()}
       endPEdit();await save('prospectos');renderPipeline();renderMetrics();toast('Prospecto actualizado');return;
     }
-    state.prospectos.prospectos.push({id:uid(),nombre:n,negocio:neg,telefono:$('#pTel').value.trim(),fuente:$('#pFuente').value,monto:Number($('#pMonto').value||0),notas:$('#pNotas').value.trim(),estado:'Nuevo',fecha:stamp(),actualizado:stamp()});
-    ['pNombre','pNegocio','pTel','pMonto','pNotas'].forEach(function(i){$('#'+i).value=''});
+    state.prospectos.prospectos.push({id:uid(),nombre:n,negocio:neg,telefono:$('#pTel').value.trim(),fuente:$('#pFuente').value,monto:Number($('#pMonto').value||0),notas:$('#pNotas').value.trim(),mensaje:$('#pMensaje').value.trim(),estado:'Nuevo',fecha:stamp(),actualizado:stamp()});
+    ['pNombre','pNegocio','pTel','pMonto','pNotas','pMensaje'].forEach(function(i){$('#'+i).value=''});msgDirty=false;
     await save('prospectos');renderPipeline();renderMetrics();toast('Prospecto agregado');
   });
 }
@@ -521,7 +564,7 @@ function showCotDoc(q){
   var itemsHtml=(q.items||[]).map(function(i){return'<tr><td>'+esc(i.descripcion)+'</td><td class="num">'+mxn(i.precio)+'</td></tr>'}).join('');
   var total=(q.items||[]).reduce(function(s,i){return s+Number(i.precio)},0);
   var printIcon='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>';
-  var doc='<div class="cot-doc"><div class="doc-header"><div><div class="company">D<span>.Softworks</span> OS</div><div style="font-size:12px;color:#555">D.Softworks · Guadalajara, Jalisco<br>WhatsApp +52 1 33 5051 9325 · dsoftworks.netlify.app</div></div><div class="contact-info"><div style="font-size:20px;font-weight:700;color:#0d121c">COTIZACIÓN '+(q.folio||'COT-2026-001')+'</div><div style="font-size:12px;color:#555">Fecha: '+esc(q.fechaEnvio||today())+' · Válida 15 días</div></div></div><div class="client-block"><b>Cliente:</b> '+esc(q.prospecto)+'<br>'+esc(q.servicio||'—')+'</div><table><thead><tr><th>Concepto</th><th style="text-align:right">Precio MXN</th></tr></thead><tbody>'+itemsHtml+'<tr class="total-row"><td>TOTAL</td><td class="num">'+mxn(total)+'</td></tr></tbody></table><div class="conditions"><b>Condiciones:</b><br>1. Anticipo 50% · saldo contra entrega<br>2. Transferencia o efectivo (no tarjeta)<br>3. 2 rondas de cambios (web/landing), 1 (catálogo)<br>4. No incluye: hosting renovación, cambios fuera de alcance<br><br><b>Para confirmar, responde este documento.</b></div><div style="margin-top:16px;display:flex;gap:10px"><button class="btn" onclick="window.print()" style="background:#0d121c;color:#fff">'+printIcon+' Imprimir / PDF</button><button class="btn ghost" id="copyCotText">Copiar texto (WhatsApp)</button></div><button class="close-btn" onclick="document.getElementById(\'cotDocModal\').classList.remove(\'open\')" style="position:absolute;top:16px;right:16px">Cerrar</button></div>';
+  var doc='<div class="cot-doc"><div class="doc-header"><div><div class="company">D<span>.Softworks</span> OS</div><div style="font-size:12px;color:#555">D.Softworks · Guadalajara, Jalisco<br>WhatsApp +52 1 33 5051 9325 · danielsoftworks.netlify.app</div></div><div class="contact-info"><div style="font-size:20px;font-weight:700;color:#0d121c">COTIZACIÓN '+(q.folio||'COT-2026-001')+'</div><div style="font-size:12px;color:#555">Fecha: '+esc(q.fechaEnvio||today())+' · Válida 15 días</div></div></div><div class="client-block"><b>Cliente:</b> '+esc(q.prospecto)+'<br>'+esc(q.servicio||'—')+'</div><table><thead><tr><th>Concepto</th><th style="text-align:right">Precio MXN</th></tr></thead><tbody>'+itemsHtml+'<tr class="total-row"><td>TOTAL</td><td class="num">'+mxn(total)+'</td></tr></tbody></table><div class="conditions"><b>Condiciones:</b><br>1. Anticipo 50% · saldo contra entrega<br>2. Transferencia o efectivo (no tarjeta)<br>3. 2 rondas de cambios (web/landing), 1 (catálogo)<br>4. No incluye: hosting renovación, cambios fuera de alcance<br><br><b>Para confirmar, responde este documento.</b></div><div style="margin-top:16px;display:flex;gap:10px"><button class="btn" onclick="window.print()" style="background:#0d121c;color:#fff">'+printIcon+' Imprimir / PDF</button><button class="btn ghost" id="copyCotText">Copiar texto (WhatsApp)</button></div><button class="close-btn" onclick="document.getElementById(\'cotDocModal\').classList.remove(\'open\')" style="position:absolute;top:16px;right:16px">Cerrar</button></div>';
   var modal=$('#cotDocModal');modal.classList.add('open');var content=modal.querySelector('.modal');content.innerHTML=doc;$('#copyCotText').addEventListener('click',function(){var txt='COTIZACIÓN '+(q.folio||'COT-2026-001')+'\nCliente: '+q.prospecto+'\nServicio: '+q.servicio+'\n'+(q.items||[]).map(function(i){return'- '+i.descripcion+': '+mxn(i.precio)}).join('\n')+'\nTOTAL: '+mxn(total)+'\nCondiciones: anticipo 50%, saldo contra entrega. Transferencia o efectivo.\nVálida 15 días.\nD.Softworks · Guadalajara, Jalisco · WhatsApp +52 1 33 5051 9325';navigator.clipboard.writeText(txt).then(function(){toast('Texto copiado para WhatsApp')}).catch(function(){toast('No se pudo copiar','err')})});
 }
 $('#cotDocModal').addEventListener('click',function(e){if(e.target===$('#cotDocModal'))$('#cotDocModal').classList.remove('open')});
@@ -702,9 +745,13 @@ function dueChip(d){if(!d)return'';var t=today();if(d<t)return'<span class="due 
 
 function renderAyuda(){var el=$('#ayudaBody');if(!el)return;el.innerHTML='<div class="card" style="line-height:1.9;font-size:14px"><b style="color:var(--accent)">1. El cerebro (IA) escribe</b> → actualiza app/tareas.json con lo que debe hacer hoy.<br><b style="color:var(--accent)">2. Tú ejecutas</b> → marcas tareas, agregas prospectos, escribes mensajes.<br><b style="color:var(--accent)">3. Guardas</b> → con la carpeta conectada, todo se guarda en los JSON.<br><b style="color:var(--accent)">4. El cerebro lee</b> → cuando me dices "revisa la app" o "ya terminé", leo los JSON y te doy el siguiente paso.<br><br><b>Tablero (Dashboard):</b> KPIs en vivo, embudo, reglas, proximas reuniones, ultimos movimientos.<br><b>Pipeline:</b> Kanban con arrastrar-soltar, montos en MXN, probabilidad por etapa.<br><b>Proyectos:</b> clientes con anticipo, saldo y entrega. Al Entregar → aviso de cobro.<br><b>Agenda:</b> reuniones con resultado obligatorio al marcar Realizada.<br><b>Cotizaciones:</b> documento imprimible, copiar texto para WhatsApp.<br><b>Motor de reglas:</b> alertas que no dejan escapar dinero.<br><b>Bitácora:</b> cada acción queda registrada para la historia.<br><b>Reportes:</b> genero el de la semana con KPIs vs meta.<br><br><b>Sincronizar:</b> vuelve a leer los archivos por si el cerebro los actualizó desde fuera.<br><b>Conectar carpeta:</b> selecciona app/ una sola vez; el navegador recuerda el permiso.<br><b>Sin conexión a archivos:</b> la app funciona en modo local (navegador) pero el cerebro NO vera los cambios.<br><br><b>Metodologías:</b> ritua diario 60 min y meta $10k/mes, pipeline Nuevo→Contactado→Respondió→Reunión→Cotizado→Cerrado, 50 contactos/semana, anticipo 50% obligatorio.</div>'}
 
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('dsw-theme',t)}catch(e){}var lb=$('#themeLabel');if(lb)lb.textContent=t==='dark'?'Oscuro':'Claro'}
+function initTheme(){var saved='light';try{saved=localStorage.getItem('dsw-theme')||'light'}catch(e){}applyTheme(saved==='dark'?'dark':'light');var btn=$('#btnTheme');if(btn)btn.addEventListener('click',function(){applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')})}
+
 async function init(){
   buildNav();
   bindPipelineStatic();
+  initTheme();
   if(localStorage.getItem('dsw-onboard'))$('#onboard').classList.add('hidden');
   await restore();await loadAll();resetDateDefaults();if(!dirHandle)setConn(localStorage.getItem('dsw-state')?'local':'none');
   renderDashboard();setupMobileMenu();
