@@ -1,4 +1,4 @@
-# PLAN — Rediseño DSW OS (panel de control de empresa millonaria)
+﻿# PLAN — Rediseño DSW OS (panel de control de empresa millonaria)
 
 **Fecha:** 2026-09-23 · **Estado:** aprobado por el usuario · **Ejecutar en orden, paso a paso.**
 **Repo:** `C:\Users\espec\OneDrive\Desktop\DSoftworks — Sistema Operativo`
@@ -132,7 +132,7 @@ Todo **calculado en vivo** de los JSON (sin fetch nuevo):
 - Form con **editor de ítems** (agregar/quitar filas descripción+precio); total = Σ items (campo `precio` legacy se mantiene = total, recalculado en save).
 - Acciones por fila: **Ver documento** · Editar · Eliminar (con deshacer, como hoy).
 - **Vista documento** (modal o subvista, imprimible con `@media print`):
-  - Encabezado: DSW OS · D.Softworks · Guadalajara, Jalisco · WhatsApp +52 1 33 5051 9325 · `dsoftworks.netlify.app`
+  - Encabezado: DSW OS · D.Softworks · Guadalajara, Jalisco · WhatsApp +52 1 33 5051 9325 · `danielsoftworks.netlify.app`
   - `COTIZACIÓN [folio]` · fecha · válida 15 días
   - Bloque cliente: nombre/negocio
   - Tabla ítems → **TOTAL MXN**

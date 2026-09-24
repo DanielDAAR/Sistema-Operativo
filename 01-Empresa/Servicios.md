@@ -1,8 +1,8 @@
-# D.Softworks — Servicios
+﻿# D.Softworks — Servicios
 
 ## LÍNEAS DE SERVICIO (sitio web y empresa — deben coincidir)
 
-Somos una startup de ingenieros de software. Vendemos 4 líneas (las 4 tarjetas del sitio dsoftworks.netlify.app):
+Somos una startup de ingenieros de software. Vendemos 4 líneas (las 4 tarjetas del sitio danielsoftworks.netlify.app):
 
 | Línea | Sitio | Precio base |
 |-------|-------|-------------|

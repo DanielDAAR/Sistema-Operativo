@@ -12,6 +12,13 @@
 
 ## LINKS IMPORTANTES PARA USAR
 
+### 🌐 SITIO WEB
+```
+https://danielsoftworks.netlify.app
+```
+Repositorio: `C:\Users\espec\OneDrive\Desktop\DSW-Software` (despliegue manual: `deploy.ps1`)
+Nota: la URL original `dsoftworks.netlify.app` YA NO está activa. Usar siempre `danielsoftworks`.
+
 ### WhatsApp Business
 ```
 wa.me/5213350519325

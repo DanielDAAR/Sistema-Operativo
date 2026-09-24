@@ -1,65 +1,31 @@
 {
-  "actualizado": "2026-09-23 02:31",
+  "actualizado": "2026-09-23 22:00",
   "prospectos": [
     {
       "id": "p-001",
       "nombre": "Dr. Oscar Raygoza",
       "negocio": "DEO Clinic",
-      "telefono": "",
+      "telefono": "+52 33 1178 4981",
       "fuente": "Google",
-      "estado": "Nuevo",
+      "estado": "Contactado",
       "monto": 6000,
       "fecha": "2026-09-23",
-      "notas": "Web en Wix sin citas online. Propuesta: sistema de citas + portal de pacientes. Buscar tel en deoclinic.com",
-      "actualizado": "2026-09-23 02:23"
+      "notas": "Web en Wix sin citas online. WhatsApp confirmado: +52 33 1178 4981. Propuesta: sistema de citas + portal de pacientes.",
+      "mensaje": "Hola Dr. Oscar, soy Daniel de D.Softworks. Vi su clínica DEO Clinic y me pareció excelente.\n\nNoto que su web está en Wix, ¿les gustaría tener un sistema personalizado donde sus pacientes puedan agendar citas en línea, ver historial y recibir recordatorios?\n\nTrabajamos con clínicas dentales en Guadalajara. ¿Podemos platicar 10 minutos?",
+      "actualizado": "2026-09-23 21:10"
     },
     {
       "id": "p-002",
       "nombre": "Dra. Ana Isabel Quintero",
       "negocio": "Clínica Dental Tiny Smiles",
-      "telefono": "+52 33 3613 6217",
+      "telefono": "+52 33 1748 8180",
       "fuente": "Doctoralia",
-      "estado": "Nuevo",
+      "estado": "Contactado",
       "monto": 2500,
       "fecha": "2026-09-23",
-      "notas": "Sin web propia, solo Doctoralia. Propuesta: web + citas + WhatsApp",
-      "actualizado": "2026-09-23"
-    },
-    {
-      "id": "p-003",
-      "nombre": "Dra. Lucy Edith Barrón Celis",
-      "negocio": "Denticelis",
-      "telefono": "",
-      "fuente": "Doctoralia",
-      "estado": "Nuevo",
-      "monto": 2500,
-      "fecha": "2026-09-23",
-      "notas": "Sin web propia. Propuesta: web + gestión de pacientes. Tel en Doctoralia",
-      "actualizado": "2026-09-23"
-    },
-    {
-      "id": "p-004",
-      "nombre": "Gerencia",
-      "negocio": "Restaurant La Matera",
-      "telefono": "33 3616 1626",
-      "fuente": "Google",
-      "estado": "Nuevo",
-      "monto": 3500,
-      "fecha": "2026-09-23",
-      "notas": "Web lamatera.mx. Propuesta: reservaciones online + menú digital",
-      "actualizado": "2026-09-23"
-    },
-    {
-      "id": "p-005",
-      "nombre": "Gerencia",
-      "negocio": "Restaurante Alcalde",
-      "telefono": "33 3615 7400",
-      "fuente": "Google",
-      "estado": "Nuevo",
-      "monto": 3500,
-      "fecha": "2026-09-23",
-      "notas": "Web alcalde.com.mx. Propuesta: reservaciones + pedidos para llevar",
-      "actualizado": "2026-09-23"
+      "notas": "Sin web propia, solo Doctoralia. WhatsApp oficial (tinysmilesgdl.com): +52 33 1748 8180. Propuesta: web + citas + WhatsApp",
+      "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks, una empresa de desarrollo de software aquí en Guadalajara.\n\nVi su clínica Tiny Smiles y me pareció muy profesional. ¿Tienen página web propia?\n\nLes puedo ayudar a tener una web moderna donde sus pacientes puedan ver servicios, agendar citas y contactarlas por WhatsApp directamente.\n\n¿Les interesa conocer más?",
+      "actualizado": "2026-09-23 20:41"
     },
     {
       "id": "p-006",
@@ -71,43 +37,21 @@
       "monto": 0,
       "fecha": "2026-09-23",
       "notas": "Agencia de marketing. Propuesta: alianza estratégica (ellos marketing, nosotros desarrollo)",
-      "actualizado": "2026-09-23"
+      "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks.\n\nVi su proyecto Somos Red GDL y me parece excelente lo que hacen por los negocios locales.\n\nSomos una empresa de desarrollo de software aquí en GDL. ¿Les gustaría tener un aliado tecnológico para cuando sus clientes necesiten algo más complejo que una web básica?\n\nPodríamos hacer una alianza estratégica. ¿Hablamos?",
+      "actualizado": "2026-09-23 03:45"
     },
     {
       "id": "p-007",
       "nombre": "Dra. Kimberley Mariana Pineda Cruz",
       "negocio": "Dental Magaña",
-      "telefono": "",
+      "telefono": "+52 33 1349 2145",
       "fuente": "Doctoralia",
-      "estado": "Nuevo",
+      "estado": "Contactado",
       "monto": 4500,
       "fecha": "2026-09-23",
-      "notas": "Dos sucursales sin web centralizada. Propuesta: web multi-sucursal + citas online. Tel en Doctoralia",
-      "actualizado": "2026-09-23"
-    },
-    {
-      "id": "p-008",
-      "nombre": "Dr. (encontrar nombre)",
-      "negocio": "Clínica Dental La Zapopana",
-      "telefono": "+52 33 3613 6217",
-      "fuente": "Doctoralia",
-      "estado": "Nuevo",
-      "monto": 4500,
-      "fecha": "2026-09-23",
-      "notas": "Múltiples sucursales sin web profesional. Propuesta: web corporativa + citas multi-sucursal",
-      "actualizado": "2026-09-23"
-    },
-    {
-      "id": "p-009",
-      "nombre": "Mtra. Nora Alejandra Martín Galindo",
-      "negocio": "PROJAL",
-      "telefono": "33-3615-5557",
-      "fuente": "Google",
-      "estado": "Nuevo",
-      "monto": 8000,
-      "fecha": "2026-09-23",
-      "notas": "Financiera de PyMEs. Propuesta: sistema de gestión de créditos + portal de solicitud. Ext. 110",
-      "actualizado": "2026-09-23"
+      "notas": "Dos sucursales sin web centralizada. Tel confirmado (Jesús García 1927): +52 33 1349 2145. Propuesta: web multi-sucursal + citas online",
+      "mensaje": "Hola, ¿cómo está? Soy Daniel de D.Softworks.\n\nVi que Dental Magaña tiene dos sucursales en Guadalajara, ¡qué bueno que están creciendo!\n\n¿Tienen una página web donde sus pacientes puedan ver ambas ubicaciones y agendar citas? Les puedo ayudar a tener algo profesional que centralice todo.\n\n¿Hablamos?",
+      "actualizado": "2026-09-23 20:55"
     },
     {
       "id": "p-010",
@@ -119,20 +63,8 @@
       "monto": 0,
       "fecha": "2026-09-23",
       "notas": "Agencia de web básicas ($8,000). Propuesta: alianza para proyectos complejos + referidos",
-      "actualizado": "2026-09-23"
-    },
-    {
-      "id": "mudue1s9yeenu",
-      "nombre": "Daniel Aldana",
-      "negocio": "danielsoftworks",
-      "telefono": "3312345678",
-      "fuente": "Instagram",
-      "monto": 10000,
-      "notas": "vamos a ser ricos",
-      "estado": "Cerrado",
-      "fecha": "2026-09-23 02:29",
-      "actualizado": "2026-09-23 02:31",
-      "fechaCierre": "2026-09-23"
+      "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks.\n\nVi que Atelback hace páginas web para negocios pequeños, ¡muy buen servicio!\n\nSomos una empresa de desarrollo de software. ¿Les gustaría tener un aliado para cuando sus clientes necesiten algo más complejo como sistemas, apps o plataformas?\n\nPodríamos referirnos clientes mutuamente. ¿Hablamos?",
+      "actualizado": "2026-09-23 03:45"
     }
   ]
 }
