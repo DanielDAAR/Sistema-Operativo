@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D.Softworks OS — Panel de operacion</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='27' fill='%230e7c66'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='17' font-weight='700' fill='%23ffffff'%3EDSW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+
+<div class="auth-overlay" id="authScreen">
+  <div class="auth-card">
+    <div class="auth-brand"><span class="brand">DSW <span>OS</span></span></div>
+    <h1>Iniciar sesión</h1>
+    <p class="auth-sub">Acceso compartido para Daniel y su socio. Cada cambio se sincroniza en vivo.</p>
+    <label for="authEmail">Correo</label>
+    <input type="email" id="authEmail" placeholder="daniel@dssoftworks.mx" autocomplete="email">
+    <label for="authPass">Contraseña</label>
+    <input type="password" id="authPass" placeholder="Contraseña" autocomplete="current-password">
+    <div class="auth-error" id="authError"></div>
+    <button class="btn" id="btnLogin" style="width:100%">Entrar</button>
+    <p class="auth-note" id="authNote">Los 2 usuarios se crean una sola vez en Supabase (Autenticación → Agregar usuario).</p>
+  </div>
+</div>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<symbol id="i-dash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+<symbol id="i-funnel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="22,3 2,3 10,15 14,21 14,15 22,3"/><line x1="14" y1="15" x2="22" y2="15"/></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12V7H5a2 2 0 010-4h14v4"/><path d="M3 5v14a2 2 0 002 2h16v-5"/><path d="M18 12a2 2 0 100 4 2 2 0 000-4z"/></symbol>
+<symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+<symbol id="i-timeline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-report" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+<symbol id="i-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></symbol>
+<symbol id="i-grip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
+<symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="9 18 15 12 9 6"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+<symbol id="i-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22c-4.97 0-9-3.58-9-8 0-3.77 2.79-6.87 5.5-8 .83 1.89.94 3.73.5 5.5-1.24-2.33-1.67-4.75-1-6.5.2-.4.4-.8.6-1.2.2.4.4.8.6 1.2.66 1.75.23 4.17-1 6.5 2.71 1.13 5.5 4.23 5.5 8 0 4.42-4.03 8-9 8z"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c4.33-.5 7.5-3.25 8-8.33"/><path d="M6 20l2-4 2 4"/><path d="M18 20l-2-4-2 4"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12.01" y2="16"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
+</svg>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<nav class="drawer-panel" id="drawerPanel">
+  <button class="close-drawer" id="closeDrawer" aria-label="Cerrar menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="brand-section"><span class="brand">DSW <span>OS</span></span></div>
+  <nav id="drawerNav" role="tablist" aria-label="Secciones"></nav>
+</nav>
+
+<header class="app-header">
+  <button class="btn ghost small mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <img src="../logo_DSW.jpg" alt="D.Softworks" onerror="this.style.display='none'">
+  <div class="brand">D.Softworks <span>OS</span></div>
+  <div class="spacer"></div>
+  <div class="status"><span class="dot" id="connDot"></span><span id="connTxt">Conectando…</span><span class="badge hidden" id="msgBadge">0</span></div>
+  <button class="btn ghost small" id="btnSync" title="Traer los cambios del equipo desde la nube"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg><span class="btn-label">Sincronizar</span></button>
+  <button class="btn ghost small" id="btnLogout" title="Cerrar sesión"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span class="btn-label">Salir</span></button>
+  <button class="btn ghost small theme-toggle" id="btnTheme" title="Cambiar tema claro/oscuro" aria-label="Cambiar tema claro/oscuro">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="theme-icon theme-icon-sun" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="theme-icon theme-icon-moon" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <span class="theme-label" id="themeLabel">Claro</span>
+  </button>
+</header>
+
+<div class="app-layout">
+<aside class="app-sidebar" id="appSidebar">
+  <div class="brand-section"><span class="brand">DSW <span>OS</span></span></div>
+  <nav id="sidebarNav" role="tablist" aria-label="Secciones"></nav>
+  <div class="sidebar-footer">D.Softworks OS · Guadalajara, Jal</div>
+</aside>
+
+<main class="app-main">
+
+<!-- ============ DASHBOARD ============ -->
+<section class="tab-panel active" id="tab-dashboard" role="tabpanel" aria-labelledby="tb-dashboard" tabindex="0">
+  <h2>Dashboard</h2>
+  <div class="kpi-grid" id="dashKPIs"></div>
+  <div class="grid two" style="margin-bottom:18px">
+    <div class="card" id="dashPriorities"></div>
+    <div class="card" id="dashEmbudo"></div>
+  </div>
+  <div class="grid two">
+    <div class="card" id="dashEngine"></div>
+    <div class="card" id="dashAgenda"></div>
+  </div>
+  <div class="grid two" style="margin-top:14px">
+    <div class="card" id="dashMovimientos"></div>
+    <div class="card" id="dashSistema"></div>
+  </div>
+</section>
+
+<!-- ============ PIPELINE ============ -->
+<section class="tab-panel" id="tab-pipeline" role="tabpanel" aria-labelledby="tb-pipeline" tabindex="0">
+  <h2>Pipeline <span class="cat" id="pipeSub"></span></h2>
+  <div class="grid three" style="margin-bottom:14px" id="pipeKPIs"></div>
+  <div class="card" style="margin-bottom:16px" id="prospectFormCard"></div>
+  <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
+    <select id="filterEstado" style="width:auto" aria-label="Filtrar por estado"><option value="">Todos los estados</option><option>Nuevo</option><option>Contactado</option><option>Respondió</option><option>Reunión</option><option>Cotizado</option><option>Cerrado</option><option>No registrado</option><option>Sin respuesta</option></select>
+    <select id="pipeFilterFuente" style="width:auto" aria-label="Filtrar por fuente"><option value="">Todas las fuentes</option></select>
+    <button class="btn ghost small" id="copyTsv">Copiar TSV</button>
+    <span style="flex:1"></span>
+  </div>
+  <div class="kanban" id="kanban"></div>
+</section>
+
+<!-- ============ PROYECTOS ============ -->
+<section class="tab-panel" id="tab-proyectos" role="tabpanel" aria-labelledby="tb-proyectos" tabindex="0">
+  <h2>Proyectos <span class="cat" id="proySub"></span></h2>
+  <div class="grid two" style="margin-bottom:14px" id="proyKPIs"></div>
+  <div class="card" style="margin-bottom:16px" id="proyFormCard"></div>
+  <div class="p-list" id="proyList"></div>
+</section>
+
+<!-- ============ AGENDA ============ -->
+<section class="tab-panel" id="tab-agenda" role="tabpanel" aria-labelledby="tb-agenda" tabindex="0">
+  <h2>Agenda <span class="cat">Reuniones</span></h2>
+  <div class="card" style="margin-bottom:16px" id="agendaFormCard"></div>
+  <div id="agendaList"></div>
+</section>
+
+<!-- ============ COTIZACIONES ============ -->
+<section class="tab-panel" id="tab-cotizaciones" role="tabpanel" aria-labelledby="tb-cotizaciones" tabindex="0">
+  <h2>Cotizaciones <span class="cat">Cotizaciones</span></h2>
+  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Toda cotizacion: valida 15 dias, anticipo 50%, transferencia o efectivo. Si no esta aqui, no se envio.</p>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:14px">
+    <div class="stat"><b id="qTotal">0</b><span>Enviadas</span></div>
+    <div class="stat"><b id="qAcept">0</b><span>Aceptadas</span></div>
+    <div class="stat"><b id="qMonto">$0</b><span>Monto aceptado</span></div>
+    <div class="stat"><b id="qPend">0</b><span>Pendientes</span></div>
+  </div>
+  <div class="card" style="margin-bottom:16px" id="cotFormCard"></div>
+  <div class="p-list" id="cotList"></div>
+</section>
+
+<!-- ============ FINANZAS ============ -->
+<section class="tab-panel" id="tab-finanzas" role="tabpanel" aria-labelledby="tb-finanzas" tabindex="0">
+  <h2>Finanzas <span class="cat">Finanzas</span></h2>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:14px">
+    <div class="stat"><b id="fIngresos">$0</b><span>Ingresos del mes</span></div>
+    <div class="stat"><b id="fEgresos">$0</b><span>Egresos del mes</span></div>
+    <div class="stat"><b id="fNeto">$0</b><span>Neto del mes</span></div>
+    <div class="stat"><b id="fMeta">$0</b><span>Meta del mes</span></div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;font-size:13px"><span>Avance hacia la meta</span><span style="color:var(--muted)" id="fPct">0%</span></div>
+    <div class="progress"><i id="fBar"></i></div>
+    <div class="form-row" style="margin-bottom:0">
+      <div><label for="fMetaInput">Editar meta mensual (MXN)</label><input type="number" id="fMetaInput" min="0" step="500"></div>
+      <div style="display:flex;align-items:flex-end"><button class="btn ghost" id="saveMeta">Guardar meta</button></div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:16px" id="movFormCard"></div>
+  <h3>Movimientos del mes</h3>
+  <div class="p-list" id="fList"></div>
+</section>
+
+<!-- ============ CONTENIDO ============ -->
+<section class="tab-panel" id="tab-contenido" role="tabpanel" aria-labelledby="tb-contenido" tabindex="0">
+  <h2>Contenido <span class="cat">Contenido</span></h2>
+  <div class="help" id="nextPost" style="margin-bottom:14px">Proxima publicacion: —</div>
+  <div class="card" style="margin-bottom:16px" id="contFormCard"></div>
+  <div class="p-list" id="kList"></div>
+</section>
+
+<!-- ============ MENSAJES ============ -->
+<section class="tab-panel" id="tab-mensajes" role="tabpanel" aria-labelledby="tb-mensajes" tabindex="0">
+  <h2>Mensajes al cerebro <span class="cat">Mensajes</span></h2>
+  <p style="color:var(--muted);margin-bottom:14px;font-size:13px">Escribe lo que necesites de mi: preparar un mensaje para un prospecto, una cotizacion, decidir el siguiente paso, dudas, bloqueos. <b style="color:var(--txt)">El cerebro responde cuando me dices «revisa la app» o «ya terminé»</b> — las respuestas nuevas aparecen con el contador en Mensajes.</p>
+  <div class="card" style="margin-bottom:16px">
+    <label for="mInput">Tu mensaje</label>
+    <textarea id="mInput" placeholder="Ej: El prospecto Barbería El Corte quiere una página. Prepara el mensaje de contacto y la cotización."></textarea>
+    <div style="margin-top:10px"><button class="btn" id="sendMsg">Enviar al cerebro</button></div>
+  </div>
+  <div id="mList"></div>
+</section>
+
+<!-- ============ MÉTRICAS ============ -->
+<section class="tab-panel" id="tab-metricas" role="tabpanel" aria-labelledby="tb-metricas" tabindex="0">
+  <h2>Métricas <span class="cat">Calculado</span></h2>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
+    <div class="stat"><b id="mWeek">0</b><span>Contactos esta semana</span><div class="goal">meta: 50</div></div>
+    <div class="stat"><b id="mTotal">0</b><span>Prospectos totales</span></div>
+    <div class="stat"><b id="mResp">0</b><span>Respuestas</span><div class="goal" id="mRespPct">0% de contacto</div></div>
+    <div class="stat"><b id="mCot">0</b><span>Cotizaciones</span></div>
+    <div class="stat"><b id="mCierre">0</b><span>Cierres</span><div class="goal">meta mes: 3</div></div>
+    <div class="stat"><b id="mTasks">0%</b><span>Tareas completadas</span></div>
+    <div class="stat"><b id="mClientes">0</b><span>Clientes activos</span></div>
+    <div class="stat"><b id="mMes">$0</b><span>Ingresos del mes</span><div class="goal" id="mMetaPct">meta: $10,000</div></div>
+  </div>
+  <h3>Por estado</h3>
+  <div class="card" id="estadoBars"></div>
+  <h3 style="margin-top:18px">Canal de origen</h3>
+  <div class="card" id="fuenteBars"></div>
+  <h3 style="margin-top:18px">Ingresos por mes</h3>
+  <div class="card" id="sparklineCard"></div>
+  <div class="help warn" style="margin-top:18px">Regla de oro: si no esta en la hoja, no existe. Copia los prospectos a Google Sheets con el botón Copiar TSV y llena las métricas todos los viernes.</div>
+</section>
+
+<!-- ============ TAREAS ============ -->
+<section class="tab-panel" id="tab-tareas" role="tabpanel" aria-labelledby="tb-tareas" tabindex="0">
+  <h2>Tareas <span class="cat">Tareas</span></h2>
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;font-size:13px">
+      <span id="progTxt">0 de 0 completadas</span>
+      <span style="color:var(--muted)" id="progPct">0%</span>
+    </div>
+    <div class="progress"><i id="progBar"></i></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <span class="cat" id="countToday">Vencen hoy: 0</span>
+      <span class="cat" id="countOver">Vencidas: 0</span>
+      <span class="cat" id="countPend">Pendientes: 0</span>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="form-row one">
+      <div><label for="newTask">Tarea nueva</label><input id="newTask" placeholder="Ej: Enviar seguimiento a Barbería López"></div>
+    </div>
+    <div class="form-row">
+      <div><label for="newTaskDue">Vence</label><input type="date" id="newTaskDue"></div>
+      <div style="display:flex;align-items:flex-end;gap:8px">
+        <button class="btn" id="addTask">+ Agregar tarea</button>
+        <button class="btn ghost hidden" id="cancelTaskEdit">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  <div id="taskList"></div>
+</section>
+
+<!-- ============ BITÁCORA ============ -->
+<section class="tab-panel" id="tab-bitacora" role="tabpanel" aria-labelledby="tb-bitacora" tabindex="0">
+  <h2>Bitácora <span class="cat">Bitácora</span></h2>
+  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:14px">
+    <span id="bitCount">0 eventos</span>
+    <span style="color:var(--muted)" id="bitDesde"></span>
+  </div>
+  <div class="timeline" id="bitList"></div>
+</section>
+
+<!-- ============ REPORTES ============ -->
+<section class="tab-panel" id="tab-reportes" role="tabpanel" aria-labelledby="tb-reportes" tabindex="0">
+  <h2>Reportes <span class="cat">Reportes</span></h2>
+  <div style="display:flex;gap:10px;margin-bottom:14px;align-items:center;flex-wrap:wrap">
+    <button class="btn" id="genReporte">Generar reporte de la semana</button>
+    <label style="font-size:13px;color:var(--muted)">Semana:</label>
+    <select id="reporteWeek" style="width:auto"></select>
+  </div>
+  <div id="reporteActual"></div>
+  <h3 style="margin-top:18px">Historial</h3>
+  <div id="reportesList"></div>
+</section>
+
+<!-- ============ AYUDA ============ -->
+<section class="tab-panel" id="tab-ayuda" role="tabpanel" aria-labelledby="tb-ayuda" tabindex="0">
+  <h2>Ayuda</h2>
+  <div class="card" id="ayudaBody" style="line-height:1.9;font-size:14px">
+    <b style="color:var(--accent)">1. El cerebro (IA) escribe</b> → actualiza app/tareas.json con lo que debe hacer hoy.<br>
+    <b style="color:var(--accent)">2. Tú ejecutas</b> → marcas tareas, agregas prospectos, escribes mensajes.<br>
+    <b style="color:var(--accent)">3. Guardas</b> → con la carpeta conectada, todo se guarda en los JSON.<br>
+    <b style="color:var(--accent)">4. El cerebro lee</b> → cuando me dices "revisa la app" o "ya terminé", leo los JSON y te doy el siguiente paso.<br><br>
+    <b>Tablero (Dashboard):</b> KPIs en vivo, embudo, reglas, proximas reuniones, ultimos movimientos.<br>
+    <b>Pipeline:</b> Kanban con arrastrar-soltar, montos en MXN, probabilidad por etapa.<br>
+    <b>Proyectos:</b> clientes con anticipo, saldo y entrega. Al Entregar → aviso de cobro.<br>
+    <b>Agenda:</b> reuniones con resultado obligatorio al marcar Realizada.<br>
+    <b>Cotizaciones:</b> documento imprimible, copiar texto para WhatsApp.<br>
+    <b>Motor de reglas:</b> alertas que no dejan escapar dinero.<br>
+    <b>Bitácora:</b> cada acción queda registrada para la historia.<br>
+    <b>Reportes:</b> genero el de la semana con KPIs vs meta.<br><br>
+    <b>Sincronizar:</b> vuelve a leer los archivos por si el cerebro los actualizó desde fuera.<br>
+    <b>Conectar carpeta:</b> selecciona app/ una sola vez; el navegador recuerda el permiso.<br>
+    <b>Sin conexión a archivos:</b> la app funciona en modo local (navegador) pero el cerebro NO vera los cambios.<br><br>
+    <b>Metodologías:</b> ritua diario 60 min y meta $10k/mes, pipeline Nuevo→Contactado→Respondió→Reunión→Cotizado→Cerrado, 50 contactos/semana, anticipo 50% obligatorio.
+  </div>
+</section>
+
+<!-- ============ MODAL COTIZACIÓN DOCUMENTO ============ -->
+<div class="modal-overlay" id="cotDocModal">
+  <div class="modal" id="cotDocContent"></div>
+</div>
+
+<!-- ============ MODAL VER COTIZACIÓN ============ -->
+<div class="modal-overlay" id="verCotModal">
+  <div class="modal" id="verCotContent"></div>
+</div>
+
+<div id="onboard" class="onboard-banner"><b>Bienvenido a D.Softworks OS Cloud</b> — tu data vive en Supabase y se sincroniza en vivo entre Daniel y su socio. Los dos trabajan sobre la misma base (prospectos, cotizaciones, finanzas, tareas). Tu navegador guarda una copia local para seguir aunque estés sin internet; al reconectar se fusiona sola.<br><button class="btn ghost small" id="dismissOnboard">Entendido, empezar</button></div>
+</main>
+</div>
+
+<footer class="no-print">D.Softworks OS · Panel de control de la empresa · los datos viven en Supabase (Postgres) y se sincronizan en vivo entre los dos socios</footer>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js?v=4"></script>
+</body>
+</html>

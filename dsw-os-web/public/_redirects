@@ -1,0 +1,3 @@
+# Internos: nunca servir esto en producción (contienen la key service_role)
+/tools/*			/	404
+/supabase/*			/	404

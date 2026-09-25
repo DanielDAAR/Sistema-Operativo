@@ -25,6 +25,15 @@ The user runs `app/index.html` in a browser (double-click, no server). Data file
 - JSON must stay valid (UTF-8, no trailing commas) or the app shows stale localStorage cache silently.
 - After updating any of these files, tell the user to hit **⟳ Sincronizar** in the app (or refocus the window).
 
+### Canal de datos nuevo: D.Softworks OS en la nube (2026-09-24)
+
+The humans now use a **cloud app**: `https://dsw-os.netlify.app` (Netlify site `dsw-os`) backed by **Supabase project `dsw-os`** (ref `pwlajncxlifmlihisqwy`). Two logins: `daniel@dssoftworks.mx` and `cesar@dssoftworks.mx` (passwords delivered via chat, not in repo). Full memory in `MIGRACION-NUBE.md` — read it before touching the new stack.
+
+- The old `app/` folder is still the **brain's working copy** of the JSON; the cloud `data` in Supabase is the shared source of truth for the humans.
+- Brain pushes/pulls via `node dsw-os-web/tools/sync-data.js push|pull [colecciones...]` (creds in `dsw-os-web/tools/creds.json`, gitignored). After any brain mutation, tell the user to hit **⟳ Sincronizar** in the cloud app too.
+- Never deploy anything but `dsw-os-web/public/` to Netlify (`tools/`, `supabase/` and `creds.json` must stay 404).
+- `config.js` now lives at `dsw-os-web/public/config.js`.
+
 ## App structure
 
 - `app/index.html` — solo markup + link a CSS + script src (sin JS inline)
@@ -35,10 +44,11 @@ The user runs `app/index.html` in a browser (double-click, no server). Data file
 - Motor de reglas en Dashboard (alertas para no dejar escapar dinero)
 - Cotizaciones tienen documento imprimible (modal, `@media print`) y copia de texto para WhatsApp
 
-## Execution state (as of 2026-09-22)
+## Execution state (as of 2026-09-24)
 
 - Fases 1–4 of `PLAN-DE-ACCION.md` are ✅ complete (services, prices, portfolio, templates, sales system, prospecting system).
-- **Next: Fase 5 — prospección activa.** North star: **`MODO-MILLONARIO.md`** (ritua diario 60 min, meta 50 contactos/semana). Immediate pending items from `00-Primeros-pasos.md`: publish `07-Marketing/Publicaciones/Portafolio-01-GMFire.md`, create the Google Sheets from `05-Prospectos/`, send the 10 prospects already pre-loaded in `app/data/prospectos.json`.
+- **App migrada a la nube (2026-09-24):** el OS corre en `https://dsw-os.netlify.app` (Netlify `dsw-os-web/public`) con datos en Supabase `dsw-os`; `app/` local queda como copia de trabajo del cerebro. Bug crítico de carga (listeners de cancel-edit en elementos null) corregido y verificado vía E2E (v=4). Detalles en `MIGRACION-NUBE.md`.
+- **Next: Fase 5 — prospección activa.** Pipeline **22 prospectos** (bruto $33,300): Nuevo 2 · Contactado 10 · No registrado 9 · Sin respuesta 1. Lote original contactado (t-001→t-005 ✅). Pendiente: mensajes a El ZarCortes, Barber Chuy y Barras y Mancuernas (únicos del lote nuevo con WhatsApp válido) y publicar `07-Marketing/Publicaciones/Portafolio-01-GMFire.md`. North star: `MODO-MILLONARIO.md` (60 min, 50 contactos/semana).
 - Goals: 50 contacts/week, 3 closed clients in month 2, weekly metrics every Friday.
 
 ## Sources of truth (watch for conflicts)

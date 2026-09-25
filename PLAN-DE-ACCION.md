@@ -704,7 +704,7 @@ Imprimir esto y marcar cada vez que se complete algo:
 
 ---
 
-## 📊 ESTADO DE EJECUCIÓN (Actualizado: 18 de septiembre de 2026)
+## 📊 ESTADO DE EJECUCIÓN (Actualizado: 24 de septiembre de 2026)
 
 ### FASE 1: ORGANIZACIÓN INTERNA (Días 1-3) — ✅ COMPLETADA
 - [x] Paso 1: Servicios definidos (4 servicios principales)
@@ -734,8 +734,9 @@ Imprimir esto y marcar cada vez que se complete algo:
 - [x] Paso 19: Sistema de métricas creado
 - [x] Paso 20: Proceso de ajuste documentado
 
-### FASE 5: PRIMEROS CLIENTES (Mes 2) — ⏳ PENDIENTE DE EJECUCIÓN
-- [ ] Paso 21: Ejecutar prospección activa
+### FASE 5: PRIMEROS CLIENTES (Mes 2) — 🔄 EN EJECUCIÓN
+- [~] Paso 21: Ejecutar prospección activa — ✅ lote original enviado (10 prospectos: DEO, Tiny Smiles, Denticelis, La Matera, Alcalde, Somos Red, Atelback, Dental Magaña, La Zapopana, PROJAL); 🔄 lote nuevo: enviar a El ZarCortes, Barber Chuy y Barras y Mancuernas (9 quedaron "No registrado" sin WhatsApp)
+- [~] Paso 21 (infra): ✅ app migrada a la nube (dsw-os.netlify.app + Supabase) y bug de carga de datos corregido (24-sep)
 - [ ] Paso 22: Cerrar y entregar proyectos
 - [ ] Paso 23: Obtener testimonios
 - [ ] Paso 24: Analizar resultados
@@ -773,10 +774,10 @@ Imprimir esto y marcar cada vez que se complete algo:
 - [x] Reglas de cobro establecidas
 - [x] Checklists de entrega creados
 
-### SEMANA 3 — ⏳ PENDIENTE
-- [ ] Prospección iniciada (25 contactos mínimo)
-- [ ] Hoja de prospectos en uso
-- [ ] Rutina diaria establecida
+### SEMANA 3 — 🔄 EN CURSO (parcial: 10/25 contactados)
+- [~] Prospección iniciada (lote original de 10 enviado; faltan 15 contactos)
+- [ ] Hoja de prospectos en uso (estructura en `05-Prospectos/Hoja-prospectos.md`)
+- [ ] Rutina diaria establecida (north star: `MODO-MILLONARIO.md`)
 
 ### SEMANA 4 — ⏳ PENDIENTE
 - [ ] 50 contactos realizados

@@ -1,0 +1,3 @@
+node_modules/
+tools/creds.json
+.DS_Store

@@ -70,21 +70,26 @@ Usar las publicaciones que ya creé:
 
 ---
 
-## CHECKLIST FINAL
+## ✅ CHECKLIST FINAL — ESTADO 24 SEP 2026
 
-### Hoy:
+### Configuración — ✅ COMPLETADO
 - [x] Facebook optimizado
 - [x] Instagram optimizado
-- [ ] 1 publicación de portafolio en ambas redes
-- [ ] Google Sheets creado
-- [x] Fichas de portafolio completadas ✅ CON URLs REALES
+- [x] Fichas de portafolio completadas (URLs reales)
 - [x] Número de WhatsApp agregado
+- [x] App del sistema operativo migrada a la nube (dsw-os.netlify.app) y bug de carga corregido
 
-### Mañana:
-- [ ] Empezar prospección (10 negocios)
-- [ ] Enviar primeros mensajes
-- [ ] Publicar contenido educativo
-- [ ] Actualizar métricas
+### Prospección — lote original ✅ ENVIADO (10)
+- [x] DEO, Tiny Smiles, Denticelis, La Matera, Alcalde, Somos Red, Atelback, Dental Magaña, La Zapopana, PROJAL
+
+### HOY — siguiente movimiento
+- [ ] Enviar mensaje a El ZarCortes, Barber Chuy y Barras y Mancuernas (únicos del lote nuevo con WhatsApp; los otros 9 quedaron "No registrado")
+- [ ] Pulsar ⟳ Sincronizar en la app para registrar los mensajes
+- [ ] Publicar `07-Marketing/Publicaciones/Portafolio-01-GMFire.md` en FB + IG
+
+### Pendientes menores
+- [ ] Crear Google Sheets de prospectos (`05-Prospectos/Hoja-prospectos.md`)
+- [ ] Publicar contenido educativo (`Educativo-01-CincoCosas.md`)
 
 ---
 
@@ -92,13 +97,13 @@ Usar las publicaciones que ya creé:
 
 | Día | Acción |
 |-----|--------|
-| Hoy | Optimizar redes + publicar portafolio |
-| Mañana | Prospección: 10 negocios |
-| Día 3 | Prospección: 10 negocios + seguimiento |
-| Día 4 | Publicar contenido educativo |
-| Día 5 | Prospección: 10 negocios + seguimiento |
-| Día 6 | Publicar portafolio |
-| Día 7 | Reunión semanal + análisis de métricas |
+| Hoy | Enviar 3 mensajes del lote nuevo + publicar Portafolio GMFire |
+| Mañana | Seguimiento a Contactado que no respondió + publicar educativo |
+| Día 3 | 10 nuevos contactos (north star MODO-MILLONARIO) |
+| Día 4 | Seguimiento + actualizar estados en la app |
+| Día 5 | 10 nuevos contactos |
+| Día 6 | Seguimiento y cierre de conversaciones |
+| Día 7 | Reunión semanal + métricas (`05-Prospectos`) |
 
 ---
 
