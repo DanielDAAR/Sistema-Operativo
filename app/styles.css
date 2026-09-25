@@ -30,6 +30,7 @@
   --chip-cotizado-bg: #fdf0d6; --chip-cotizado-tx: #a16207;
   --chip-cerrado-bg: #d9f0e3; --chip-cerrado-tx: #15803d;
   --chip-sinrep-bg: #fde4e1; --chip-sinrep-tx: #c0392b;
+  --chip-noreg-bg: #e4e7ec; --chip-noreg-tx: #5f6b7d;
   --due-bg: #fdf0d6; --due-tx: #a16207;
   --due-over-bg: #fde4e1; --due-over-tx: #c0392b;
   --due-ok-bg: #d9f0e3; --due-ok-tx: #15803d;
@@ -72,6 +73,7 @@ html[data-theme="dark"] {
   --chip-cotizado-bg: #5c3d0d; --chip-cotizado-tx: #ffc46b;
   --chip-cerrado-bg: #14471f; --chip-cerrado-tx: #6fe08a;
   --chip-sinrep-bg: #5c1a1a; --chip-sinrep-tx: #ff8a8a;
+  --chip-noreg-bg: #2a3245; --chip-noreg-tx: #9aa6bd;
   --due-bg: #5c3d0d; --due-tx: #ffc46b;
   --due-over-bg: #5c1a1a; --due-over-tx: #ff8a8a;
   --due-ok-bg: #14471f; --due-ok-tx: #6fe08a;
@@ -178,6 +180,7 @@ html[data-theme="dark"] .theme-icon-moon { display: block; }
 .chip.cotizado, .chip.pendiente { background: var(--chip-cotizado-bg); color: var(--chip-cotizado-tx); }
 .chip.cerrado, .chip.aceptada, .chip.publicada, .chip.realizada { background: var(--chip-cerrado-bg); color: var(--chip-cerrado-tx); }
 .chip.sinrep, .chip.rechazada, .chip.cancelada { background: var(--chip-sinrep-bg); color: var(--chip-sinrep-tx); }
+.chip.noreg { background: var(--chip-noreg-bg); color: var(--chip-noreg-tx); }
 
 /* === CAT (small label) === */
 .cat { display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: .3px; color: var(--muted); vertical-align: middle; }

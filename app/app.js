@@ -258,7 +258,7 @@ function renderDashboard(){
   var mk=today().slice(0,7);
   var ing=(state.finanzas.movimientos||[]).filter(function(m){return(m.fecha||'').slice(0,7)===mk&&m.tipo==='ingreso'}).reduce(function(s,m){return s+Number(m.monto||0)},0);
   var meta=Number(state.finanzas.metaMes||0);
-  var prob={Nuevo:.10,Contactado:.20,Respondió:.40,Reunión:.60,Cotizado:.80,Cerrado:1,'Sin respuesta':.05};
+  var prob={Nuevo:.10,Contactado:.20,Respondió:.40,Reunión:.60,Cotizado:.80,Cerrado:1,'No registrado':.05,'Sin respuesta':.05};
   var pipelineW=ps.reduce(function(s,p){return s+(Number(p.monto||0)*prob[p.estado]||0)},0);
   var pipelineBruto=ps.reduce(function(s,p){return s+Number(p.monto||0)},0);
   var cerrados=ps.filter(function(p){return p.estado==='Cerrado'&&p.fechaCierre&&p.fechaCierre.slice(0,7)===mk}).length;
@@ -286,7 +286,7 @@ function renderDashboard(){
   $('#dashCTA2').addEventListener('click',function(){goTab('contenido')});
   $('#dashCTA3').addEventListener('click',function(){goTab('pipeline')});
 
-  var embudoEstados=['Nuevo','Contactado','Respondió','Reunión','Cotizado','Cerrado','Sin respuesta'];
+  var embudoEstados=['Nuevo','Contactado','Respondió','Reunión','Cotizado','Cerrado','No registrado','Sin respuesta'];
   var embudoCounts=embudoEstados.map(function(e){return ps.filter(function(p){return p.estado===e}).length});
   var embHtml='<h3>Embudo</h3>';
   embudoEstados.forEach(function(e,i){
@@ -338,9 +338,9 @@ function checkRules(){
   return rules;
 }
 
-var ESTADOS=['Nuevo','Contactado','Respondió','Reunión','Cotizado','Cerrado','Sin respuesta'];
-var PROB={'Nuevo':.10,'Contactado':.20,'Respondió':.40,'Reunión':.60,'Cotizado':.80,'Cerrado':1,'Sin respuesta':.05};
-var EST_CLS={'Nuevo':'nuevo','Contactado':'contactado','Respondió':'respondio','Reunión':'reunion','Cotizado':'cotizado','Cerrado':'cerrado','Sin respuesta':'sinrep'};
+var ESTADOS=['Nuevo','Contactado','Respondió','Reunión','Cotizado','Cerrado','No registrado','Sin respuesta'];
+var PROB={'Nuevo':.10,'Contactado':.20,'Respondió':.40,'Reunión':.60,'Cotizado':.80,'Cerrado':1,'No registrado':.05,'Sin respuesta':.05};
+var EST_CLS={'Nuevo':'nuevo','Contactado':'contactado','Respondió':'respondio','Reunión':'reunion','Cotizado':'cotizado','Cerrado':'cerrado','No registrado':'noreg','Sin respuesta':'sinrep'};
 function waNum(p){var d=String(p.telefono||'').replace(/\D/g,'');if(d.slice(0,2)==='52')d=d.slice(2);return d.length===10?('521'+d):(d.length?('52'+d):'')}
 var msgDirty=false;
 function offerLine(m,neg){
@@ -398,7 +398,7 @@ function renderPipeline(){
     items.forEach(function(p){
       var montoCls=!p.monto?'sin-monto':'';
       var montoText=p.monto?mxn(p.monto):'sin monto';
-      colHtml+='<div class="kanban-card" draggable="true" data-pid="'+esc(p.id)+'"><div class="card-name">'+esc(p.nombre)+'</div><div class="card-biz">'+esc(p.negocio)+'</div><div class="card-monto '+montoCls+'">'+montoText+'</div><div class="card-meta"><span class="chip '+EST_CLS[est]+'">'+esc(est)+'</span><span class="card-days">'+(p.fecha||'').slice(0,10)+'</span></div>'+(p.telefono?'<div class="card-wa"><button class="btn wa small" data-wa="'+esc(p.id)+'" title="Enviar mensaje personalizado">WhatsApp</button><button class="btn ghost small" data-wacopy="'+esc(p.id)+'" title="Copiar mensaje">Copiar</button></div>':'<div class="card-wa none"><span class="wa-none">Sin teléfono</span></div>')+'<div class="card-actions"><button class="btn ghost small" data-pedit="'+esc(p.id)+'">Editar</button><button class="btn ghost small" data-pdel="'+esc(p.id)+'">Eliminar</button></div></div>';
+      colHtml+='<div class="kanban-card" draggable="true" data-pid="'+esc(p.id)+'"><div class="card-name">'+esc(p.nombre)+'</div><div class="card-biz">'+esc(p.negocio)+'</div><div class="card-monto '+montoCls+'">'+montoText+'</div><div class="card-meta"><span class="chip '+EST_CLS[est]+'">'+esc(est)+'</span><span class="card-days">'+(p.fecha||'').slice(0,10)+'</span></div>'+(p.telefono?'<div class="card-wa"><button class="btn wa small" data-wa="'+esc(p.id)+'" title="Enviar mensaje personalizado">WhatsApp</button><button class="btn ghost small" data-wacopy="'+esc(p.id)+'" title="Copiar mensaje">Copiar</button><button class="btn ghost small noreg" data-noreg="'+esc(p.id)+'" title="Marcar número NO registrado en WhatsApp">No reg</button></div>':'<div class="card-wa none"><span class="wa-none">Sin teléfono</span></div>')+'<div class="card-actions"><button class="btn ghost small" data-pedit="'+esc(p.id)+'">Editar</button><button class="btn ghost small" data-pdel="'+esc(p.id)+'">Eliminar</button></div></div>';
     });
     return'<div class="kanban-col" data-estado="'+esc(est)+'"><div class="col-header">'+esc(est)+' <span class="count">'+items.length+'</span></div><div class="col-body" data-drop="'+esc(est)+'">'+colHtml+'</div></div>';
   });
@@ -408,6 +408,7 @@ function renderPipeline(){
   $$('[data-pdel]').forEach(function(b){b.addEventListener('click',function(){delProspect(b.dataset.pdel)})});
   $$('[data-wa]').forEach(function(b){b.addEventListener('click',function(){var p=state.prospectos.prospectos.find(function(x){return x.id===b.dataset.wa});if(!p)return;var url=waLink(p);if(!url){toast('Falta el teléfono de '+p.nombre,'err');return}window.open(url,'_blank')})});
   $$('[data-wacopy]').forEach(function(b){b.addEventListener('click',function(){var p=state.prospectos.prospectos.find(function(x){return x.id===b.dataset.wacopy});if(!p)return;navigator.clipboard.writeText(waMsg(p)).then(function(){toast('Mensaje copiado, pégalo en WhatsApp'+(p.telefono?' ('+p.telefono+')':''))}).catch(function(){toast('No se pudo copiar','err')})})});
+  $$('[data-noreg]').forEach(function(b){b.addEventListener('click',function(){markNoReg(b.dataset.noreg)})});
   $$('[data-drop]').forEach(function(zone){
     zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('drag-over')});
     zone.addEventListener('dragleave',function(){zone.classList.remove('drag-over')});
@@ -462,6 +463,18 @@ function bindPipelineStatic(){
   });
 }
 async function delProspect(id){var arr=state.prospectos.prospectos;var i=arr.findIndex(function(x){return x.id===id});if(i<0)return;var p=arr[i];if(!confirm('¿Eliminar a '+p.nombre+' — '+p.negocio+'?'))return;var rm=arr.splice(i,1)[0];await save('prospectos');renderPipeline();renderMetrics();toast('Prospecto eliminado','',{label:'Deshacer',fn:async function(){arr.splice(i,0,rm);await save('prospectos');renderPipeline();renderMetrics();toast('Prospecto restaurado')}})}
+async function markNoReg(id){
+  var p=state.prospectos.prospectos.find(function(x){return x.id===id});if(!p)return;
+  if(p.estado==='No registrado'){toast(p.nombre+' ya está en No registrado','err');return}
+  if(!confirm('¿Marcar a '+p.nombre+' ('+(p.telefono||'sin teléfono')+') como número NO registrado en WhatsApp?'))return;
+  p.estado='No registrado';
+  if(p.notas&&!/no registrado/i.test(p.notas)){p.notas=p.notas.trim();if(!/[.!]$/.test(p.notas))p.notas+='.';p.notas+=' Número no registrado en WhatsApp.'}
+  else if(!p.notas){p.notas='Número no registrado en WhatsApp.'}
+  p.actualizado=stamp();
+  await save('prospectos');renderPipeline();renderMetrics();
+  log('prospecto-no-reg','Número no registrado',p.nombre+' — '+p.negocio+' ('+(p.telefono||'sin teléfono')+')');
+  toast(p.nombre+' marcado como No registrado');
+}
 
 var CL_EST={'En desarrollo':'contactado','En revisión':'cotizado','Esperando pago':'reunion','Entregado':'cerrado'};
 function renderProyectos(){
