@@ -158,6 +158,10 @@
     {"tendencia": "63% de empresas chilenas migran de chat a canal de ventas", "que": "El Ecosistema Startup (14-ago-2026): WhatsApp API como canal de ventas formal", "fecha": "14-ago-2026", "veredicto": "Refuerza O-12: la migración a API ya es tendencia regional, no teoría"},
     {"tendencia": "Herramientas de generación de leads 2026", "que": "Salesforce (3-jul-2026): las 23 mejores herramientas de lead gen", "fecha": "03-jul-2026", "veredicto": "Contexto: el mercado de lead gen está maduro; D.Softworks compite con servicio, no con software"},
     {"tendencia": "SDR de IA redefiniendo las ventas", "que": "IBM (7-abr-2026): agentes de IA que hacen el trabajo de los SDR", "fecha": "07-abr-2026", "veredicto": "Contexto: la IA fría ya contacta clientes; D.Softworks vende el toque humano (conecta con O-10)"},
-    {"tendencia": "Método digital: tráfico web → ventas reales", "que": "Infobae (2-sep-2026): cómo convertir tráfico en ventas", "fecha": "02-sep-2026", "veredicto": "Refuerza O-02 y O-09: el tráfico sin optimizar es dinero perdido"}
+    {"tendencia": "Método digital: tráfico web → ventas reales", "que": "Infobae (2-sep-2026): cómo convertir tráfico en ventas", "fecha": "02-sep-2026", "veredicto": "Refuerza O-02 y O-09: el tráfico sin optimizar es dinero perdido"},
+    {"tendencia": "WhatsApp cobrará $15-22 por mensaje", "que": "Teletrece (2-oct-2026): rango de precios por mensaje para empresas", "fecha": "02-oct-2026", "veredicto": "Refuerza O-04: el costo por mensaje ya es específico; el free tier de 1,000 msgs/mes es la ventaja"},
+    {"tendencia": "Meta Business Agent en WhatsApp", "que": "ENTER.CO (1-jul-2026): WhatsApp estrena agentes con IA para empresas", "fecha": "01-jul-2026", "veredicto": "Nueva oportunidad: 'setup de agente IA en WhatsApp' — monitorear cuando esté disponible en MX"},
+    {"tendencia": "Top 5 chatbots WhatsApp 2026", "que": "Marketing Directo (13-may-2026): plataformas de chatbot para WhatsApp", "fecha": "13-may-2026", "veredicto": "Contexto: competencia en automatización WhatsApp; D.Softworks puede revender setup"},
+    {"tendencia": "10 proveedores WhatsApp Business API", "que": "Marketing4eCommerce (11-sep-2025): landscape de BSPs", "fecha": "11-sep-2025", "veredicto": "Conecta con O-12: lista de BSPs para validar (360dialog, Twilio, etc.)"}
   ]
 }

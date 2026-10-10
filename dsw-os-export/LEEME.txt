@@ -1,5 +1,5 @@
 D.SOFTWORKS — EXPORTACIÓN PARA GOOGLE SHEETS
-Generado: 2026-10-10T19:19:25.345Z
+Generado: 2026-10-10T22:15:46.048Z
 
 CÓMO IMPORTAR (2 clics por archivo):
   1. Abre sheets.google.com → hoja nueva (en blanco).
