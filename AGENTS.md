@@ -30,7 +30,6 @@ D.Softworks "Sistema Operativo" — business operations docs for a freelance web
 **Cadence:** scan every response · promote/demote radar entries on Fridays · purge dead ones monthly.
 
 ## 🔁 REGLA DE EVOLUCIÓN (2026-10-10, regla permanente del usuario)
-
 **Cada respuesta debe dejar el repo notablemente mejor, enfocándose en un apartado NUEVO que facilite todo cada vez más.** El usuario busca actualizaciones notorias en el repo de GitHub: `https://github.com/DanielDAAR/Sistema-Operativo.git`.
 
 1. **Un apartado nuevo por vez:** no repetir lo ya construido. Cada sesión elige un área nueva (operación diaria, automatización, finanzas, visualización…) y la lleva a herramienta terminada, lista para ejecutar.
@@ -40,6 +39,14 @@ D.Softworks "Sistema Operativo" — business operations docs for a freelance web
 5. **Registrar las herramientas nuevas** en `PLAN-DE-ACCION.md` (tabla de herramientas H-XX) y en `prospecting/HERRAMIENTAS-DIGITALES.md`.
 
 Herramientas de línea de comando del cerebro (todas en `dsw-os-web/tools/`): `money.js` (dónde está la plata) · `dia.js` (plan del día, seguimiento con mensajes listos, exportar TSV a Google Sheets, radar) · `sync-data.js` (puente a Supabase).
+
+## 🔴 REGLA DE ORO — REVISAR SIEMPRE (2026-10-10, el usuario lo pidió explícitamente)
+
+**ANTES de leer cualquier archivo local o reportar estado, hacer `node dsw-os-web/tools/sync-data.js pull`.** Los datos reales del negocio viven en Supabase (la nube). Los archivos locales `app/data/` pueden estar viejos o incompletos. Lo que el usuario ve en dsw-os.netlify.app es LA verdad.
+
+- Si el pull muestra datos distintos a los locales → los locales se actualizan y trabaja con lo nuevo.
+- Si el usuario dice "revisa la app" o "ya terminé" → PRIMERO pull, después leer.
+- Nunca reportar "no hay cambios" sin hacer pull primero.
 
 ## Brain ↔ hands protocol (the app)
 

@@ -6,7 +6,21 @@
       "texto": "ya terminé",
       "estado": "atendido",
       "respuesta": "Recibido ✅. Hoy el cerebro te armó la caja de herramientas digitales (ver prospecting/HERRAMIENTAS-DIGITALES.md): H1 auditoría de Facebook de los 21 prospectos, H2 mensajes de reactivación copy-paste, H3 playbook de TikTok local con guiones por rubro, más los mensajes v2 y posts listos. Tu orden de hoy: (1) 60 seg — arregla tu perfil de WhatsApp; (2) manda UN mensaje v2 a Barber Chuy (wa.me/523337877648) y reporta el tic; (3) auditoría FB 45 min; (4) manda los 3 mensajes a El ZarCortes, Barber Chuy y Barras y Mancuernas; (5) publica GM Fire (FB 10:00 / IG 12:00). Todo quedó en tareas t-014 a t-019."
+    },
+    {
+      "id": "mv2sph9lts9hh",
+      "fecha": "2026-10-10 13:36",
+      "texto": "rellena los clientes nuevos",
+      "estado": "atendido",
+      "respuesta": "Recibido ✅. Veo que los prospectos están vacíos en la nube y los clientes también. Necesito que me digas: ¿cuáles son los clientes nuevos? ¿Tienes una lista (nombres, negocios, teléfonos, montos) o quieres que los genere de alguna fuente? También noté que la estructura de puntos.json cambió (equipo ahora es un array) — voy a adaptar el sistema a eso."
+    },
+    {
+      "id": "mv2yii09tz81m",
+      "fecha": "2026-10-10 16:19",
+      "texto": "rellenar los nuevos",
+      "estado": "atendido",
+      "respuesta": "Recibido ✅. Mismo mensaje que el anterior. Necesito la lista de clientes nuevos (nombre, negocio, teléfono, monto estimado) para rellenar clientes.json. Si no tienes lista, dime de qué fuente los saco."
     }
   ],
-  "actualizado": "2026-10-10 10:00"
+  "actualizado": "2026-10-10 16:19"
 }

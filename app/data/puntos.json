@@ -1,30 +1,11 @@
 {
-  "equipo": {
-    "daniel": {
-      "nombre": "Daniel Alejandro Aldana Rubio",
-      "email": "danielaldanarubioalejandro2005@gmail.com",
-      "puntos": 0,
-      "tareasHechas": 0,
-      "ultimaActividad": null,
-      "racha": 0,
-      "historial": []
-    },
-    "cesar": {
-      "nombre": "Julio Cesar Ortiz Becerra",
-      "email": "a24110110@ceti.mx",
-      "puntos": 0,
-      "tareasHechas": 0,
-      "ultimaActividad": null,
-      "racha": 0,
-      "historial": []
-    }
-  },
+  "equipo": [],
   "reglas": {
     "Ventas": 10,
-    "Marketing": 5,
     "Sistema": 3,
-    "Personal": 1
+    "Personal": 1,
+    "Marketing": 5
   },
-  "metaSemanal": 50,
-  "actualizado": "2026-10-10"
+  "actualizado": "2026-10-10",
+  "metaSemanal": 50
 }

@@ -3,63 +3,63 @@
   "publicaciones": [
     {
       "id": "c-001",
-      "fecha": "2026-10-10",
-      "titulo": "Portafolio — GM Fire Services",
       "canal": "Facebook + Instagram",
+      "fecha": "2026-10-10",
+      "notas": "Texto y formato listos. Solo publicar. Nunca se ha publicado.",
+      "estado": "pendiente",
       "horaFB": "10:00",
       "horaIG": "12:00",
-      "estado": "pendiente",
       "imagen": "Captura de pantalla 2026-09-15 195023.png",
-      "archivo": "07-Marketing/Publicaciones/Portafolio-01-GMFire.md",
-      "notas": "Texto y formato listos. Solo publicar. Nunca se ha publicado."
+      "titulo": "Portafolio — GM Fire Services",
+      "archivo": "07-Marketing/Publicaciones/Portafolio-01-GMFire.md"
     },
     {
       "id": "c-002",
-      "fecha": "2026-10-12",
-      "titulo": "Portafolio — Nails Studio",
       "canal": "Facebook + Instagram",
+      "fecha": "2026-10-12",
       "estado": "pendiente",
+      "titulo": "Portafolio — Nails Studio",
       "archivo": "07-Marketing/Publicaciones/Portafolio-02-NailsStudio.md"
     },
     {
       "id": "c-003",
-      "fecha": "2026-10-14",
-      "titulo": "Educativo — 5 cosas que tu negocio necesita en internet en 2026",
       "canal": "Facebook + Instagram",
+      "fecha": "2026-10-14",
       "estado": "pendiente",
+      "titulo": "Educativo — 5 cosas que tu negocio necesita en internet en 2026",
       "archivo": "07-Marketing/Publicaciones/Educativo-01-CincoCosas.md"
     },
     {
       "id": "c-004",
-      "fecha": "2026-10-16",
-      "titulo": "Portafolio — CasaBlanca",
       "canal": "Facebook + Instagram",
+      "fecha": "2026-10-16",
       "estado": "pendiente",
+      "titulo": "Portafolio — CasaBlanca",
       "archivo": "07-Marketing/Publicaciones/Portafolio-03-CasaBlanca.md"
     },
     {
       "id": "c-005",
-      "fecha": "2026-10-19",
-      "titulo": "TikTok Local — video 1 (antes/después barbería)",
       "canal": "TikTok",
+      "fecha": "2026-10-19",
+      "notas": "Primer video del playbook H3. Formato antes/después. Decir en voz alta: 'corte de barbería en [colonia], Zapopan'. Pedir permiso en cámara al cliente.",
       "estado": "pendiente",
-      "archivo": "07-Marketing/PLAYBOOK-TIKTOK-LOCAL.md",
-      "notas": "Primer video del playbook H3. Formato antes/después. Decir en voz alta: 'corte de barbería en [colonia], Zapopan'. Pedir permiso en cámara al cliente."
+      "titulo": "TikTok Local — video 1 (antes/después barbería)",
+      "archivo": "07-Marketing/PLAYBOOK-TIKTOK-LOCAL.md"
     },
     {
       "id": "c-006",
-      "fecha": "2026-10-21",
-      "titulo": "Portafolio — VitalErect",
       "canal": "Facebook + Instagram",
+      "fecha": "2026-10-21",
       "estado": "pendiente",
+      "titulo": "Portafolio — VitalErect",
       "archivo": "07-Marketing/Publicaciones/Portafolio-04-VitalErect.md"
     },
     {
       "id": "c-007",
-      "fecha": "2026-10-23",
-      "titulo": "Educativo — ¿Página web o redes sociales?",
       "canal": "Facebook + Instagram",
+      "fecha": "2026-10-23",
       "estado": "pendiente",
+      "titulo": "Educativo — ¿Página web o redes sociales?",
       "archivo": "07-Marketing/Publicaciones/Educativo-02-PaginaVsRedes.md"
     }
   ]
