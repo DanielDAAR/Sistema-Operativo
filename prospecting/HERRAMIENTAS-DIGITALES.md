@@ -20,6 +20,7 @@
 | **H12** | Exportar a Google Sheets | 8 archivos .tsv listos para importar (pipeline filtrable) | 5 min | `node dsw-os-web/tools/dia.js sheets` |
 | **H13** | Ángulo "no es para grandes" | Línea para cerrar mensajes (El Economista 10-oct) | 0 seg | pegar al final de cada mensaje |
 | **H14** | Equipo: puntos + correo | Sistema de puntos con modal "¿Quién lo hizo?", indicador 🟢/🟡/🔴, meta semanal, reporte por correo a Daniel y César | 10 seg | app → pestaña **Equipo** · `node dsw-os-web/tools/notificar.js` |
+| **H15** | Priorizar prospectos | Puntaje 0-100 por prospecto: etapa+antigüedad+valor+fuente+WhatsApp. Te dice a quién contactar hoy | 10 seg | `node dsw-os-web/tools/priorizar.js` · pestaña Visualizar → "A quién contactar hoy" |
 
 ---
 

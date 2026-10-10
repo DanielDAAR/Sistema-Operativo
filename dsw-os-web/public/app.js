@@ -1039,6 +1039,21 @@ function renderVisualizar(){
   $('#vizBitacora').innerHTML=ev.length?ev.map(function(e){
     return '<div class="viz-ev"><span class="viz-ev-f">'+esc((e.fecha||'').slice(5,10))+'</span><div><b>'+esc(e.titulo)+'</b><div class="viz-ev-d">'+esc(e.detalle||'')+(e.monto?' · '+mxn(e.monto):'')+'</div></div></div>';
   }).join(''):'<div class="card" style="color:var(--muted)">Sin eventos todavía.</div>';
+  // ── PRIORIZACIÓN: a quién contactar hoy ──
+  var STAGE_S={ 'Cerrado':30,'Cotizado':28,'Reunión':24,'Respondió':20,'Contactado':15,'Nuevo':10,'Sin respuesta':8,'No registrado':5 };
+  var SOURCE_S={ 'Google':10,'Doctoralia':8,'Web':7,'Instagram':6,'Fresha':5,'Sección Amarilla':4 };
+  var ranked=ps.filter(function(p){return p.estado&&!['Cerrado','Descartado'].includes(p.estado)}).map(function(p){
+    var dias=Math.floor((new Date(today())-new Date((p.actualizado||p.fecha||'').slice(0,10)))/86400000);
+    var monto=Number(p.monto||0);
+    var score=(STAGE_S[p.estado]||5)+(dias>=14?25:dias>=7?20:dias>=3?15:dias>=1?10:5)+(monto>=4000?20:monto>=2000?15:monto>=1000?10:monto>0?5:0)+(SOURCE_S[p.fuente]||5)+((p.telefono&&p.telefono.trim())?15:0);
+    return {p:p,dias:dias,score:score};
+  }).sort(function(a,b){return b.score-a.score});
+  var top5=ranked.slice(0,5);
+  $('#vizPriorizar').innerHTML=top5.length?top5.map(function(r,i){
+    var p=r.p;
+    var cls=r.score>=70?'prio-alta':r.score>=50?'prio-media':'prio-baja';
+    return '<div class="radar-card" style="border-left:3px solid var(--accent)"><div class="radar-head"><span class="radar-id">#'+(i+1)+' · '+r.score+' pts</span><span class="prio '+cls+'">'+esc(p.estado)+'</span></div><div class="radar-t">'+esc(p.nombre)+' · '+esc(p.negocio||'')+'</div><div class="radar-precio">'+mxn(p.monto)+' · '+r.dias+'d sin mover · '+(p.telefono||'sin tel')+'</div><div class="radar-accion">'+(r.dias>=14?'🔥 Lleva '+r.dias+' días frío — HOY':r.dias>=7?'◐ Lleva '+r.dias+' días — esta semana':'○ Reciente — sigue el hilo')+'</div></div>';
+  }).join(''):'<div class="card" style="color:var(--muted)">Sin prospectos activos.</div>';
 }
 
 /* ============ EXPORTAR / IMPORTAR — backup de todo ============ */
