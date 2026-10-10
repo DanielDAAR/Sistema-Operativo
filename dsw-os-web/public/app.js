@@ -21,7 +21,8 @@ const COLLECTIONS=[
 let tombstones={};
 let lastPush={};
 let online=true;
-let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]},clientes:{actualizado:'',clientes:[]},cotizaciones:{actualizado:'',cotizaciones:[]},finanzas:{actualizado:'',metaMes:10000,movimientos:[]},contenido:{actualizado:'',publicaciones:[]},agenda:{actualizado:'',reuniones:[]},bitacora:{actualizado:'',eventos:[]},reportes:{actualizado:'',reportes:[]},radar:{actualizado:'',oportunidades:[]},puntos:{equipo:{daniel:{nombre:'Daniel Alejandro Aldana Rubio',email:'danielaldanarubioalejandro2005@gmail.com',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,historial:[]},cesar:{nombre:'Julio Cesar Ortiz Becerra',email:'a24110110@ceti.mx',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,historial:[]}},reglas:{Ventas:10,Marketing:5,Sistema:3,Personal:1},metaSemanal:50,actualizado:''}};
+let PUNTOS_DEFAULT={equipo:[{id:'daniel',nombre:'Daniel Alejandro Aldana Rubio',email:'danielaldanarubioalejandro2005@gmail.com',rol:'Fundador / Ventas',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,mejorRacha:0,historial:[],logros:[],ventas:0,fechaIngreso:'2026-10-10'},{id:'cesar',nombre:'Julio Cesar Ortiz Becerra',email:'a24110110@ceti.mx',rol:'Desarrollo',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,mejorRacha:0,historial:[],logros:[],ventas:0,fechaIngreso:'2026-10-10'}],niveles:[{nivel:1,nombre:'Bronce',min:0,icono:'\u{1F949}',color:'#cd7f32'},{nivel:2,nombre:'Plata',min:50,icono:'\u{1F948}',color:'#a8a9ad'},{nivel:3,nombre:'Oro',min:150,icono:'\u{1F947}',color:'#ffd700'},{nivel:4,nombre:'Platino',min:300,icono:'\u{1F48E}',color:'#00d4ff'},{nivel:5,nombre:'Diamante',min:600,icono:'\u{1F451}',color:'#b967ff'}],logrosDisponibles:[{id:'primera_tarea',nombre:'Primer paso',icono:'\u{1F3AF}',desc:'Completar tu primera tarea',bonus:5,condicion:'tareas>=1'},{id:'racha_3',nombre:'En llama',icono:'\u{1F525}',desc:'3 d\u00edas seguidos trabajando',bonus:15,condicion:'racha>=3'},{id:'racha_7',nombre:'Imparable',icono:'\u{26A1}',desc:'7 d\u00edas seguidos trabajando',bonus:50,condicion:'racha>=7'},{id:'cien_puntos',nombre:'Centenario',icono:'\u{1F4AF}',desc:'Llegar a 100 puntos',bonus:25,condicion:'puntos>=100'},{id:'productivo',nombre:'D\u00eda productivo',icono:'\u{1F4C8}',desc:'3+ tareas en un solo d\u00eda',bonus:20,condicion:'tareasHoy>=3'},{id:'vendedor',nombre:'Cazador',icono:'\u{1F91D}',desc:'5 tareas de Ventas',bonus:30,condicion:'ventas>=5'}],reglas:{Ventas:10,Marketing:5,Sistema:3,Personal:1},bonusRacha:{diasParaBonus:3,multiplicador:0.1,maxMultiplicador:0.5},metaSemanal:50,actualizado:''};
+let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]},clientes:{actualizado:'',clientes:[]},cotizaciones:{actualizado:'',cotizaciones:[]},finanzas:{actualizado:'',metaMes:10000,movimientos:[]},contenido:{actualizado:'',publicaciones:[]},agenda:{actualizado:'',reuniones:[]},bitacora:{actualizado:'',eventos:[]},reportes:{actualizado:'',reportes:[]},radar:{actualizado:'',oportunidades:[]},puntos:JSON.parse(JSON.stringify(PUNTOS_DEFAULT))};
 
 function normalizeState(){
   if(!state.clientes||!Array.isArray(state.clientes.clientes))state.clientes={actualizado:'',clientes:[]};
@@ -32,7 +33,27 @@ function normalizeState(){
   if(!state.bitacora||!Array.isArray(state.bitacora.eventos))state.bitacora={actualizado:'',eventos:[]};
   if(!state.reportes||!Array.isArray(state.reportes.reportes))state.reportes={actualizado:'',reportes:[]};
   if(!state.radar||!Array.isArray(state.radar.oportunidades))state.radar={actualizado:'',oportunidades:[]};
-  if(!state.puntos||!state.puntos.equipo)state.puntos={equipo:{daniel:{nombre:'Daniel Alejandro Aldana Rubio',email:'danielaldanarubioalejandro2005@gmail.com',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,historial:[]},cesar:{nombre:'Julio Cesar Ortiz Becerra',email:'a24110110@ceti.mx',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,historial:[]}},reglas:{Ventas:10,Marketing:5,Sistema:3,Personal:1},metaSemanal:50,actualizado:''};
+  if(!state.puntos)state.puntos=JSON.parse(JSON.stringify(PUNTOS_DEFAULT));
+  if(!state.puntos.equipo)state.puntos.equipo=[];
+  if(!Array.isArray(state.puntos.equipo)){
+    var eqViejo=state.puntos.equipo;
+    state.puntos.equipo=[];
+    Object.keys(eqViejo).forEach(function(k){
+      var e=eqViejo[k]||{};
+      state.puntos.equipo.push({id:k,nombre:e.nombre||k,email:e.email||'sin correo',rol:e.rol||'Colaborador',puntos:e.puntos||0,tareasHechas:e.tareasHechas||0,ultimaActividad:e.ultimaActividad||null,racha:e.racha||0,mejorRacha:e.mejorRacha||0,historial:e.historial||[],logros:e.logros||[],ventas:e.ventas||0,fechaIngreso:e.fechaIngreso||today()});
+    });
+  }
+  if(!state.puntos.niveles)state.puntos.niveles=PUNTOS_DEFAULT.niveles;
+  if(!state.puntos.logrosDisponibles)state.puntos.logrosDisponibles=PUNTOS_DEFAULT.logrosDisponibles;
+  if(!state.puntos.bonusRacha)state.puntos.bonusRacha=PUNTOS_DEFAULT.bonusRacha;
+  if(!state.puntos.reglas)state.puntos.reglas={Ventas:10,Marketing:5,Sistema:3,Personal:1};
+  if(!state.puntos.metaSemanal)state.puntos.metaSemanal=50;
+  state.puntos.equipo.forEach(function(e){
+    if(e.mejorRacha===undefined)e.mejorRacha=e.racha||0;
+    if(!e.logros)e.logros=[];
+    if(e.ventas===undefined)e.ventas=0;
+    if(!e.rol)e.rol='Colaborador';
+  });
   if(!state.finanzas.metaMes)state.finanzas.metaMes=10000;
   state.prospectos.prospectos.forEach(p=>{if(p.monto===undefined)p.monto=0});
   state.cotizaciones.cotizaciones.forEach(function(q){
@@ -780,99 +801,233 @@ $('#addTask').addEventListener('click',function(){
 $('#newTask').addEventListener('keydown',function(e){if(e.key==='Enter')$('#addTask').click()});
 $('#cancelTaskEdit').addEventListener('click',endTaskEdit);
 
+function nivelDe(puntos){
+  var niveles=state.puntos.niveles||[];
+  var actual=niveles[0];
+  niveles.forEach(function(n){if(puntos>=n.min)actual=n});
+  return actual;
+}
+function siguienteNivel(puntos){
+  var niveles=state.puntos.niveles||[];
+  for(var i=0;i<niveles.length;i++){
+    if(puntos<niveles[i].min)return {nivel:niveles[i],falta:niveles[i].min-puntos};
+  }
+  return null;
+}
+function verificarLogros(eq){
+  var nuevos=[];
+  var disponibles=state.puntos.logrosDisponibles||[];
+  var tareasHoy=eq.historial.filter(function(h){return(h.fecha||'').slice(0,10)===today()}).length;
+  disponibles.forEach(function(l){
+    if(eq.logros.indexOf(l.id)>=0)return;
+    var ok=false;
+    if(l.condicion==='tareas>=1'&&eq.tareasHechas>=1)ok=true;
+    if(l.condicion==='racha>=3'&&eq.racha>=3)ok=true;
+    if(l.condicion==='racha>=7'&&eq.racha>=7)ok=true;
+    if(l.condicion==='puntos>=100'&&eq.puntos>=100)ok=true;
+    if(l.condicion==='tareasHoy>=3'&&tareasHoy>=3)ok=true;
+    if(l.condicion==='ventas>=5'&&eq.ventas>=5)ok=true;
+    if(ok){nuevos.push(l)}
+  });
+  return nuevos;
+}
 function showWhoModal(t,cb){
   var modal=$('#whoModal');
   if(!modal){
     modal=document.createElement('div');
     modal.id='whoModal';
     modal.className='modal-overlay';
-    modal.innerHTML='<div class="modal" style="max-width:420px"><h3>¿Quién lo hizo?</h3><p style="color:var(--muted);font-size:14px;margin-bottom:16px">'+esc(t.titulo)+'</p><div style="display:flex;gap:12px;justify-content:center"><button class="btn primary" data-who="daniel">Daniel</button><button class="btn primary" data-who="cesar">César</button></div><p style="color:var(--muted);font-size:12px;margin-top:12px">+<span id="whoPts"></span> puntos según categoría</p><button class="btn ghost" id="whoCancel" style="margin-top:12px">Cancelar</button></div>';
+    modal.innerHTML='<div class="modal" style="max-width:440px"><h3>¿Quién lo hizo?</h3><p style="color:var(--muted);font-size:14px;margin-bottom:16px">'+esc(t.titulo)+'</p><div id="whoBtns" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"></div><p style="color:var(--muted);font-size:12px;margin-top:12px">+<span id="whoPts"></span> puntos base según categoría · la racha suma bonus 🔥</p><button class="btn ghost" id="whoCancel" style="margin-top:12px">Cancelar</button></div>';
     document.body.appendChild(modal);
     modal.addEventListener('click',function(e){if(e.target===modal)closeWhoModal()});
     $('#whoCancel').addEventListener('click',function(){closeWhoModal();if(cb)cb.checked=false});
-    modal.querySelectorAll('[data-who]').forEach(function(b){
-      b.addEventListener('click',function(){
-        var who=b.dataset.who;
-        completeTaskWith(t,who,cb);
-        closeWhoModal();
-      });
-    });
   }
+  var btnsHtml='';
+  (state.puntos.equipo||[]).forEach(function(e){
+    btnsHtml+='<button class="btn primary" data-who="'+esc(e.id)+'">'+esc(e.nombre.split(' ')[0])+'</button>';
+  });
+  $('#whoBtns').innerHTML=btnsHtml;
+  modal.querySelectorAll('[data-who]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var who=b.dataset.who;
+      completeTaskWith(t,who,cb);
+      closeWhoModal();
+    });
+  });
   var pts=(state.puntos.reglas[t.categoria]||1);
   $('#whoPts').textContent=pts;
   modal.classList.add('open');
 }
 function closeWhoModal(){var m=$('#whoModal');if(m)m.classList.remove('open')}
 function completeTaskWith(t,who,cb){
-  t.hecha=true;t.hechoFecha=stamp();t.actualizado=stamp();
-  var pts=(state.puntos.reglas[t.categoria]||1);
-  var eq=state.puntos.equipo[who];
-  eq.puntos+=pts;eq.tareasHechas++;eq.ultimaActividad=stamp();eq.racha++;
-  eq.historial.push({fecha:stamp(),tarea:t.titulo,puntos:pts,categoria:t.categoria});
-  if(eq.historial.length>100)eq.historial=eq.historial.slice(-100);
+  t.hecha=true;t.hechoFecha=stamp();
+  var eq=(state.puntos.equipo||[]).find(function(e){return e.id===who});
+  if(!eq)return;
+  var base=(state.puntos.reglas[t.categoria]||1);
+  // Racha: ¿última actividad fue ayer?
+  var hoyStr=today();
+  var ayer=new Date();ayer.setDate(ayer.getDate()-1);
+  var ayerStr=ayer.getFullYear()+'-'+String(ayer.getMonth()+1).padStart(2,'0')+'-'+String(ayer.getDate()).padStart(2,'0');
+  var ultimoDia=eq.ultimaActividad?eq.ultimaActividad.slice(0,10):null;
+  if(ultimoDia===ayerStr)eq.racha=(eq.racha||0)+1;
+  else if(ultimoDia===hoyStr){/* mismo día: racha no cambia */}
+  else eq.racha=1;
+  if(eq.racha>(eq.mejorRacha||0))eq.mejorRacha=eq.racha;
+  // Bonus por racha
+  var cfg=state.puntos.bonusRacha||{diasParaBonus:3,multiplicador:0.1,maxMultiplicador:0.5};
+  var bonus=0;
+  if(eq.racha>=cfg.diasParaBonus){
+    bonus=Math.min(cfg.maxMultiplicador,Math.floor(eq.racha/3)*cfg.multiplicador);
+  }
+  var pts=Math.round(base*(1+bonus));
+  eq.puntos+=pts;
+  eq.tareasHechas=(eq.tareasHechas||0)+1;
+  eq.ultimaActividad=stamp();
+  eq.historial.push({fecha:stamp(),tarea:t.titulo,puntos:pts,base:base,bonus:bonus,categoria:t.categoria});
+  if(eq.historial.length>200)eq.historial=eq.historial.slice(-200);
+  if(t.categoria==='Ventas')eq.ventas=(eq.ventas||0)+1;
+  // Verificar logros nuevos
+  var nuevosLogros=verificarLogros(eq);
+  nuevosLogros.forEach(function(l){
+    eq.logros.push(l.id);
+    eq.puntos+=l.bonus;
+  });
   save('tareas');save('puntos');renderTasks();renderEquipo();
   if(t.categoria!=='Personal')log('tarea-hecha','Tarea completada por '+eq.nombre,t.titulo);
-  toast('Tarea completada · +'+pts+' pts para '+eq.nombre.split(' ')[0]);
+  var msg='+'+pts+' pts para '+eq.nombre.split(' ')[0];
+  if(bonus>0)msg+=' (incluye +'+Math.round(bonus*100)+'% bonus de racha 🔥)';
+  if(nuevosLogros.length){
+    msg+=' · ¡LOGRO DESBLOQUEADO! '+nuevosLogros.map(function(l){return l.icono+' '+l.nombre}).join(', ')+' (+'+nuevosLogros.reduce(function(s,l){return s+l.bonus},0)+' pts)';
+  }
+  toast(msg);
 }
 function renderEquipo(){
-  var eq=state.puntos.equipo;
+  var eq=[].concat(state.puntos.equipo||[]);
   var meta=state.puntos.metaSemanal||50;
   var hoy=today();
   var semana=weekStart();
+  var niveles=state.puntos.niveles||[];
+  var logrosDisp=state.puntos.logrosDisponibles||[];
+  // Ordenar por puntos
+  var orden=eq.slice().sort(function(a,b){return b.puntos-a.puntos});
+  var maxPts=Math.max.apply(null,orden.map(function(e){return e.puntos}).concat([1]));
   var html='';
-  ['daniel','cesar'].forEach(function(k){
-    var p=eq[k];
-    var actHoy=p.historial.filter(function(h){return(h.fecha||'').slice(0,10)===hoy}).length;
-    var actSemana=p.historial.filter(function(h){return(h.fecha||'').slice(0,10)>=semana}).length;
-    var ptsSemana=p.historial.filter(function(h){return(h.fecha||'').slice(0,10)>=semana}).reduce(function(s,h){return s+h.puntos},0);
+  // ── TABLA DE LÍDERES ──
+  html+='<div class="card" style="background:linear-gradient(135deg,rgba(99,207,228,.06),rgba(168,85,247,.06));border-color:var(--accent)"><h3>🏆 Tabla de líderes</h3><div style="margin-top:10px">';
+  orden.forEach(function(p,i){
+    var nivel=nivelDe(p.puntos);
+    var sig=siguienteNivel(p.puntos);
+    var pctLider=Math.round(p.puntos/maxPts*100);
+    var pctSig=sig?Math.round((p.puntos-nivel.min)/(sig.nivel.min-nivel.min)*100):100;
     var diasInactivo=p.ultimaActividad?Math.floor((new Date(hoy)-new Date(p.ultimaActividad.slice(0,10)))/86400000):99;
-    var status=diasInactivo===0?'🟢 Trabajando':(diasInactivo<=7?'🟡 Activo':'🔴 Inactivo');
-    var pct=Math.min(100,Math.round(ptsSemana/meta*100));
-    html+='<div class="card equipo-card" style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div style="flex:1;min-width:200px"><h3 style="margin:0">'+esc(p.nombre)+'</h3><div style="font-size:13px;color:var(--muted)">'+esc(p.email)+'</div></div><div style="font-size:28px;font-weight:800">'+p.puntos+' pts</div><div class="equipo-status '+(diasInactivo===0?'trabajando':(diasInactivo<=7?'activo':'inactivo'))+'">'+status+'</div></div><div style="display:flex;gap:16px;margin-top:12px;font-size:13px;flex-wrap:wrap"><span>✅ '+p.tareasHechas+' tareas</span><span>🔥 Racha: '+p.racha+'</span><span>📅 Hoy: '+actHoy+'</span><span>📊 Semana: '+actSemana+' tareas · '+ptsSemana+' pts</span><span>⏰ Última: '+(p.ultimaActividad?p.ultimaActividad.slice(0,16):'nunca')+'</span></div><div style="margin-top:12px"><div style="font-size:12px;color:var(--muted);margin-bottom:4px">Meta semanal: '+ptsSemana+' / '+meta+' pts</div><div class="equipo-progress"><i style="width:'+pct+'%;background:'+(pct>=100?'#22c55e':'var(--accent)')+'"></i></div></div></div>';
+    var statusCls=diasInactivo===0?'trabajando':(diasInactivo<=7?'activo':'inactivo');
+    var statusTxt=diasInactivo===0?'🟢 Trabajando hoy':(diasInactivo<=7?'🟡 Activo':'🔴 Inactivo '+diasInactivo+'d');
+    var logrosHtml=(p.logros||[]).map(function(id){var l=logrosDisp.find(function(x){return x.id===id});return l?'<span title="'+esc(l.desc)+'" style="cursor:help">'+l.icono+'</span>':''}).join(' ');
+    html+='<div class="equipo-card" style="padding:14px;margin-bottom:10px;position:relative">';
+    if(i===0&&p.puntos>0)html+='<div style="position:absolute;top:8px;right:10px;font-size:20px">👑</div>';
+    html+='<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div style="flex:1;min-width:180px"><div style="font-weight:700;font-size:15px">'+(i+1)+'. '+esc(p.nombre)+'</div><div style="font-size:12px;color:var(--muted)">'+esc(p.rol||'Colaborador')+'</div></div><div style="text-align:center"><div style="font-size:24px">'+nivel.icono+'</div><div style="font-size:11px;color:'+nivel.color+';font-weight:700">'+nivel.nombre+'</div></div><div style="text-align:right"><div style="font-size:24px;font-weight:800">'+p.puntos+'</div><div style="font-size:11px;color:var(--muted)">puntos</div></div><div class="equipo-status '+statusCls+'">'+statusTxt+'</div></div>';
+    html+='<div style="margin-top:10px"><div style="height:10px;background:var(--bg);border-radius:5px;overflow:hidden"><i style="display:block;height:100%;width:'+pctLider+'%;background:linear-gradient(90deg,var(--accent),'+nivel.color+');border-radius:5px"></i></div></div>';
+    html+='<div style="display:flex;gap:14px;margin-top:8px;font-size:12px;flex-wrap:wrap;color:var(--muted)"><span>✅ '+(p.tareasHechas||0)+' tareas</span><span>🔥 Racha: '+(p.racha||0)+' (récord '+(p.mejorRacha||0)+')</span><span>'+logrosHtml+'</span></div>';
+    if(sig)html+='<div style="margin-top:8px;font-size:12px;color:var(--accent);font-weight:600">⚡ Te faltan '+sig.falta+' pts para '+sig.nivel.icono+' '+sig.nivel.nombre+' ('+pctSig+'%)</div>';
+    else html+='<div style="margin-top:8px;font-size:12px;color:var(--accent);font-weight:600">👑 ¡Nivel máximo alcanzado!</div>';
+    html+='</div>';
   });
-  var winner=eq.daniel.puntos>=eq.cesar.puntos?'daniel':'cesar';
-  var leader=eq[winner];
-  html+='<div class="card equipo-leader"><h3>🏆 Líder actual</h3><p style="font-size:15px;margin:4px 0"><strong>'+esc(leader.nombre)+'</strong> con '+leader.puntos+' puntos y '+leader.tareasHechas+' tareas completadas.</p><p style="font-size:13px;color:var(--muted)">El sistema de puntos se actualiza cada vez que marcan una tarea como hecha. Ventas=10pts · Marketing=5pts · Sistema=3pts · Personal=1pt.</p></div>';
-  html+='<div class="card"><h3>📧 Reporte por correo</h3><p style="font-size:13px;color:var(--muted);margin-bottom:8px">Envía el marcador semanal a ambos correos.</p><button class="btn primary" id="btnMailReport">Enviar reporte por correo</button><div id="mailStatus" style="margin-top:8px;font-size:13px"></div></div>';
-  html+='<div class="card"><h3>📜 Historial reciente</h3><div id="teamHistory" class="equipo-history" style="font-size:13px"></div></div>';
+  html+='</div>';
+  // ── ESTADÍSTICAS DE COLABORACIÓN ──
+  var totalPts=eq.reduce(function(s,e){return s+e.puntos},0);
+  var totalTareas=eq.reduce(function(s,e){return s+(e.tareasHechas||0)},0);
+  var porCat={};
+  eq.forEach(function(p){
+    (p.historial||[]).filter(function(h){return(h.fecha||'').slice(0,10)>=semana}).forEach(function(h){
+      var c=h.categoria||'Sin categoría';
+      porCat[c]=(porCat[c]||0)+h.puntos;
+    });
+  });
+  var catKeys=Object.keys(porCat).sort(function(a,b){return porCat[b]-porCat[a]});
+  var maxCat=Math.max.apply(null,catKeys.map(function(k){return porCat[k]}).concat([1]));
+  html+='<div class="card"><h3>🤝 Estadísticas de colaboración</h3><div style="display:flex;gap:16px;font-size:13px;margin:8px 0;flex-wrap:wrap"><span>Equipo: <b>'+eq.length+'</b> personas</span><span>Puntos totales: <b>'+totalPts+'</b></span><span>Tareas: <b>'+totalTareas+'</b></span><span>Meta semanal: <b>'+meta+'</b> pts c/u</span></div>';
+  eq.forEach(function(p){
+    var aporte=totalPts?Math.round(p.puntos/totalPts*100):0;
+    html+='<div class="taskcat-row"><span class="taskcat-k" style="width:130px">'+esc(p.nombre.split(' ')[0])+'</span><div class="taskcat-bar"><i style="width:'+aporte+'%;background:linear-gradient(90deg,var(--accent),#a855f7)"></i></div><span class="taskcat-n">'+aporte+'%</span></div>';
+  });
+  if(catKeys.length){
+    html+='<div style="font-size:12px;color:var(--muted);margin:12px 0 4px">Puntos por categoría esta semana:</div>';
+    catKeys.forEach(function(k){
+      html+='<div class="taskcat-row"><span class="taskcat-k" style="width:130px">'+esc(k)+'</span><div class="taskcat-bar"><i style="width:'+Math.round(porCat[k]/maxCat*100)+'%"></i></div><span class="taskcat-n">'+porCat[k]+'</span></div>';
+    });
+  }
+  html+='</div>';
+  // ── LOGROS DISPONIBLES ──
+  html+='<div class="card"><h3>🎖️ Logros por desbloquear</h3><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">';
+  logrosDisp.forEach(function(l){
+    var alguienTiene=eq.some(function(p){return (p.logros||[]).indexOf(l.id)>=0});
+    html+='<div style="padding:8px 12px;border:1px solid var(--border);border-radius:10px;font-size:13px;'+(alguienTiene?'border-color:var(--accent);background:rgba(99,207,228,.08)':'opacity:.6')+'" title="'+esc(l.desc)+' (+'+l.bonus+' pts)"><span style="font-size:20px">'+l.icono+'</span> <b>'+esc(l.nombre)+'</b><div style="font-size:11px;color:var(--muted)">'+esc(l.desc)+' · +'+l.bonus+' pts</div>'+(alguienTiene?'<div style="font-size:11px;color:var(--accent);font-weight:700">✓ Desbloqueado</div>':'')+'</div>';
+  });
+  html+='</div></div>';
+  // ── AGREGAR TRABAJADOR ──
+  html+='<div class="card"><h3>➕ Agregar trabajador</h3><div class="form-row"><div><label for="newWorkerName">Nombre completo</label><input id="newWorkerName" placeholder="Ej: María González"></div><div><label for="newWorkerEmail">Correo</label><input id="newWorkerEmail" placeholder="correo@ejemplo.com"></div></div><div class="form-row"><div><label for="newWorkerRol">Rol</label><input id="newWorkerRol" placeholder="Ej: Diseñadora, Community Manager"></div><div style="display:flex;align-items:flex-end"><button class="btn" id="addWorker">+ Agregar al equipo</button></div></div></div>';
+  // ── REPORTE POR CORREO ──
+  html+='<div class="card"><h3>📧 Reporte por correo</h3><p style="font-size:13px;color:var(--muted);margin-bottom:8px">Envía el marcador con niveles y logros a todos los correos del equipo.</p><button class="btn primary" id="btnMailReport">Enviar reporte a los '+eq.length+' correos</button><div id="mailStatus" style="margin-top:8px;font-size:13px"></div></div>';
+  // ── HISTORIAL ──
+  html+='<div class="card"><h3>📜 Actividad reciente del equipo</h3><div id="teamHistory" class="equipo-history" style="font-size:13px"></div></div>';
   $('#equipoContent').innerHTML=html;
   $('#btnMailReport').addEventListener('click',function(){sendMailReport()});
-  var histHtml='';
+  $('#addWorker').addEventListener('click',function(){
+    var n=$('#newWorkerName').value.trim();
+    var e=$('#newWorkerEmail').value.trim();
+    var r=$('#newWorkerRol').value.trim();
+    if(!n){toast('Escribe el nombre del trabajador','err');return}
+    var id=n.toLowerCase().replace(/[^a-z0-9]/g,'-')+'-'+Date.now().toString(36).slice(-3);
+    state.puntos.equipo.push({id:id,nombre:n,email:e||'sin correo',rol:r||'Colaborador',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,mejorRacha:0,historial:[],logros:[],ventas:0,fechaIngreso:today()});
+    save('puntos');renderEquipo();
+    toast('Trabajador agregado: '+n+' 🎉');
+  });
   var allHist=[];
-  ['daniel','cesar'].forEach(function(k){
-    eq[k].historial.forEach(function(h){allHist.push({quien:eq[k].nombre,...h})});
+  eq.forEach(function(p){
+    (p.historial||[]).forEach(function(h){allHist.push({quien:p.nombre,puntos:h.puntos,bonus:h.bonus,...h})});
   });
   allHist.sort(function(a,b){return b.fecha.localeCompare(a.fecha)});
+  var histHtml='';
   allHist.slice(0,15).forEach(function(h){
-    histHtml+='<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>'+esc(h.quien.split(' ')[0])+' — '+esc(h.tarea)+'</span><span style="color:var(--muted)">'+h.fecha.slice(0,16)+' · +'+h.puntos+' pts</span></div>';
+    var bono=h.bonus>0?' <span style="color:#ff9800">+'+Math.round(h.bonus*100)+'%🔥</span>':'';
+    histHtml+='<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>'+esc(h.quien.split(' ')[0])+' — '+esc(h.tarea)+'</span><span style="color:var(--muted)">'+h.fecha.slice(0,16)+' · +'+h.puntos+' pts'+bono+'</span></div>';
   });
-  if(!allHist.length)histHtml='<span style="color:var(--muted)">Sin actividad todavía. Marquen tareas como hechas para empezar.</span>';
+  if(!allHist.length)histHtml='<span style="color:var(--muted)">Sin actividad todavía. Marquen tareas como hechas para empezar a sumar puntos.</span>';
   $('#teamHistory').innerHTML=histHtml;
 }
 function sendMailReport(){
-  var eq=state.puntos.equipo;
+  var eq=[].concat(state.puntos.equipo||[]).sort(function(a,b){return b.puntos-a.puntos});
   var meta=state.puntos.metaSemanal||50;
+  var niveles=state.puntos.niveles||[];
+  var logrosDisp=state.puntos.logrosDisponibles||[];
   var lines=[];
   lines.push('D.SOFTWORKS — MARCADOR DEL EQUIPO — '+today());
   lines.push('');
-  ['daniel','cesar'].forEach(function(k){
-    var p=eq[k];
-    lines.push(p.nombre+': '+p.puntos+' pts · '+p.tareasHechas+' tareas · racha '+p.racha);
-    var actSemana=p.historial.filter(function(h){return(h.fecha||'').slice(0,10)>=weekStart()});
-    lines.push('  Esta semana: '+actSemana.length+' tareas · '+actSemana.reduce(function(s,h){return s+h.puntos},0)+' pts (meta: '+meta+')');
-    lines.push('  Última actividad: '+(p.ultimaActividad||'nunca'));
+  eq.forEach(function(p,i){
+    var nivel=nivelDe(p.puntos);
+    var sig=siguienteNivel(p.puntos);
+    lines.push((i+1)+'. '+p.nombre+' ('+(p.rol||'Colaborador')+')');
+    lines.push('   '+nivel.icono+' '+nivel.nombre+' · '+p.puntos+' pts · '+(p.tareasHechas||0)+' tareas · racha '+(p.racha||0)+' (récord '+(p.mejorRacha||0)+')');
+    var actSemana=(p.historial||[]).filter(function(h){return(h.fecha||'').slice(0,10)>=weekStart()});
+    lines.push('   Esta semana: '+actSemana.length+' tareas · '+actSemana.reduce(function(s,h){return s+h.puntos},0)+' pts (meta: '+meta+')');
+    lines.push('   Última actividad: '+(p.ultimaActividad||'nunca'));
+    var logros=(p.logros||[]).map(function(id){var l=logrosDisp.find(function(x){return x.id===id});return l?l.icono+' '+l.nombre:''}).filter(Boolean);
+    if(logros.length)lines.push('   Logros: '+logros.join(', '));
+    if(sig)lines.push('   ⚡ Le faltan '+sig.falta+' pts para '+sig.nivel.icono+' '+sig.nivel.nombre);
+    else lines.push('   👑 ¡Nivel máximo!');
     lines.push('');
   });
-  var winner=eq.daniel.puntos>=eq.cesar.puntos?'Daniel':'César';
-  lines.push('Líder: '+winner);
+  var totalPts=eq.reduce(function(s,p){return s+p.puntos},0);
+  lines.push('Puntos totales del equipo: '+totalPts);
   lines.push('');
   lines.push('Reglas: Ventas=10pts · Marketing=5pts · Sistema=3pts · Personal=1pt');
+  lines.push('Bonus de racha: +10% desde 3 días seguidos (máx +50%)');
   lines.push('Meta semanal: '+meta+' pts por persona');
   var body=lines.join('\n');
-  var to=eq.daniel.email+','+eq.cesar.email;
+  var to=eq.map(function(p){return p.email}).filter(function(e){return e&&e!=='sin correo'}).join(',');
   var subject='D.Softworks — Marcador del equipo '+today();
   var mailto='mailto:'+to+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-  $('#mailStatus').innerHTML='<a href="'+mailto+'" style="color:var(--accent);font-weight:600">Abrir correo con el reporte precargado</a> (clic para enviar)';
+  $('#mailStatus').innerHTML='<a href="'+mailto+'" style="color:var(--accent);font-weight:600">Abrir correo con el reporte precargado para '+eq.length+' personas</a> (clic para enviar)';
   window.open(mailto,'_self');
 }
 

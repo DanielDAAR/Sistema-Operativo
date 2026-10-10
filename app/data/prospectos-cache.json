@@ -476,5 +476,495 @@
       "telefono": "333180-2769",
       "web": ""
     }
+  ],
+  "barberia-guadalajara": [
+    {
+      "nombre": "SALON DE BELLEZA BARBERIA Y ALTA PELUQUERIA BERTHA SAINZ",
+      "direccion": "AVE. ZOQUIPAN 298, COLINAS DE ATEMAJAC, ZAPOPAN, JAL, CP 45170 Ruta Ver Más",
+      "telefono": "333854-1033",
+      "web": ""
+    },
+    {
+      "nombre": "BARBOLOGY SHAVES AND TRIMS",
+      "direccion": "CLZ NORTE 7195 13, CIUDAD GRANJA, ZAPOPAN, JAL, CP 45010 Ruta Ver Más",
+      "telefono": "331657-2956",
+      "web": ""
+    },
+    {
+      "nombre": "ESTÉTICA MASCULINA DOLCE PIACERE",
+      "direccion": "AVENIDA A. LÓPEZ MATEOS 720A, LOS ARCOS, GUADALAJARA, JAL, CP 44500 Abierto Servicio las 24 horas Ruta Ver Más",
+      "telefono": "331221-6180",
+      "web": ""
+    },
+    {
+      "nombre": "SALÓN VEINTIUNO UÑAS Y MICROBLADING",
+      "direccion": "AV. MANUEL M. DIEGUEZ 421C, CASA GRANDE, ZAPOPAN, JAL, CP 45130 Abierto 10:00 - 09:00 Ruta Ver Más",
+      "telefono": "331042-6619",
+      "web": ""
+    }
+  ],
+  "gimnasio-guadalajara": [
+    {
+      "nombre": "SPORTS FITNESS",
+      "direccion": "",
+      "telefono": "333630-2220",
+      "web": ""
+    },
+    {
+      "nombre": "HIGHTECH-FIT",
+      "direccion": "",
+      "telefono": "333805-4444",
+      "web": ""
+    },
+    {
+      "nombre": "FITBOX",
+      "direccion": "ACUEDUCTO 6050 38 UP S/N 38 UP, PLAZA ACUEDUCTO, ZAPOPAN, JAL, CP 45238 Cerrado Abre a las 08:00 hrs Ruta Ver Más",
+      "telefono": "333611-3647",
+      "web": ""
+    },
+    {
+      "nombre": "CLUB GIMNASIO HERCULES",
+      "direccion": "",
+      "telefono": "333617 9340",
+      "web": ""
+    },
+    {
+      "nombre": "GIMNASIO DE MUJERES TLAQUEPAQUE",
+      "direccion": "CARR A CHAPALA 3321 LOC 9 A, RESIDENCIAL EL TAPATIO, TLAQUEPAQUE, JAL, CP 45588",
+      "telefono": "333860 5015",
+      "web": ""
+    },
+    {
+      "nombre": "GIMNASIOS AMERICANOS",
+      "direccion": "CLL RAFAEL SANZIO 5506, ARCOS DE GUADALUPE, ZAPOPAN, JAL, CP 45037",
+      "telefono": "333125 2473",
+      "web": ""
+    },
+    {
+      "nombre": "GIMNASIOS AMERICANOS",
+      "direccion": "AVE LABNA 1437 LOC SAM, JARDINES DEL SOL, ZAPOPAN, JAL, CP 45050",
+      "telefono": "333632 3331",
+      "web": ""
+    },
+    {
+      "nombre": "GIMNASIOS AMERICANOS",
+      "direccion": "AVE UNIDAS 6700, LOMA REAL, ZAPOPAN, JAL, CP 45129",
+      "telefono": "333610 2200",
+      "web": ""
+    },
+    {
+      "nombre": "GIMNASIOS AMERICANOS",
+      "direccion": "AVE UNIDAS 6700, LOMA REAL, ZAPOPAN, JAL, CP 45129",
+      "telefono": "333610 1464",
+      "web": ""
+    },
+    {
+      "nombre": "ACUA GYM",
+      "direccion": "CIRCUITO MEDAS 488, ALTAMIRA, ZAPOPAN, JAL, CP 45160",
+      "telefono": "333636 0639",
+      "web": ""
+    },
+    {
+      "nombre": "ADVENTIA",
+      "direccion": "AVE ANASTACIO BUSTAMANTE 76 8, FRANCISCO SARABIA, ZAPOPAN, JAL, CP 45236",
+      "telefono": "333630 4216",
+      "web": ""
+    },
+    {
+      "nombre": "ALVAREZ ALBOR JOSE LUIS",
+      "direccion": "CLL VOLCAN POPOCATEPETL 5388, EL COLLI 2A SECC, GUADALAJARA, JAL, CP 45070",
+      "telefono": "333620 3803",
+      "web": ""
+    },
+    {
+      "nombre": "AMADOR ARECHIGA KEVIN LEONARDO LEONCIO",
+      "direccion": "AVE VALLARTA 5566 INT F, LOMAS UNIVERSIDAD, ZAPOPAN, JAL, CP 45016",
+      "telefono": "333627 6132",
+      "web": ""
+    },
+    {
+      "nombre": "ARENAS DEL ROSAL SERGIO",
+      "direccion": "CLL MECANICA 2168, LOMAS DE ZAPOPAN, ZAPOPAN, JAL, CP 45130",
+      "telefono": "333364 6759",
+      "web": ""
+    },
+    {
+      "nombre": "BAÑUELOS CALLEROS JOSE IGNACIO",
+      "direccion": "",
+      "telefono": "333110 1771",
+      "web": ""
+    },
+    {
+      "nombre": "BARRAS Y MANCUERNAS",
+      "direccion": "CLLE IRINEO PAZ 1, LA LOMA, GUADALAJARA, JAL, CP 44410",
+      "telefono": "333643 3268",
+      "web": ""
+    },
+    {
+      "nombre": "CADENA DE GIMANASIOS \"ROY VELASCO\"",
+      "direccion": "",
+      "telefono": "333615 7859",
+      "web": ""
+    },
+    {
+      "nombre": "CASTILLO SANCHEZ MORAIMA ARACELI",
+      "direccion": "AVE NICOLAS COPERNICO 3815, EL COLLI 2A SECC, GUADALAJARA, JAL, CP 45070",
+      "telefono": "333631 1462",
+      "web": ""
+    },
+    {
+      "nombre": "CENTER GYM & FITNESS",
+      "direccion": "",
+      "telefono": "333613 5584",
+      "web": ""
+    },
+    {
+      "nombre": "CENTROS DE BIENESTAR FW",
+      "direccion": "AVE VALLARTA 3300 INT BOS, VALLARTA SAN JORGE, GUADALAJARA, JAL, CP 44690",
+      "telefono": "333852 6361",
+      "web": ""
+    }
+  ],
+  "restaurante-guadalajara": [
+    {
+      "nombre": "CRIREG",
+      "direccion": "Avenida Pablo Neruda 4341, Villa Universitaria, Guadalajara, JAL Ruta Ver Más",
+      "telefono": "3323036672",
+      "web": ""
+    },
+    {
+      "nombre": "CRIREG",
+      "direccion": "Avenida Pablo Neruda 4341, Villa Universitaria , Guadalajara, JAL Ruta Ver Más",
+      "telefono": "3323036672",
+      "web": ""
+    },
+    {
+      "nombre": "TACOS DE BARBACOA MC Restaurantes-Comida",
+      "direccion": "CALLE SAGITARIO 3797 A, LA CALMA, ZAPOPAN, JAL, CP 45070 Cerrado Abre a las 08:00 hrs Ruta Whatsapp Ver Más",
+      "telefono": "332749-3039",
+      "web": ""
+    },
+    {
+      "nombre": "BATBURGUER",
+      "direccion": "AV. EL COLLI 946, PARAISOS DEL COLLI, ZAPOPAN, JAL, CP 45069 Abierto 14:00 - 23:00 Ruta Whatsapp Ver Más",
+      "telefono": "331555-1039",
+      "web": ""
+    },
+    {
+      "nombre": "MARISCOS SAVE",
+      "direccion": "",
+      "telefono": "333629-3123",
+      "web": ""
+    },
+    {
+      "nombre": "MARISCOS SAVE",
+      "direccion": "",
+      "telefono": "333813-1194",
+      "web": ""
+    },
+    {
+      "nombre": "LA TRATTORIA DE GUADALAJARA",
+      "direccion": "",
+      "telefono": "333122-1817",
+      "web": ""
+    },
+    {
+      "nombre": "CANELO'S Restaurantes-Cocina",
+      "direccion": "AV LOPEZ MATEOS 7777, CIUDAD BUGAMBILIA, ZAPOPAN, JAL, CP 45237 Ruta Ver Más",
+      "telefono": "333684-4729",
+      "web": ""
+    },
+    {
+      "nombre": "MAGMA CAFE CREATIVO",
+      "direccion": "Avenida Río Nilo 3494, Jardines de Los Historiadores, Guadalajara, JAL Abierto 09:00 - 21:00 Ruta Ver Más",
+      "telefono": "3336974129",
+      "web": ""
+    },
+    {
+      "nombre": "CHIQUIHUITE RESTAURANTS",
+      "direccion": "CARR LIBRE A LOS ALTOS 332, TATEPOSCO, SANTA PAULA, GUADALAJARA, JAL, CP 45110 Abierto 11:00 - 02:00 Ruta Ver Más",
+      "telefono": "333690-1537",
+      "web": ""
+    },
+    {
+      "nombre": "LONCHES AMPARITO",
+      "direccion": "",
+      "telefono": "333613-0143",
+      "web": ""
+    },
+    {
+      "nombre": "RESTAURANT HOTEL CELTA",
+      "direccion": "MARIANO OTERO 1570, RINCONADA DEL SOL, ZAPOPAN, JAL, CP 45055 Abierto Servicio las 24 horas Ruta Ver Más",
+      "telefono": "333880-0222",
+      "web": ""
+    },
+    {
+      "nombre": "SUSHI FACTORY Japonesa-Sushi",
+      "direccion": "",
+      "telefono": "333611-2777",
+      "web": ""
+    },
+    {
+      "nombre": "EL RINCÓN CAMPESTRE",
+      "direccion": "",
+      "telefono": "333326-6326",
+      "web": ""
+    },
+    {
+      "nombre": "ASADOR LA VACA ARGENTINA Restaurantes-Cocina",
+      "direccion": "",
+      "telefono": "333630-1160",
+      "web": ""
+    },
+    {
+      "nombre": "CASA BARIACHI Restaurantes-Cocina",
+      "direccion": "",
+      "telefono": "333615-0029",
+      "web": ""
+    },
+    {
+      "nombre": "RESTAURANTE CAMPESTRE DON CHAVA Restaurantes-Cocina",
+      "direccion": "PERIFERICO NTE 2300, TABACHINES, GUADALAJARA, JAL, CP 45188 Abierto 13:00 - 00:00 Ruta Ver Más",
+      "telefono": "333660-2912",
+      "web": ""
+    },
+    {
+      "nombre": "BATBURGUER",
+      "direccion": "AV. EL COLLI 946, PARAISOS DEL COLLI, ZAPOPAN, JAL, CP 45069 Abierto 14:00 - 23:00 Ruta Ver Más",
+      "telefono": "331555-1039",
+      "web": ""
+    },
+    {
+      "nombre": "CHEZ NENE Restaurantes-Cocina",
+      "direccion": "",
+      "telefono": "333673-4564",
+      "web": ""
+    }
+  ],
+  "estetica-guadalajara": [
+    {
+      "nombre": "DRA. SOFIA JACOBO AMAYA",
+      "direccion": "AV. 18 DE MARZO 2029, LAS AGUILAS, ZAPOPAN, JAL, CP 45080 Cerrado Abre a las 10:00 hrs Ruta Ver Más",
+      "telefono": "333631-3817",
+      "web": ""
+    },
+    {
+      "nombre": "CIRUGÍA PLÁSTICA Y RECONSTRUCTIVA",
+      "direccion": "",
+      "telefono": "333651-4411",
+      "web": ""
+    },
+    {
+      "nombre": "SANATORIO PROVIDENCIA DE TLAQUEPAQUE Hospitales,",
+      "direccion": "",
+      "telefono": "333639-5155",
+      "web": ""
+    },
+    {
+      "nombre": "DRA. LIDIA E. MARTÍNEZ RAMÍREZ",
+      "direccion": "CALLE JUAN DE DIOS ROBLEDO 696, BLANCO Y CUELLAR, GUADALAJARA, JAL, CP 44730 Cerrado Abre a las 10:30 hrs Ruta Whatsapp Ver Más",
+      "telefono": "333649-7680",
+      "web": ""
+    },
+    {
+      "nombre": "GUIZA TORRES EDITH DRA. Dentistas-",
+      "direccion": "AV TEPEYAC 1287 S/N, SECTOR JUAREZ, GUADALAJARA, JAL, CP 45050 Cerrado Abre a las 10:00 hrs Ruta Ver Más",
+      "telefono": "333647-3061",
+      "web": ""
+    },
+    {
+      "nombre": "MORA ESQUIVIAS RENE CRISANTO DR",
+      "direccion": "",
+      "telefono": "333647-4269",
+      "web": ""
+    },
+    {
+      "nombre": "ROBLES PEREYRA DANIEL DR",
+      "direccion": "",
+      "telefono": "333640-0933",
+      "web": ""
+    },
+    {
+      "nombre": "Estética",
+      "direccion": "Avenida Naciones Unidas 4810, Jardines Universidad, Zapopan, JAL Abierto 08:00 - 18:00 Ruta Ver Más",
+      "telefono": "3336298582",
+      "web": ""
+    },
+    {
+      "nombre": "CENTRO DE ODONTOLOGÍA DENTIST VIBLIORIO Dentistas- dentistvibliorio.com.mx",
+      "direccion": "",
+      "telefono": "333656-1823",
+      "web": ""
+    },
+    {
+      "nombre": "DRA. AMPARO PEÑA MARTIN DEL CAMPO Dentistas- dentistaengdl.com",
+      "direccion": "AV. DE LAS ROSAS 430, CHAPALITA ORIENTE, ZAPOPAN, JAL, CP 45040 Cerrado Abre a las 10:00 hrs Ruta Whatsapp Ver Más",
+      "telefono": "333122-2941",
+      "web": ""
+    },
+    {
+      "nombre": "HERRERÍA E INOXIDABLE JM",
+      "direccion": "CALLE MARIANO OLIVARES 402, LOMAS DEL PARAISO 3A. SECCION, GUADALAJARA, JAL, CP 44250 Abierto 08:00 - 18:00 Ruta Whatsapp Ver Más",
+      "telefono": "333474-5763",
+      "web": ""
+    },
+    {
+      "nombre": "Exotic",
+      "direccion": "",
+      "telefono": "3336305233",
+      "web": ""
+    },
+    {
+      "nombre": "VETERINARIA SAN JOSE",
+      "direccion": "ACUEDUCTO 1120, LOS GIRASOLES, ZAPOPAN, JAL, CP 45136 Abierto 08:00 - 20:00 Ruta Ver Más",
+      "telefono": "331562-0558",
+      "web": ""
+    },
+    {
+      "nombre": "DRA. DANIELA GARCÍA ODONTOLOGÍA ESTÉTICA Y SONRISA",
+      "direccion": "AV. EMPRESARIOS 150, HOSPITAL PUERTA DE HIERRO TORRE ELITE PISO 19, PUERTA DE HIERRO, ZAPOPAN, JAL, CP 45116 Ruta Ver Más",
+      "telefono": "333945-9872",
+      "web": ""
+    },
+    {
+      "nombre": "ESTÉTICA MASCULINA DOLCE PIACERE",
+      "direccion": "AVENIDA A. LÓPEZ MATEOS 720A, LOS ARCOS, GUADALAJARA, JAL, CP 44500 Abierto Servicio las 24 horas Ruta Ver Más",
+      "telefono": "331221-6180",
+      "web": ""
+    },
+    {
+      "nombre": "SHOOTERS ESTETICA",
+      "direccion": "",
+      "telefono": "333647-6065",
+      "web": ""
+    },
+    {
+      "nombre": "CAIRE GARCIA LUIS FERNANDO",
+      "direccion": "",
+      "telefono": "333632-3660",
+      "web": ""
+    },
+    {
+      "nombre": "HOSPITAL VETERINARIO VETPETS",
+      "direccion": "",
+      "telefono": "333682-2817",
+      "web": ""
+    },
+    {
+      "nombre": "CLINICA HOSPITAL SAN JOSE Hospitales,",
+      "direccion": "",
+      "telefono": "333657-2330",
+      "web": ""
+    },
+    {
+      "nombre": "CLINICA VETERINARIA MASTER DOG",
+      "direccion": "",
+      "telefono": "333644-0759",
+      "web": ""
+    }
+  ],
+  "dentista-guadalajara": [
+    {
+      "nombre": "DENTISTA FANO REYES LIVIA IRENE",
+      "direccion": "Calle Fray Juan de Zumárraga 375, Chapalita, Guadalajara, JAL Cerrado Abre a las 09:00 hrs Ruta Ver Más",
+      "telefono": "3331227174",
+      "web": ""
+    },
+    {
+      "nombre": "DRA. AMPARO PEÑA MARTIN DEL CAMPO Dentistas- dentistaengdl.com",
+      "direccion": "AV. DE LAS ROSAS 430, CHAPALITA ORIENTE, ZAPOPAN, JAL, CP 45040 Cerrado Abre a las 10:00 hrs Ruta Whatsapp Ver Más",
+      "telefono": "333122-2941",
+      "web": ""
+    },
+    {
+      "nombre": "CONSULTORIO DENTAL DRA LIVIA PANO",
+      "direccion": "Calle Fray Juan de Zumárraga 375, Chapalita, Guadalajara, JAL Abierto 08:00 - 20:00 Ruta Ver Más",
+      "telefono": "3331227174",
+      "web": ""
+    },
+    {
+      "nombre": "GUIZA TORRES EDITH DRA. Dentistas-",
+      "direccion": "AV TEPEYAC 1287 S/N, SECTOR JUAREZ, GUADALAJARA, JAL, CP 45050 Cerrado Abre a las 10:00 hrs Ruta Ver Más",
+      "telefono": "333647-3061",
+      "web": ""
+    },
+    {
+      "nombre": "CENTRO DE ODONTOLOGÍA DENTIST VIBLIORIO Dentistas- dentistvibliorio.com.mx",
+      "direccion": "",
+      "telefono": "333656-1823",
+      "web": ""
+    },
+    {
+      "nombre": "DR. SANABIA DENTAL STUDIO Dentistas- drsanabiadentalstudio.com",
+      "direccion": "AV. MIGUEL HIDALGO 1980 A, LADRON DE GUEVARA, GUADALAJARA, JAL, CP 44600 Cerrado Abre a las 09:00 hrs Ruta Whatsapp Ver Más",
+      "telefono": "333394-9972",
+      "web": ""
+    },
+    {
+      "nombre": "Moradent",
+      "direccion": "Avenida Belisario Domínguez 485, San Juan de Dios Norte, Guadalajara, JAL, CP 44360 Cerrado Abre a las 09:00 hrs Ruta Ver Más",
+      "telefono": "3336069837",
+      "web": ""
+    },
+    {
+      "nombre": "CEPO Dentistas- cepo.miadn.mx",
+      "direccion": "",
+      "telefono": "333616-5002",
+      "web": ""
+    },
+    {
+      "nombre": "DRA EVANGELINA GUTIERREZ CORTES Dentistas- draevangelinagutierrezcortes.miadn.mx",
+      "direccion": "AV. JUAN PALOMAR Y ARIAS 658 D, MONRAZ, GUADALAJARA, JAL, CP 44670 Ruta Ver Más",
+      "telefono": "333641-9705",
+      "web": ""
+    },
+    {
+      "nombre": "JOSE CARLOS GOMEZ SANTANA Dentistas-",
+      "direccion": "",
+      "telefono": "333618-3649",
+      "web": ""
+    },
+    {
+      "nombre": "CERPA NUÑO GEORGINA Dentistas-",
+      "direccion": "",
+      "telefono": "333615-5788",
+      "web": ""
+    },
+    {
+      "nombre": "DIA DENTAL INTEGRAL DEL AHORRO Dentistas-",
+      "direccion": "",
+      "telefono": "333645-7570",
+      "web": ""
+    },
+    {
+      "nombre": "ANGEL CORTES MIGUEL Dentistas-",
+      "direccion": "",
+      "telefono": "331152-8066",
+      "web": ""
+    },
+    {
+      "nombre": "LABORATORIO DENTAL VELAZQUEZ Dentistas-",
+      "direccion": "",
+      "telefono": "333636-0370",
+      "web": ""
+    },
+    {
+      "nombre": "LLAMAS HARO DANIEL Dentistas-",
+      "direccion": "AV PABLO NERUDA 2786 F, PROVIDENCIA 4A SECC, GUADALAJARA, JAL, CP 44639 Ruta Ver Más",
+      "telefono": "333642-9844",
+      "web": ""
+    },
+    {
+      "nombre": "DENTOSALUD Dentistas-",
+      "direccion": "AV ENRIQUE LADRÓN DE GUEVARA 2462 LOC9, LA CALMA, ZAPOPAN, JAL, CP 45070 Ruta Ver Más (3",
+      "telefono": "33125-0452",
+      "web": ""
+    },
+    {
+      "nombre": "NUCLEO INTEGRAL Dentistas-",
+      "direccion": "",
+      "telefono": "334444-3445",
+      "web": ""
+    }
   ]
 }

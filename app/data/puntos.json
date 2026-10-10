@@ -1,11 +1,60 @@
 {
-  "equipo": [],
+  "equipo": [
+    {
+      "id": "daniel",
+      "nombre": "Daniel Alejandro Aldana Rubio",
+      "email": "danielaldanarubioalejandro2005@gmail.com",
+      "rol": "Fundador / Ventas",
+      "puntos": 0,
+      "tareasHechas": 0,
+      "ultimaActividad": null,
+      "racha": 0,
+      "mejorRacha": 0,
+      "historial": [],
+      "logros": [],
+      "fechaIngreso": "2026-10-10"
+    },
+    {
+      "id": "cesar",
+      "nombre": "Julio Cesar Ortiz Becerra",
+      "email": "a24110110@ceti.mx",
+      "rol": "Desarrollo",
+      "puntos": 0,
+      "tareasHechas": 0,
+      "ultimaActividad": null,
+      "racha": 0,
+      "mejorRacha": 0,
+      "historial": [],
+      "logros": [],
+      "fechaIngreso": "2026-10-10"
+    }
+  ],
+  "niveles": [
+    { "nivel": 1, "nombre": "Bronce", "min": 0, "icono": "🥉", "color": "#cd7f32" },
+    { "nivel": 2, "nombre": "Plata", "min": 50, "icono": "🥈", "color": "#a8a9ad" },
+    { "nivel": 3, "nombre": "Oro", "min": 150, "icono": "🥇", "color": "#ffd700" },
+    { "nivel": 4, "nombre": "Platino", "min": 300, "icono": "💎", "color": "#00d4ff" },
+    { "nivel": 5, "nombre": "Diamante", "min": 600, "icono": "👑", "color": "#b967ff" }
+  ],
+  "logrosDisponibles": [
+    { "id": "primera_tarea", "nombre": "Primer paso", "icono": "🎯", "desc": "Completar tu primera tarea", "bonus": 5, "condicion": "tareas>=1" },
+    { "id": "racha_3", "nombre": "En llama", "icono": "🔥", "desc": "3 días seguidos trabajando", "bonus": 15, "condicion": "racha>=3" },
+    { "id": "racha_7", "nombre": "Imparable", "icono": "⚡", "desc": "7 días seguidos trabajando", "bonus": 50, "condicion": "racha>=7" },
+    { "id": "cien_puntos", "nombre": "Centenario", "icono": "💯", "desc": "Llegar a 100 puntos", "bonus": 25, "condicion": "puntos>=100" },
+    { "id": "productivo", "nombre": "Día productivo", "icono": "📈", "desc": "3+ tareas en un solo día", "bonus": 20, "condicion": "tareasHoy>=3" },
+    { "id": "vendedor", "nombre": "Cazador", "icono": "🤝", "desc": "5 tareas de Ventas", "bonus": 30, "condicion": "ventas>=5" }
+  ],
   "reglas": {
     "Ventas": 10,
+    "Marketing": 5,
     "Sistema": 3,
-    "Personal": 1,
-    "Marketing": 5
+    "Personal": 1
   },
-  "actualizado": "2026-10-10",
-  "metaSemanal": 50
+  "bonusRacha": {
+    "diasParaBonus": 3,
+    "multiplicador": 0.1,
+    "maxMultiplicador": 0.5
+  },
+  "metaSemanal": 50,
+  "actualizado": "2026-10-10"
 }
