@@ -49,6 +49,7 @@ The user runs `app/index.html` in a browser (double-click, no server). Data file
 - **`app/data/prospectos.json`** — user adds prospects via the app. Read to know pipeline state (`estado`: Nuevo → Contactado → Respondió → Reunión → Cotizado → Cerrado / Sin respuesta). Each prospect has `monto` (number, MXN).
 - **`app/data/mensajes.json`** — user's inbox to you. New items have `estado: "pendiente"`. **When the user says "revisa la app"/"ya terminé": read this first, then set `estado: "atendido"` and fill `respuesta` with your reply.** The app shows it under the message.
 - **`app/data/clientes.json` · `cotizaciones.json` · `finanzas.json` · `contenido.json`** — company-control modules (projects w/ anticipo/saldo, quotes, cash flow + monthly goal, content calendar). Read them on each session; you may also write tasks/answers about them (e.g. remind follow-ups on pending quotes, flag low content cadence). `finanzas.metaMes` is the monthly revenue goal (default $10,000 MXN).
+- **`app/data/puntos.json`** — team points system (H14): Daniel & César, points per task category, weekly goal, activity history. The Equipo tab reads/writes it. Synced via sync-data.js.
 - **`app/data/agenda.json`** — reuniones con estados Próximamente/Realizada/Cancelada. Al marcar Realizada se pide `resultado` obligatorio.
 - **`app/data/bitacora.json`** — log de eventos de valor (solo append, máx 500). Cada mutación genera un evento.
 - **`app/data/reportes.json`** — reportes semanales generados por la app, completados por el cerebro.

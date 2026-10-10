@@ -15,12 +15,13 @@ const COLLECTIONS=[
   {key:'agenda',arr:'reuniones',tab:'agenda'},
   {key:'bitacora',arr:'eventos',tab:'bitacora'},
   {key:'reportes',arr:'reportes',tab:'reportes'},
-  {key:'radar',arr:'oportunidades',tab:'visualizar'}
+  {key:'radar',arr:'oportunidades',tab:'visualizar'},
+  {key:'puntos',arr:'equipo',tab:'equipo'}
 ];
 let tombstones={};
 let lastPush={};
 let online=true;
-let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]},clientes:{actualizado:'',clientes:[]},cotizaciones:{actualizado:'',cotizaciones:[]},finanzas:{actualizado:'',metaMes:10000,movimientos:[]},contenido:{actualizado:'',publicaciones:[]},agenda:{actualizado:'',reuniones:[]},bitacora:{actualizado:'',eventos:[]},reportes:{actualizado:'',reportes:[]},radar:{actualizado:'',oportunidades:[]}};
+let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]},clientes:{actualizado:'',clientes:[]},cotizaciones:{actualizado:'',cotizaciones:[]},finanzas:{actualizado:'',metaMes:10000,movimientos:[]},contenido:{actualizado:'',publicaciones:[]},agenda:{actualizado:'',reuniones:[]},bitacora:{actualizado:'',eventos:[]},reportes:{actualizado:'',reportes:[]},radar:{actualizado:'',oportunidades:[]},puntos:{equipo:{daniel:{nombre:'Daniel Alejandro Aldana Rubio',email:'danielaldanarubioalejandro2005@gmail.com',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,historial:[]},cesar:{nombre:'Julio Cesar Ortiz Becerra',email:'a24110110@ceti.mx',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,historial:[]}},reglas:{Ventas:10,Marketing:5,Sistema:3,Personal:1},metaSemanal:50,actualizado:''}};
 
 function normalizeState(){
   if(!state.clientes||!Array.isArray(state.clientes.clientes))state.clientes={actualizado:'',clientes:[]};
@@ -31,6 +32,7 @@ function normalizeState(){
   if(!state.bitacora||!Array.isArray(state.bitacora.eventos))state.bitacora={actualizado:'',eventos:[]};
   if(!state.reportes||!Array.isArray(state.reportes.reportes))state.reportes={actualizado:'',reportes:[]};
   if(!state.radar||!Array.isArray(state.radar.oportunidades))state.radar={actualizado:'',oportunidades:[]};
+  if(!state.puntos||!state.puntos.equipo)state.puntos={equipo:{daniel:{nombre:'Daniel Alejandro Aldana Rubio',email:'danielaldanarubioalejandro2005@gmail.com',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,historial:[]},cesar:{nombre:'Julio Cesar Ortiz Becerra',email:'a24110110@ceti.mx',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,historial:[]}},reglas:{Ventas:10,Marketing:5,Sistema:3,Personal:1},metaSemanal:50,actualizado:''};
   if(!state.finanzas.metaMes)state.finanzas.metaMes=10000;
   state.prospectos.prospectos.forEach(p=>{if(p.monto===undefined)p.monto=0});
   state.cotizaciones.cotizaciones.forEach(function(q){
@@ -210,6 +212,7 @@ var NAV_ITEMS=[
   {id:'metricas',label:'Metricas',icon:'i-chart'},
   {id:'visualizar',label:'Visualizar',icon:'i-bolt'},
   {id:'tareas',label:'Tareas',icon:'i-check'},
+  {id:'equipo',label:'Equipo',icon:'i-users'},
   {id:'mensajes',label:'Mensajes',icon:'i-mail'},
   {id:'bitacora',label:'Bitacora',icon:'i-timeline'},
   {id:'reportes',label:'Reportes',icon:'i-report'},
@@ -251,6 +254,7 @@ function switchTab(name){
   if(name==='contenido')renderContenido();
   if(name==='metricas')renderMetrics();
   if(name==='visualizar')renderVisualizar();
+  if(name==='equipo')renderEquipo();
   if(name==='ayuda')renderAyuda();
   closeDrawer();
 }
@@ -758,7 +762,9 @@ function renderTasks(){
   $$('[data-task]').forEach(function(cb){
     cb.addEventListener('change',function(){
       var t=state.tareas.tareas.find(function(x){return x.id===cb.dataset.task});
-      if(t){t.hecha=cb.checked;t.hechoFecha=cb.checked?stamp():'';t.actualizado=stamp();save('tareas');renderTasks();if(cb.checked&&t.categoria!=='Personal')log('tarea-hecha','Tarea completada',t.titulo);toast(cb.checked?'Tarea completada':'Tarea reabierta')}
+      if(!t)return;
+      if(!cb.checked){t.hecha=false;t.hechoFecha='';t.actualizado=stamp();save('tareas');renderTasks();toast('Tarea reabierta');return}
+      showWhoModal(t,cb);
     });
   });
   $$('[data-tedit]').forEach(function(b){b.addEventListener('click',function(){startTaskEdit(b.dataset.tedit)})});
@@ -773,6 +779,102 @@ $('#addTask').addEventListener('click',function(){
 });
 $('#newTask').addEventListener('keydown',function(e){if(e.key==='Enter')$('#addTask').click()});
 $('#cancelTaskEdit').addEventListener('click',endTaskEdit);
+
+function showWhoModal(t,cb){
+  var modal=$('#whoModal');
+  if(!modal){
+    modal=document.createElement('div');
+    modal.id='whoModal';
+    modal.className='modal-overlay';
+    modal.innerHTML='<div class="modal" style="max-width:420px"><h3>¿Quién lo hizo?</h3><p style="color:var(--muted);font-size:14px;margin-bottom:16px">'+esc(t.titulo)+'</p><div style="display:flex;gap:12px;justify-content:center"><button class="btn primary" data-who="daniel">Daniel</button><button class="btn primary" data-who="cesar">César</button></div><p style="color:var(--muted);font-size:12px;margin-top:12px">+<span id="whoPts"></span> puntos según categoría</p><button class="btn ghost" id="whoCancel" style="margin-top:12px">Cancelar</button></div>';
+    document.body.appendChild(modal);
+    modal.addEventListener('click',function(e){if(e.target===modal)closeWhoModal()});
+    $('#whoCancel').addEventListener('click',function(){closeWhoModal();if(cb)cb.checked=false});
+    modal.querySelectorAll('[data-who]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var who=b.dataset.who;
+        completeTaskWith(t,who,cb);
+        closeWhoModal();
+      });
+    });
+  }
+  var pts=(state.puntos.reglas[t.categoria]||1);
+  $('#whoPts').textContent=pts;
+  modal.classList.add('open');
+}
+function closeWhoModal(){var m=$('#whoModal');if(m)m.classList.remove('open')}
+function completeTaskWith(t,who,cb){
+  t.hecha=true;t.hechoFecha=stamp();t.actualizado=stamp();
+  var pts=(state.puntos.reglas[t.categoria]||1);
+  var eq=state.puntos.equipo[who];
+  eq.puntos+=pts;eq.tareasHechas++;eq.ultimaActividad=stamp();eq.racha++;
+  eq.historial.push({fecha:stamp(),tarea:t.titulo,puntos:pts,categoria:t.categoria});
+  if(eq.historial.length>100)eq.historial=eq.historial.slice(-100);
+  save('tareas');save('puntos');renderTasks();renderEquipo();
+  if(t.categoria!=='Personal')log('tarea-hecha','Tarea completada por '+eq.nombre,t.titulo);
+  toast('Tarea completada · +'+pts+' pts para '+eq.nombre.split(' ')[0]);
+}
+function renderEquipo(){
+  var eq=state.puntos.equipo;
+  var meta=state.puntos.metaSemanal||50;
+  var hoy=today();
+  var semana=weekStart();
+  var html='';
+  ['daniel','cesar'].forEach(function(k){
+    var p=eq[k];
+    var actHoy=p.historial.filter(function(h){return(h.fecha||'').slice(0,10)===hoy}).length;
+    var actSemana=p.historial.filter(function(h){return(h.fecha||'').slice(0,10)>=semana}).length;
+    var ptsSemana=p.historial.filter(function(h){return(h.fecha||'').slice(0,10)>=semana}).reduce(function(s,h){return s+h.puntos},0);
+    var diasInactivo=p.ultimaActividad?Math.floor((new Date(hoy)-new Date(p.ultimaActividad.slice(0,10)))/86400000):99;
+    var status=diasInactivo===0?'🟢 Trabajando':(diasInactivo<=7?'🟡 Activo':'🔴 Inactivo');
+    var pct=Math.min(100,Math.round(ptsSemana/meta*100));
+    html+='<div class="card equipo-card" style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div style="flex:1;min-width:200px"><h3 style="margin:0">'+esc(p.nombre)+'</h3><div style="font-size:13px;color:var(--muted)">'+esc(p.email)+'</div></div><div style="font-size:28px;font-weight:800">'+p.puntos+' pts</div><div class="equipo-status '+(diasInactivo===0?'trabajando':(diasInactivo<=7?'activo':'inactivo'))+'">'+status+'</div></div><div style="display:flex;gap:16px;margin-top:12px;font-size:13px;flex-wrap:wrap"><span>✅ '+p.tareasHechas+' tareas</span><span>🔥 Racha: '+p.racha+'</span><span>📅 Hoy: '+actHoy+'</span><span>📊 Semana: '+actSemana+' tareas · '+ptsSemana+' pts</span><span>⏰ Última: '+(p.ultimaActividad?p.ultimaActividad.slice(0,16):'nunca')+'</span></div><div style="margin-top:12px"><div style="font-size:12px;color:var(--muted);margin-bottom:4px">Meta semanal: '+ptsSemana+' / '+meta+' pts</div><div class="equipo-progress"><i style="width:'+pct+'%;background:'+(pct>=100?'#22c55e':'var(--accent)')+'"></i></div></div></div>';
+  });
+  var winner=eq.daniel.puntos>=eq.cesar.puntos?'daniel':'cesar';
+  var leader=eq[winner];
+  html+='<div class="card equipo-leader"><h3>🏆 Líder actual</h3><p style="font-size:15px;margin:4px 0"><strong>'+esc(leader.nombre)+'</strong> con '+leader.puntos+' puntos y '+leader.tareasHechas+' tareas completadas.</p><p style="font-size:13px;color:var(--muted)">El sistema de puntos se actualiza cada vez que marcan una tarea como hecha. Ventas=10pts · Marketing=5pts · Sistema=3pts · Personal=1pt.</p></div>';
+  html+='<div class="card"><h3>📧 Reporte por correo</h3><p style="font-size:13px;color:var(--muted);margin-bottom:8px">Envía el marcador semanal a ambos correos.</p><button class="btn primary" id="btnMailReport">Enviar reporte por correo</button><div id="mailStatus" style="margin-top:8px;font-size:13px"></div></div>';
+  html+='<div class="card"><h3>📜 Historial reciente</h3><div id="teamHistory" class="equipo-history" style="font-size:13px"></div></div>';
+  $('#equipoContent').innerHTML=html;
+  $('#btnMailReport').addEventListener('click',function(){sendMailReport()});
+  var histHtml='';
+  var allHist=[];
+  ['daniel','cesar'].forEach(function(k){
+    eq[k].historial.forEach(function(h){allHist.push({quien:eq[k].nombre,...h})});
+  });
+  allHist.sort(function(a,b){return b.fecha.localeCompare(a.fecha)});
+  allHist.slice(0,15).forEach(function(h){
+    histHtml+='<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>'+esc(h.quien.split(' ')[0])+' — '+esc(h.tarea)+'</span><span style="color:var(--muted)">'+h.fecha.slice(0,16)+' · +'+h.puntos+' pts</span></div>';
+  });
+  if(!allHist.length)histHtml='<span style="color:var(--muted)">Sin actividad todavía. Marquen tareas como hechas para empezar.</span>';
+  $('#teamHistory').innerHTML=histHtml;
+}
+function sendMailReport(){
+  var eq=state.puntos.equipo;
+  var meta=state.puntos.metaSemanal||50;
+  var lines=[];
+  lines.push('D.SOFTWORKS — MARCADOR DEL EQUIPO — '+today());
+  lines.push('');
+  ['daniel','cesar'].forEach(function(k){
+    var p=eq[k];
+    lines.push(p.nombre+': '+p.puntos+' pts · '+p.tareasHechas+' tareas · racha '+p.racha);
+    var actSemana=p.historial.filter(function(h){return(h.fecha||'').slice(0,10)>=weekStart()});
+    lines.push('  Esta semana: '+actSemana.length+' tareas · '+actSemana.reduce(function(s,h){return s+h.puntos},0)+' pts (meta: '+meta+')');
+    lines.push('  Última actividad: '+(p.ultimaActividad||'nunca'));
+    lines.push('');
+  });
+  var winner=eq.daniel.puntos>=eq.cesar.puntos?'Daniel':'César';
+  lines.push('Líder: '+winner);
+  lines.push('');
+  lines.push('Reglas: Ventas=10pts · Marketing=5pts · Sistema=3pts · Personal=1pt');
+  lines.push('Meta semanal: '+meta+' pts por persona');
+  var body=lines.join('\n');
+  var to=eq.daniel.email+','+eq.cesar.email;
+  var subject='D.Softworks — Marcador del equipo '+today();
+  var mailto='mailto:'+to+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  $('#mailStatus').innerHTML='<a href="'+mailto+'" style="color:var(--accent);font-weight:600">Abrir correo con el reporte precargado</a> (clic para enviar)';
+  window.open(mailto,'_self');
+}
 
 function renderMetrics(){
   var ps=state.prospectos.prospectos;var ws=weekStart();var week=ps.filter(function(p){return(p.fecha||'').slice(0,10)>=ws}).length;var byEst={};ESTADOS.forEach(function(e){byEst[e]=0});ps.forEach(function(p){byEst[p.estado]=(byEst[p.estado]||0)+1});var byF={};ps.forEach(function(p){var f=p.fuente||'Otro';byF[f]=(byF[f]||0)+1});var resp=(byEst['Respondió']||0)+(byEst['Reunión']||0)+(byEst['Cotizado']||0)+(byEst['Cerrado']||0);

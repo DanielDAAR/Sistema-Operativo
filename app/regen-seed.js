@@ -2,7 +2,7 @@ const fs=require('fs');
 const path='app/data';
 const tareas=JSON.parse(fs.readFileSync('app/tareas.json','utf8'));
 const data={tareas:tareas};
-const files=['prospectos','clientes','cotizaciones','finanzas','contenido','agenda','bitacora','reportes','mensajes','radar'];
+const files=['prospectos','clientes','cotizaciones','finanzas','contenido','agenda','bitacora','reportes','mensajes','radar','puntos'];
 files.forEach(function(f){
   data[f]=JSON.parse(fs.readFileSync('app/data/'+f+'.json','utf8'));
 });

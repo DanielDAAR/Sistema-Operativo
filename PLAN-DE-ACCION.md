@@ -770,6 +770,7 @@ Caja de herramientas completa para ejecutar la prospección de la semana. Índic
 | H11 · Motor del día | `node dsw-os-web/tools/dia.js` | **UN COMANDO = TU DÍA:** dinero, tareas vencidas, seguimiento con mensajes listos, contenido pendiente, radar ALTA y tu orden exacta. Variantes: `seguimiento` (mensajes completos), `radar`, `sheets` |
 | H12 · Google Sheets | `node dsw-os-web/tools/dia.js sheets` | Exporta 8 archivos .tsv a `dsw-os-export/` listos para importar a Google Sheets (pipeline filtrable por días sin mover) |
 | H13 · Ángulo "no es para grandes" | en cada mensaje de hoy | El Economista 10-oct: las pymes creen que la tecnología es para grandes → cerrar con "No es cosa de empresas grandes: tu competencia de barrio ya lo tiene" |
+| H14 · Equipo (puntos + correo) | app → pestaña **Equipo** | Sistema de puntos que obliga a trabajar: Ventas=10 · Marketing=5 · Sistema=3 · Personal=1. Modal "¿Quién lo hizo?" al marcar tarea. Indicador 🟢/🟡/🔴, meta semanal 50 pts, reporte por correo a ambos. Script: `node dsw-os-web/tools/notificar.js` |
 
 **Herramientas de línea de comando del cerebro** (todas en `dsw-os-web/tools/`): `money.js` (dónde está la plata) · `dia.js` (plan del día + seguimiento + TSV + radar) · `sync-data.js` (puente a Supabase). Registro de todo en `AGENTS.md` → "REGLA DE EVOLUCIÓN".
 
