@@ -735,7 +735,7 @@ Imprimir esto y marcar cada vez que se complete algo:
 - [x] Paso 20: Proceso de ajuste documentado
 
 ### FASE 5: PRIMEROS CLIENTES (Mes 2) — 🔄 EN EJECUCIÓN
-- [~] Paso 21: Ejecutar prospección activa — ✅ lote original enviado (10 prospectos: DEO, Tiny Smiles, Denticelis, La Matera, Alcalde, Somos Red, Atelback, Dental Magaña, La Zapopana, PROJAL); 🔄 lote nuevo: enviar a El ZarCortes, Barber Chuy y Barras y Mancuernas (9 quedaron "No registrado" sin WhatsApp)
+- [~] Paso 21: Ejecutar prospección activa — ✅ lote original enviado (10 prospectos: DEO, Tiny Smiles, Denticelis, La Matera, Alcalde, Somos Red, Atelback, Dental Magaña, La Zapopana, PROJAL); 🔄 lote nuevo: enviar a El ZarCortes, Barber Chuy y Barras y Mancuernas (9 quedaron "No registrado" sin WhatsApp); 🆕 10-oct: **caja de herramientas digitales creada** (H1 auditoría FB, H2 mensajes de reactivación, H3 playbook TikTok, H4 mensajes v2, H5 publicaciones listas, H6 checklist WhatsApp) — ver `prospecting/HERRAMIENTAS-DIGITALES.md`
 - [~] Paso 21 (infra): ✅ app migrada a la nube (dsw-os.netlify.app + Supabase) y bug de carga de datos corregido (24-sep)
 - [ ] Paso 22: Cerrar y entregar proyectos
 - [ ] Paso 23: Obtener testimonios
@@ -750,6 +750,30 @@ Imprimir esto y marcar cada vez que se complete algo:
 | `07-Marketing/Publicaciones/Portafolio-03-CasaBlanca.md` | Publicación de portafolio para restaurante |
 | `07-Marketing/Publicaciones/Portafolio-04-VitalErect.md` | Publicación de portafolio para consultorio |
 | `08-Reuniones/Actas/Plantilla-acta-reunion.md` | Plantilla para documentar reuniones |
+
+## 🛠️ HERRAMIENTAS DIGITALES (10-oct-2026)
+
+Caja de herramientas completa para ejecutar la prospección de la semana. Índice y rutina en `prospecting/HERRAMIENTAS-DIGITALES.md`.
+
+| Herramienta | Archivo | Qué hace |
+|-------------|---------|----------|
+| H1 · Auditoría FB | `prospecting/AUDITORIA-FB-2026.md` | Revisa y puntúa 0-10 las páginas de los 21 prospectos (45 min) |
+| H2 · Mensajes reactivación | `prospecting/MENSAJES-FB-REACTIVACION.md` | 12 mensajes copy-paste con ángulo Facebook (estructura v2) |
+| H3 · Playbook TikTok | `07-Marketing/PLAYBOOK-TIKTOK-LOCAL.md` | 4 formatos probados + guiones por rubro + calendario 14 días |
+| H4 · Mensajes v2 | `prospecting/MENSAJES-V2.md` | Los 7 mensajes probados para los de mayor monto |
+| H5 · Publicaciones | `07-Marketing/Publicaciones/` | 7 posts listos, calendario en app > Contenido |
+| H6 · Checklist WhatsApp | `prospecting/MENSAJES-V2.md` (final) | Perfil en 60 seg antes de mandar |
+| H7 · Visualizar (pestaña) | app → pestaña **Visualizar** | Centro de mando en vivo: embudo monetizado, donut de meta, mapa de calor de prospectos fríos, radar de oportunidades, contenido a 14 días, tareas por categoría, bitácora |
+| H8 · Centro de mando | `app/visualizador.html` | Pantalla completa oscura; carga sola con serve.bat o con selector de archivos; se actualiza cada 60 seg |
+| H9 · Exportar/Importar | Botones nuevos del header | Backup completo de todo en un archivo; restaura en un clic (soluciona la sincronización bloqueada) |
+| H10 · Netlify | push o arrastrar `dsw-os-web/public/` | Publica la app en la nube (nunca subir tools/, supabase/, creds.json) |
+| H11 · Motor del día | `node dsw-os-web/tools/dia.js` | **UN COMANDO = TU DÍA:** dinero, tareas vencidas, seguimiento con mensajes listos, contenido pendiente, radar ALTA y tu orden exacta. Variantes: `seguimiento` (mensajes completos), `radar`, `sheets` |
+| H12 · Google Sheets | `node dsw-os-web/tools/dia.js sheets` | Exporta 8 archivos .tsv a `dsw-os-export/` listos para importar a Google Sheets (pipeline filtrable por días sin mover) |
+| H13 · Ángulo "no es para grandes" | en cada mensaje de hoy | El Economista 10-oct: las pymes creen que la tecnología es para grandes → cerrar con "No es cosa de empresas grandes: tu competencia de barrio ya lo tiene" |
+
+**Herramientas de línea de comando del cerebro** (todas en `dsw-os-web/tools/`): `money.js` (dónde está la plata) · `dia.js` (plan del día + seguimiento + TSV + radar) · `sync-data.js` (puente a Supabase). Registro de todo en `AGENTS.md` → "REGLA DE EVOLUCIÓN".
+
+**Tareas en la app:** t-014 a t-023 (todas con vence 10-oct).
 
 ---
 
@@ -880,4 +904,4 @@ Este archivo es la guía principal. Todo lo demás se crea a partir de aquí.
 
 **D.Softworks — Soluciones Digitales**
 **Documento creado:** 15 de septiembre de 2026
-**Última actualización:** 22 de septiembre de 2026
+**Última actualización:** 10 de octubre de 2026

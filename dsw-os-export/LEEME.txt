@@ -1,0 +1,20 @@
+D.SOFTWORKS — EXPORTACIÓN PARA GOOGLE SHEETS
+Generado: 2026-10-10T19:19:25.345Z
+
+CÓMO IMPORTAR (2 clics por archivo):
+  1. Abre sheets.google.com → hoja nueva (en blanco).
+  2. Archivo → Importar → Subir → elige el .tsv → "Insertar nueva hoja".
+  (O copia todo el .tsv con Notepad y pégalo directo en la hoja: Sheets lo separa en columnas.)
+
+ARCHIVOS:
+  prospectos.tsv    — pipeline completo con días sin mover (filtra "dias_sin_mover" >= 7 = frío)
+  tareas.tsv        — qué hacer y cuándo vence
+  cotizaciones.tsv  — dinero en el aire
+  clientes.tsv      — proyectos en curso (anticipo / saldo)
+  finanzas.tsv      — movimientos de caja
+  contenido.tsv     — calendario editorial
+  radar.tsv         — oportunidades O-XX
+  agenda.tsv        — reuniones
+
+REGRESAS LOS DATOS A LA APP: la app sigue siendo la fuente de datos; estos TSV son
+solo para ver y filtrar en Google Sheets. Edítalos ahí, pero los cambios se hacen en la app.

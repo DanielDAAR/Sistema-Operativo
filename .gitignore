@@ -20,3 +20,6 @@ Desktop.ini
 
 # External repositories
 ai-business-skills/
+
+# Secrets — NUNCA subir (AGENTS.md: debe quedarse 404)
+dsw-os-web/tools/creds.json

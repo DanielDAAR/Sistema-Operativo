@@ -52,31 +52,199 @@
     },
     {
       "id": "t-006",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-09-24",
       "origen": "cerebro",
       "titulo": "Enviar mensaje a barberías lote 1 (Vetro, Navajas de Hierro, Frisón, El ZarCortes)",
       "detalle": "Nuevos prospectos p-011 a p-014 (prospectos.json). WhatsApp: Vetro 33 2491 3305, Navajas 33 3611 4587, Frisón 33 2846 5541, El ZarCortes 33 2033 0341. Mensajes listos en el campo 'mensaje' de cada uno.",
-      "categoria": "Ventas"
+      "categoria": "Ventas",
+      "hechoFecha": "2026-09-24 22:17",
+      "actualizado": "2026-09-24 22:17"
     },
     {
       "id": "t-007",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-09-24",
       "origen": "cerebro",
       "titulo": "Enviar mensaje a Barber Chuy, Studio 80, D'Mayis y Focus Salón",
       "detalle": "Nuevos prospectos p-015 a p-018 (prospectos.json). WhatsApp: Barber Chuy 33 3787 7648, Studio 80 33 3015 3098, D'Mayis 33 3614 5959, Focus 33 3110 6130. Mensajes listos en cada uno.",
-      "categoria": "Ventas"
+      "categoria": "Ventas",
+      "hechoFecha": "2026-09-24 22:11",
+      "actualizado": "2026-09-24 22:11"
     },
     {
       "id": "t-008",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-09-25",
       "origen": "cerebro",
       "titulo": "Enviar mensaje a gimnasios y café (Nitro, Monster, Barras, Coffee Legacy)",
       "detalle": "Nuevos prospectos p-019 a p-022 (prospectos.json). WhatsApp: Nitro 33 3110 6154, Monster 33 1578 0940, Barras y Mancuernas 33 3643 3268, The Coffee Legacy 33 2491 4269. Mensajes listos en cada uno.",
-      "categoria": "Ventas"
+      "categoria": "Ventas",
+      "hechoFecha": "2026-09-24 22:17",
+      "actualizado": "2026-09-24 22:17"
+    },
+    {
+      "id": "t-009",
+      "titulo": "CRÍTICO: seguimiento a los 7 prospectos del 23-sep (16 días sin respuesta)",
+      "detalle": "abrilo en prospecting/SEGUIMIENTOS-23SEP.md. Enviar mensaje #2 a: Dr. Oscar Raygoza (33 1178 4981, ,000), Dra. Kimberley Pineda / Dental Magaña (33 1349 2145, ,500), Dra. Ana Isabel / Tiny Smiles (33 1748 8180, ,500), El ZarCortes (33 2033 0341, ,200), Barber Chuy (33 3787 7648, ,200), Somos Red GDL (33 2962 5857), Atelback (33 2051 2899). Si en 48h no responden: mensaje #3 (cierre elegante) y pasarlos a Sin respuesta.",
+      "categoria": "Ventas",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-010",
+      "titulo": "BLOQUE 1 (0-25 min) — Manda los 6 seguimientos del 23-sep",
+      "detalle": "Abrir prospecting/SEGUIMIENTOS-23SEP.md. Orden: Dr. Oscar Raygoza (33 1178 4981, $6,000) → Dra. Kimberley / Dental Magaña (33 1349 2145, $4,500) → Dra. Ana Isabel / Tiny Smiles (33 1748 8180, $2,500) → El ZarCortes (33 2033 0341) → Barber Chuy (33 3787 7648) → Somos Red GDL (33 2962 5857). Después de cada uno NO cambies el estado hasta tener respuesta real.",
+      "categoria": "Ventas",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-011",
+      "titulo": "BLOQUE 2 (25-45 min) — Destapa los 14 \"No registrado\"",
+      "detalle": "Abrir app/data/prospectos.json. Marca los 14 como Descartado. Para 8 de ellos busca número en Google Maps: nombre del negocio + Zapopan / Tlaquepaque / Tlajomulco. Si hay teléfono → estado Nuevo. Si no hay → Descartado. Meta: bajar el pipeline de $32,100 (fantasma) a ~$16,700 (real).",
+      "categoria": "Ventas",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-012",
+      "titulo": "BLOQUE 3 (45-105 min) — 10 prospectos NUEVOS con WhatsApp verificado",
+      "detalle": "Meta del día (10/día). Fuentes: (1) Google Maps → \"dentista Zapopan\", \"clínica dental Tlaquepaque\", \"barbería Guadalajara\". (2) Instagram → hashtags #dentistagdl #barberiagdl #clinicasgdl. REGLA CRÍTICA: si no hay WhatsApp NO lo anotes — no cuenta como prospecto (error que ya cometiste con 14). Anota nombre, negocio, teléfono, rubro, monto estimado y deja que el cerebro te escriba el mensaje en el campo \"mensaje\".",
+      "categoria": "Ventas",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-013",
+      "titulo": "BLOQUE 4 (105-120 min) — Publica 1 post + deja estados al día",
+      "detalle": "Publica 07-Marketing/Publicaciones/Portafolio-01-GMFire.md en FB + IG (está escrito, nunca publicado). Luego abre la app: actualiza los estados de los 6 del Bloque 1 y escribe \"revisa la app\" en 🧠 Mensajes para que el cerebro lea tus resultados y arme el plan de mañana.",
+      "categoria": "Marketing",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-014",
+      "titulo": "H1 — Auditoría de Facebook de los 21 prospectos (45 min)",
+      "detalle": "Abrir prospecting/AUDITORIA-FB-2026.md. Buscar cada negocio en Facebook y llenar: ¿tiene página?, ¿última publicación?, ¿botón de WhatsApp?, ¿portada+info?, ¿reseñas?. Puntuar 0-10. Score 0-4 = página muerta → mensaje H2 hoy. Copiar la tabla a un Google Sheet nuevo ('Auditoría FB').",
+      "categoria": "Ventas",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-015",
+      "titulo": "H2 — Enviar 3 mensajes con ángulo Facebook",
+      "detalle": "Textos exactos en prospecting/MENSAJES-FB-REACTIVACION.md (sección LOTE DE HOY). Orden: El ZarCortes (wa.me/523320330341) → Barber Chuy (wa.me/523337877648) → Barras y Mancuernas (wa.me/523336433268). Copiar y pegar exacto, NO cambiar el texto. Si ya se mandó la v2 de Fresha a Barber Chuy, este es el mensaje #2 (esperar 48h).",
+      "categoria": "Ventas",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-016",
+      "titulo": "H5 — Publicar Portafolio GM Fire (FB 10:00 / IG 12:00)",
+      "detalle": "Texto y formato listos en 07-Marketing/Publicaciones/Portafolio-01-GMFire.md. Imagen: Captura de pantalla 2026-09-15 195023.png. Nunca se ha publicado. Marcar como publicado en la app > Contenido (c-001).",
+      "categoria": "Marketing",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-017",
+      "titulo": "H6 — Checklist de perfil de WhatsApp (60 seg, ANTES de mandar mensajes)",
+      "detalle": "Está al final de prospecting/MENSAJES-V2.md. Foto de perfil = logo D.Softworks (no el ícono gris), nombre 'D.Softworks', estado 'Páginas web y sistemas para negocios de GDL', foto de portada. Un número sin foto desperdicia el mejor mensaje.",
+      "categoria": "Ventas",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-018",
+      "titulo": "H3 — Filmar 1 video demo TikTok (playbook local)",
+      "detalle": "Guiones en 07-Marketing/PLAYBOOK-TIKTOK-LOCAL.md. Formato antes/después, 30 seg, vertical, con permiso del cliente. Decir en voz alta la palabra clave: '[servicio] en [colonia], Zapopan'. Subir a la cuenta de D.Softworks como demo para usar en mensajes de venta.",
+      "categoria": "Marketing",
+      "vence": "2026-10-12",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-019",
+      "titulo": "Al terminar: reportar resultados en 🧠 Mensajes",
+      "detalle": "Escribir 'revisa la app' en Mensajes de la app con: cuántas páginas muertas/vivas/sin página salieron en la auditoría, qué mensajes se mandaron y qué tics aparecieron. El cerebro lee, actualiza prospectos.json y arma el plan de mañana.",
+      "categoria": "Ventas",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-020",
+      "titulo": "H7 — Probar la pestaña Visualizar (centro de mando en vivo)",
+      "detalle": "Abre la app (app/index.html local o dsw-os.netlify.app) y dale clic a la pestaña nueva 'Visualizar'. Ahí se ve TODO en un lugar: embudo monetizado por etapa con montos, donut de la meta del mes, mapa de calor de prospectos fríos (rojo = dinero enfriándose), radar de oportunidades O-01 a O-11, calendario de contenido a 14 días, tareas por categoría y bitácora. Si algo se ve cortado o vacío, dile al cerebro en Mensajes.",
+      "categoria": "Sistema",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-021",
+      "titulo": "H8 — Abrir el Centro de Mando (app/visualizador.html)",
+      "detalle": "Doble click en app/visualizador.html. Si lo abres doble-click (file://) te pedirá archivos: selecciona los JSON de app/data/ (tareas, prospectos, mensajes, clientes, cotizaciones, finanzas, contenido, agenda, bitacora, reportes y radar). Si lo sirves con serve.bat se carga SOLO y se actualiza cada 60 segundos. Pantalla completa oscura: ideal para dejarla abierta en la oficina.",
+      "categoria": "Sistema",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-022",
+      "titulo": "H9 — Exportar backup completo y guardarlo en el repo",
+      "detalle": "En el header de la app hay un botón nuevo 'Exportar': descarga dsw-os-backup-2026-10-10.json con TODAS las colecciones. Guárdalo en la raíz del repo. Si algún día la nube o la carpeta fallan, el botón 'Importar' restaura todo en un clic. Prueba exportar y (opcional) importar para verificar.",
+      "categoria": "Sistema",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-023",
+      "titulo": "H10 — Publicar los cambios en la nube (Netlify)",
+      "detalle": "Las herramientas nuevas (pestaña Visualizar, radar vivo, exportar/importar) ya están en dsw-os-web/public/. Publica para que se vean en dsw-os.netlify.app: si el repo tiene deploy automático, solo haz push; si no, arrastra la carpeta dsw-os-web/public a Netlify. Nunca publiques tools/ ni supabase/.",
+      "categoria": "Sistema",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-024",
+      "titulo": "H11 — Probar el Motor de Operación Diaria (un comando = tu día)",
+      "detalle": "Abre terminal en la carpeta del repo y corre: node dsw-os-web/tools/dia.js  → te imprime TODO lo que hay que hacer hoy en orden: dinero, tareas vencidas, seguimiento (los más fríos primero con su mensaje listo para copiar), contenido pendiente, radar ALTA y tu orden exacta. Prueba también: node dsw-os-web/tools/dia.js seguimiento (mensajes completos) y node dsw-os-web/tools/dia.js radar.",
+      "categoria": "Sistema",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-025",
+      "titulo": "H12 — Llevar el pipeline a Google Sheets (5 min)",
+      "detalle": "Corre: node dsw-os-web/tools/dia.js sheets  → crea la carpeta dsw-os-export/ con 8 archivos .tsv (prospectos, tareas, cotizaciones, clientes, finanzas, contenido, radar, agenda) + LEEME.txt. Luego: sheets.google.com → hoja nueva → Archivo → Importar → Subir → prospectos.tsv → 'Insertar nueva hoja'. Filtra la columna dias_sin_mover >= 7: esos son los que tocan hoy.",
+      "categoria": "Sistema",
+      "vence": "2026-10-11",
+      "hecha": false,
+      "origen": "cerebro"
+    },
+    {
+      "id": "t-026",
+      "titulo": "H13 — Ángulo nuevo en los mensajes de hoy: 'no es cosa de grandes'",
+      "detalle": "El Economista (10-oct-2026): las pymes mexicanas creen que la tecnología es 'para empresas grandes'. Agrega esta línea al final de cada mensaje de WhatsApp de hoy: 'No es cosa de empresas grandes: tu competencia de barrio ya lo tiene, y cuesta menos de lo que crees.' Además: O-12 nueva línea — bloqueos de WhatsApp Business 2026 → migrar a API oficial (setup $2,500). Ángulo: 'Tu WhatsApp se puede bloquear y pierdes tu canal de ventas'.",
+      "categoria": "Ventas",
+      "vence": "2026-10-10",
+      "hecha": false,
+      "origen": "cerebro"
     }
   ],
-  "actualizado": "2026-09-23 22:26"
+  "actualizado": "2026-10-10 19:30"
 }

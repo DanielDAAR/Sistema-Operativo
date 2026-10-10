@@ -2,9 +2,10 @@
 const $$=s=>document.querySelectorAll(s);
 
 let dirHandle=null;
-let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]},clientes:{actualizado:'',clientes:[]},cotizaciones:{actualizado:'',cotizaciones:[]},finanzas:{actualizado:'',metaMes:10000,movimientos:[]},contenido:{actualizado:'',publicaciones:[]},agenda:{actualizado:'',reuniones:[]},bitacora:{actualizado:'',eventos:[]},reportes:{actualizado:'',reportes:[]}};
+let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]},clientes:{actualizado:'',clientes:[]},cotizaciones:{actualizado:'',cotizaciones:[]},finanzas:{actualizado:'',metaMes:10000,movimientos:[]},contenido:{actualizado:'',publicaciones:[]},agenda:{actualizado:'',reuniones:[]},bitacora:{actualizado:'',eventos:[]},reportes:{actualizado:'',reportes:[]},radar:{actualizado:'',oportunidades:[]}};
 
 function normalizeState(){
+  if(!state.radar||!Array.isArray(state.radar.oportunidades))state.radar={actualizado:'',oportunidades:[]};
   if(!state.clientes||!Array.isArray(state.clientes.clientes))state.clientes={actualizado:'',clientes:[]};
   if(!state.cotizaciones||!Array.isArray(state.cotizaciones.cotizaciones))state.cotizaciones={actualizado:'',cotizaciones:[]};
   if(!state.finanzas||!Array.isArray(state.finanzas.movimientos))state.finanzas={actualizado:'',metaMes:10000,movimientos:[]};
@@ -75,6 +76,7 @@ async function save(which){
   if(which==='agenda'||!which){state.agenda.actualizado=stamp();targets.push(['agenda.json',state.agenda,'data'])}
   if(which==='bitacora'||!which){state.bitacora.actualizado=stamp();targets.push(['bitacora.json',state.bitacora,'data'])}
   if(which==='reportes'||!which){state.reportes.actualizado=stamp();targets.push(['reportes.json',state.reportes,'data'])}
+  if(which==='radar'||!which){state.radar.actualizado=stamp();targets.push(['radar.json',state.radar,'data'])}
   normalizeState();
   localStorage.setItem('dsw-state',JSON.stringify(state));
   if(!dirHandle)return true;
@@ -100,7 +102,8 @@ if(dirHandle){
     var ag=await readJSON('agenda.json','data');
     var bc=await readJSON('bitacora.json','data');
     var rp=await readJSON('reportes.json','data');
-    if(t)state.tareas=t;if(p)state.prospectos=p;if(m)state.mensajes=m;if(cl)state.clientes=cl;if(co)state.cotizaciones=co;if(fi)state.finanzas=fi;if(ct)state.contenido=ct;if(ag)state.agenda=ag;if(bc)state.bitacora=bc;if(rp)state.reportes=rp;
+    var ra=await readJSON('radar.json','data');
+    if(t)state.tareas=t;if(p)state.prospectos=p;if(m)state.mensajes=m;if(cl)state.clientes=cl;if(co)state.cotizaciones=co;if(fi)state.finanzas=fi;if(ct)state.contenido=ct;if(ag)state.agenda=ag;if(bc)state.bitacora=bc;if(rp)state.reportes=rp;if(ra)state.radar=ra;
     normalizeState();localStorage.setItem('dsw-state',JSON.stringify(state));
   }else{
     try{
@@ -114,11 +117,12 @@ if(dirHandle){
       var ag=await fetch('app/data/agenda.json').then(function(r){return r.json()}).catch(function(){});
       var bc=await fetch('app/data/bitacora.json').then(function(r){return r.json()}).catch(function(){});
       var rp=await fetch('app/data/reportes.json').then(function(r){return r.json()}).catch(function(){});
-      if(t)state.tareas=t;if(p)state.prospectos=p;if(m)state.mensajes=m;if(cl)state.clientes=cl;if(co)state.cotizaciones=co;if(fi)state.finanzas=fi;if(ct)state.contenido=ct;if(ag)state.agenda=ag;if(bc)state.bitacora=bc;if(rp)state.reportes=rp;
-      if(!t&&typeof window.SEED_DATA!=='undefined'){state.tareas=window.SEED_DATA.tareas;state.prospectos=window.SEED_DATA.prospectos;state.mensajes=window.SEED_DATA.mensajes;state.clientes=window.SEED_DATA.clientes;state.cotizaciones=window.SEED_DATA.cotizaciones;state.finanzas=window.SEED_DATA.finanzas;state.contenido=window.SEED_DATA.contenido;state.agenda=window.SEED_DATA.agenda;state.bitacora=window.SEED_DATA.bitacora;state.reportes=window.SEED_DATA.reportes}
+      var ra=await fetch('app/data/radar.json').then(function(r){return r.json()}).catch(function(){});
+      if(t)state.tareas=t;if(p)state.prospectos=p;if(m)state.mensajes=m;if(cl)state.clientes=cl;if(co)state.cotizaciones=co;if(fi)state.finanzas=fi;if(ct)state.contenido=ct;if(ag)state.agenda=ag;if(bc)state.bitacora=bc;if(rp)state.reportes=rp;if(ra)state.radar=ra;
+      if(!t&&typeof window.SEED_DATA!=='undefined'){state.tareas=window.SEED_DATA.tareas;state.prospectos=window.SEED_DATA.prospectos;state.mensajes=window.SEED_DATA.mensajes;state.clientes=window.SEED_DATA.clientes;state.cotizaciones=window.SEED_DATA.cotizaciones;state.finanzas=window.SEED_DATA.finanzas;state.contenido=window.SEED_DATA.contenido;state.agenda=window.SEED_DATA.agenda;state.bitacora=window.SEED_DATA.bitacora;state.reportes=window.SEED_DATA.reportes;state.radar=window.SEED_DATA.radar}
       normalizeState();localStorage.setItem('dsw-state',JSON.stringify(state));
     }catch(e){
-      try{if(typeof window.SEED_DATA!=='undefined'){state.tareas=window.SEED_DATA.tareas;state.prospectos=window.SEED_DATA.prospectos;state.mensajes=window.SEED_DATA.mensajes;state.clientes=window.SEED_DATA.clientes;state.cotizaciones=window.SEED_DATA.cotizaciones;state.finanzas=window.SEED_DATA.finanzas;state.contenido=window.SEED_DATA.contenido;state.agenda=window.SEED_DATA.agenda;state.bitacora=window.SEED_DATA.bitacora;state.reportes=window.SEED_DATA.reportes}state=JSON.parse(localStorage.getItem('dsw-state')||'{}')}catch(e2){}
+      try{if(typeof window.SEED_DATA!=='undefined'){state.tareas=window.SEED_DATA.tareas;state.prospectos=window.SEED_DATA.prospectos;state.mensajes=window.SEED_DATA.mensajes;state.clientes=window.SEED_DATA.clientes;state.cotizaciones=window.SEED_DATA.cotizaciones;state.finanzas=window.SEED_DATA.finanzas;state.contenido=window.SEED_DATA.contenido;state.agenda=window.SEED_DATA.agenda;state.bitacora=window.SEED_DATA.bitacora;state.reportes=window.SEED_DATA.reportes;state.radar=window.SEED_DATA.radar}state=JSON.parse(localStorage.getItem('dsw-state')||'{}')}catch(e2){}
     }
   }
   renderAll();
@@ -145,6 +149,7 @@ var NAV_ITEMS=[
   {id:'finanzas',label:'Finanzas',icon:'i-wallet'},
   {id:'contenido',label:'Contenido',icon:'i-image'},
   {id:'metricas',label:'Metricas',icon:'i-chart'},
+  {id:'visualizar',label:'Visualizar',icon:'i-bolt'},
   {id:'tareas',label:'Tareas',icon:'i-check'},
   {id:'mensajes',label:'Mensajes',icon:'i-mail'},
   {id:'bitacora',label:'Bitacora',icon:'i-timeline'},
@@ -186,6 +191,7 @@ function switchTab(name){
   if(name==='finanzas')renderFinanzas();
   if(name==='contenido')renderContenido();
   if(name==='metricas')renderMetrics();
+  if(name==='visualizar')renderVisualizar();
   if(name==='ayuda')renderAyuda();
   closeDrawer();
 }
@@ -793,5 +799,104 @@ window.addEventListener('focus',async function(){
   updateBadge();
 });
 window.addEventListener('beforeunload',function(){localStorage.setItem('dsw-state',JSON.stringify(state))});
+
+/* ============ VISUALIZAR — centro de mando ============ */
+function kpiTile(v,l,danger){return '<div class="kpi-tile'+(danger?' danger':'')+'"><div class="kpi-val">'+v+'</div><div class="kpi-label">'+l+'</div></div>'}
+function renderVisualizar(){
+  var ps=state.prospectos.prospectos||[];
+  var bruto=ps.reduce(function(s,p){return s+Number(p.monto||0)},0);
+  var ponderado=ps.reduce(function(s,p){return s+(Number(p.monto||0)*(PROB[p.estado]||0))},0);
+  var meta=Number(state.finanzas.metaMes||0);
+  var mk=today().slice(0,7);
+  var ing=(state.finanzas.movimientos||[]).filter(function(m){return(m.fecha||'').slice(0,7)===mk&&m.tipo==='ingreso'}).reduce(function(s,m){return s+Number(m.monto||0)},0);
+  var pct=meta?Math.min(100,Math.round(ing/meta*100)):0;
+  var ws=weekStart();
+  var week=ps.filter(function(p){return(p.fecha||'').slice(0,10)>=ws}).length;
+  var t=state.tareas.tareas||[];
+  var tPend=t.filter(function(x){return!x.hecha}).length;
+  var tHoy=t.filter(function(x){return!x.hecha&&x.vence===today()}).length;
+  var tOver=t.filter(function(x){return!x.hecha&&x.vence&&x.vence<today()}).length;
+  $('#vizKPIs').innerHTML=kpiTile(mxn(bruto),'Pipeline bruto')+kpiTile(mxn(Math.round(ponderado)),'Pipeline ponderado')+kpiTile(pct+'%','Meta del mes · '+mxn(ing)+' de '+mxn(meta))+kpiTile(week,'Contactos esta semana')+kpiTile(tPend,'Tareas pendientes')+kpiTile(tOver,'Tareas vencidas',tOver>0);
+  var byEst={};ESTADOS.forEach(function(e){byEst[e]={n:0,monto:0}});
+  ps.forEach(function(p){var b=byEst[p.estado];if(b){b.n++;b.monto+=Number(p.monto||0)}});
+  var maxN=Math.max.apply(null,ESTADOS.map(function(e){return byEst[e].n}).concat([1]));
+  $('#vizFunnel').innerHTML=ESTADOS.map(function(e){
+    var b=byEst[e];var w=Math.round(b.n/maxN*100);
+    return '<div class="funnel-row"><div class="funnel-label">'+esc(e)+' <span class="funnel-count">'+b.n+'</span></div><div class="funnel-bar"><i style="width:'+w+'%"></i></div><div class="funnel-meta"><span>'+mxn(b.monto)+'</span><span class="funnel-prob">'+Math.round((PROB[e]||0)*100)+'% cierre</span></div></div>';
+  }).join('');
+  var r=54,circ=2*Math.PI*r,off=circ*(1-pct/100);
+  var color=pct>=75?'var(--ok)':pct>=40?'var(--warn)':'var(--danger)';
+  $('#vizDonut').innerHTML='<div class="donut-wrap"><svg viewBox="0 0 130 130" class="donut" role="img" aria-label="Meta del mes"><circle class="donut-bg" cx="65" cy="65" r="'+r+'" fill="none" stroke-width="13"/><circle class="donut-fill" cx="65" cy="65" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="13" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="62" class="donut-pct" text-anchor="middle">'+pct+'%</text><text x="65" y="81" class="donut-sub" text-anchor="middle">de la meta</text></svg></div><div class="donut-legend"><div><b>'+mxn(ing)+'</b>ingresado</div><div><b>'+mxn(Math.max(0,meta-ing))+'</b>faltan</div><div><b>'+mxn(meta)+'</b>meta</div></div>';
+  var buckets=[{k:'Hoy',min:0,max:1,c:'ok'},{k:'2-3 días',min:2,max:3,c:'ok2'},{k:'4-7 días',min:4,max:7,c:'warn'},{k:'8-14 días',min:8,max:14,c:'warn2'},{k:'15+ días',min:15,max:9999,c:'bad'}];
+  var heat=buckets.map(function(b){return {k:b.k,c:b.c,n:0,monto:0,nombres:[]}});
+  ps.forEach(function(p){
+    var d=(p.actualizado||p.fecha||'').slice(0,10);if(!d)return;
+    var days=Math.floor((new Date(today())-new Date(d))/86400000);
+    for(var i=0;i<heat.length;i++){var hb=buckets[i];if(days>=hb.min&&days<=hb.max){heat[i].n++;heat[i].monto+=Number(p.monto||0);heat[i].nombres.push(p.negocio||p.nombre);break}}
+  });
+  $('#vizHeat').innerHTML='<div class="heat-grid">'+heat.map(function(h){
+    return '<div class="heat-cell '+h.c+'" title="'+(h.nombres.join(', ')||'sin prospectos')+'"><div class="heat-n">'+h.n+'</div><div class="heat-k">'+h.k+'</div><div class="heat-m">'+mxn(h.monto)+'</div></div>';
+  }).join('')+'</div><div class="help" style="margin-top:8px">Días desde el último movimiento. Pasa el cursor sobre cada celda para ver quién es. Rojo = dinero enfriándose.</div>';
+  var ops=(state.radar&&state.radar.oportunidades)||[];
+  $('#vizRadar').innerHTML=ops.length?ops.map(function(o){
+    var pr=String(o.prioridad||'');
+    var cls=pr==='CRÍTICA'||pr==='ALTA'?'prio-alta':pr.indexOf('MEDIA')>=0?'prio-media':'prio-baja';
+    return '<div class="radar-card"><div class="radar-head"><span class="radar-id">'+esc(o.id)+'</span><span class="prio '+cls+'">'+esc(pr)+'</span></div><div class="radar-t">'+esc(o.titulo)+'</div><div class="radar-precio">'+esc(o.precio||'')+'</div><div class="radar-accion">'+esc(o.accion||'')+'</div></div>';
+  }).join(''):'<div class="card" style="color:var(--muted)">Sin oportunidades registradas. El cerebro actualiza app/data/radar.json.</div>';
+  var pubs=state.contenido.publicaciones||[];
+  var days=[];var d0=new Date(today());
+  for(var i=0;i<14;i++){var dd=new Date(d0);dd.setDate(dd.getDate()+i);days.push({f:dd.getFullYear()+'-'+String(dd.getMonth()+1).padStart(2,'0')+'-'+String(dd.getDate()).padStart(2,'0'),d:dd});}
+  $('#vizContent').innerHTML='<div class="viz-days">'+days.map(function(x){
+    var items=pubs.filter(function(p){return(p.fecha||'').slice(0,10)===x.f});
+    var cls=x.f===today()?'today':'';
+    var inner=items.length?items.map(function(p){return '<span class="viz-post">'+esc(p.titulo)+'</span>'}).join(''):'<span class="viz-empty">—</span>';
+    return '<div class="viz-day '+cls+'"><div class="viz-day-f">'+x.d.getDate()+'/'+String(x.d.getMonth()+1).padStart(2,'0')+'</div>'+inner+'</div>';
+  }).join('')+'</div>';
+  var cats={};t.forEach(function(x){if(x.hecha)return;var c=x.categoria||'Sin categoría';cats[c]=(cats[c]||0)+1});
+  var catKeys=Object.keys(cats).sort(function(a,b){return cats[b]-cats[a]});
+  var maxCat=Math.max.apply(null,catKeys.map(function(k){return cats[k]}).concat([1]));
+  $('#vizTasks').innerHTML=catKeys.length?catKeys.map(function(k){
+    return '<div class="taskcat-row"><span class="taskcat-k">'+esc(k)+'</span><div class="taskcat-bar"><i style="width:'+Math.round(cats[k]/maxCat*100)+'%"></i></div><span class="taskcat-n">'+cats[k]+'</span></div>';
+  }).join(''):'<div class="card" style="color:var(--ok)">Sin tareas pendientes. Todo al día.</div>';
+  var ev=(state.bitacora.eventos||[]).slice(-6).reverse();
+  $('#vizBitacora').innerHTML=ev.length?ev.map(function(e){
+    return '<div class="viz-ev"><span class="viz-ev-f">'+esc((e.fecha||'').slice(5,10))+'</span><div><b>'+esc(e.titulo)+'</b><div class="viz-ev-d">'+esc(e.detalle||'')+(e.monto?' · '+mxn(e.monto):'')+'</div></div></div>';
+  }).join(''):'<div class="card" style="color:var(--muted)">Sin eventos todavía.</div>';
+}
+
+/* ============ EXPORTAR / IMPORTAR — backup de todo ============ */
+function exportBackup(){
+  var data={app:'D.Softworks OS',version:2,fecha:stamp(),colecciones:{}};
+  ['tareas','prospectos','mensajes','clientes','cotizaciones','finanzas','contenido','agenda','bitacora','reportes','radar'].forEach(function(k){data.colecciones[k]=state[k]});
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='dsw-os-backup-'+today()+'.json';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href)},4000);
+  log('sistema','Backup exportado','Copia de seguridad descargada');
+  toast('Backup exportado — guárdalo dentro del repo');
+}
+function importBackup(file){
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var data=JSON.parse(r.result);
+      var cols=(data&&data.colecciones)||data;
+      var keys=['tareas','prospectos','mensajes','clientes','cotizaciones','finanzas','contenido','agenda','bitacora','reportes','radar'];
+      var n=0;
+      keys.forEach(function(k){if(cols[k]&&typeof cols[k]==='object'){state[k]=cols[k];n++}});
+      normalizeState();
+      keys.forEach(function(k){save(k)});
+      renderAll();renderVisualizar();
+      log('sistema','Backup importado',n+' colecciones restauradas');
+      toast('Backup importado: '+n+' colecciones restauradas');
+    }catch(e){toast('Ese archivo no es un backup válido: '+e.message,'err')}
+  };
+  r.readAsText(file);
+}
+if($('#btnExport'))$('#btnExport').addEventListener('click',exportBackup);
+if($('#btnImport'))$('#btnImport').addEventListener('click',function(){$('#fileImport').click()});
+if($('#fileImport'))$('#fileImport').addEventListener('change',function(e){var f=e.target.files[0];if(f)importBackup(f);e.target.value=''});
 
 init();

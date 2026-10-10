@@ -63,6 +63,9 @@
   <div class="spacer"></div>
   <div class="status"><span class="dot" id="connDot"></span><span id="connTxt">Sin conexion a archivos</span><span class="badge hidden" id="msgBadge">0</span></div>
   <button class="btn ghost small" id="btnSync" title="Releer archivos del disco"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg><span class="btn-label">Sincronizar</span></button>
+  <button class="btn ghost small" id="btnExport" title="Descargar backup completo de todo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="btn-label">Exportar</span></button>
+  <button class="btn ghost small" id="btnImport" title="Restaurar un backup"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="btn-label">Importar</span></button>
+  <input type="file" id="fileImport" accept=".json,application/json" class="hidden" aria-hidden="true" tabindex="-1">
   <button class="btn small" id="btnConnect"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg><span class="btn-label">Conectar carpeta</span></button>
   <button class="btn ghost small theme-toggle" id="btnTheme" title="Cambiar tema claro/oscuro" aria-label="Cambiar tema claro/oscuro">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="theme-icon theme-icon-sun" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -278,6 +281,25 @@
     <b>Conectar carpeta:</b> selecciona app/ una sola vez; el navegador recuerda el permiso.<br>
     <b>Sin conexión a archivos:</b> la app funciona en modo local (navegador) pero el cerebro NO vera los cambios.<br><br>
     <b>Metodologías:</b> ritua diario 60 min y meta $10k/mes, pipeline Nuevo→Contactado→Respondió→Reunión→Cotizado→Cerrado, 50 contactos/semana, anticipo 50% obligatorio.
+  </div>
+</section>
+
+<!-- ============ VISUALIZAR ============ -->
+<section class="tab-panel" id="tab-visualizar" role="tabpanel" aria-labelledby="tb-visualizar" tabindex="0">
+  <h2>Visualizar <span class="cat">Centro de mando</span></h2>
+  <div class="kpi-grid" id="vizKPIs"></div>
+  <div class="grid two" style="margin-top:14px">
+    <div class="card"><h3>Embudo monetizado</h3><div id="vizFunnel"></div></div>
+    <div class="card"><h3>Meta del mes</h3><div id="vizDonut"></div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3>Mapa de calor — días sin mover prospectos</h3><div id="vizHeat"></div></div>
+  <div class="grid two" style="margin-top:14px">
+    <div class="card"><h3>Radar de oportunidades</h3><div id="vizRadar"></div></div>
+    <div class="card"><h3>Contenido — próximos 14 días</h3><div id="vizContent"></div></div>
+  </div>
+  <div class="grid two" style="margin-top:14px">
+    <div class="card"><h3>Tareas pendientes por categoría</h3><div id="vizTasks"></div></div>
+    <div class="card"><h3>Bitácora — lo último</h3><div id="vizBitacora"></div></div>
   </div>
 </section>
 

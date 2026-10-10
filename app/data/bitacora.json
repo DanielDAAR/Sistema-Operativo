@@ -159,7 +159,57 @@
       "titulo": "Bug crítico arreglado: la app no cargaba datos",
       "detalle": "loadAll() se abortaba por TypeError: #cancelCEdit/#cancelQEdit/#cancelKEdit eran null fuera de modo edición. Guardados con if(el). Verificado en Edge headless (login real): Pipeline con 22 prospectos, $33,300. Deploy v=4.",
       "actualizado": "2026-09-24 20:30"
+    },
+    {
+      "id": "mugg00knprf7c",
+      "tipo": "prospecto-no-reg",
+      "fecha": "2026-09-24 22:10",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Número no registrado",
+      "detalle": "Studio 80 — Studio 80 (3330153098)",
+      "actualizado": "2026-09-24 22:10"
+    },
+    {
+      "id": "mugg1c6qj52cr",
+      "tipo": "tarea-hecha",
+      "fecha": "2026-09-24 22:11",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Tarea completada",
+      "detalle": "Enviar mensaje a Barber Chuy, Studio 80, D'Mayis y Focus Salón",
+      "actualizado": "2026-09-24 22:11"
+    },
+    {
+      "id": "mugg8wfovn8oe",
+      "tipo": "tarea-hecha",
+      "fecha": "2026-09-24 22:17",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Tarea completada",
+      "detalle": "Enviar mensaje a barberías lote 1 (Vetro, Navajas de Hierro, Frisón, El ZarCortes)",
+      "actualizado": "2026-09-24 22:17"
+    },
+    {
+      "id": "mugg9l5jno1bc",
+      "tipo": "tarea-hecha",
+      "fecha": "2026-09-24 22:17",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Tarea completada",
+      "detalle": "Enviar mensaje a gimnasios y café (Nitro, Monster, Barras, Coffee Legacy)",
+      "actualizado": "2026-09-24 22:17"
+    },
+    {
+      "id": "muggc865xh9uc",
+      "tipo": "reunion",
+      "fecha": "2026-09-24 22:19",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Reunion realizada",
+      "detalle": "necesitamos mandar mensajes a los clientes - Se contactaron nuevos clientes.",
+      "actualizado": "2026-09-24 22:19"
     }
   ],
-  "actualizado": "2026-09-24 20:30"
+  "actualizado": "2026-09-24 22:19"
 }

@@ -11,7 +11,7 @@
       "mensaje": "Hola Dr. Oscar, soy Daniel de D.Softworks. Vi su clínica DEO Clinic y me pareció excelente.\n\nNoto que su web está en Wix, ¿les gustaría tener un sistema personalizado donde sus pacientes puedan agendar citas en línea, ver historial y recibir recordatorios?\n\nTrabajamos con clínicas dentales en Guadalajara. ¿Podemos platicar 10 minutos?",
       "negocio": "DEO Clinic",
       "telefono": "+52 33 1178 4981",
-      "actualizado": "2026-09-24 19:36",
+      "actualizado": "2026-10-10 02:41",
       "fechaCierre": "2026-09-24"
     },
     {
@@ -28,56 +28,17 @@
       "actualizado": "2026-09-23 20:41"
     },
     {
-      "id": "p-003",
-      "fecha": "2026-09-23",
-      "monto": 2500,
-      "notas": "Sin web propia, solo Doctoralia. Av. Cuauhtémoc 1192, Zapopan. Número sin confirmar en WhatsApp (pendiente en Doctoralia). Propuesta: web + sistema de pacientes.",
-      "estado": "Contactado",
-      "fuente": "Doctoralia",
-      "nombre": "Dra. Lucy Edith Barrón Celis",
-      "mensaje": "Hola, ¿cómo está? Soy Daniel de D.Softworks.\n\nTrabajo ayudando a clínicas dentales a tener su presencia digital profesional. Vi que Denticelis tiene muy buenas reseñas.\n\n¿Les gustaría tener una página web propia donde muestren sus servicios y sus pacientes puedan contactarlas directamente?\n\nPodemos hacer algo moderno y profesional. ¿Hablamos?",
-      "negocio": "Denticelis",
-      "telefono": "",
-      "actualizado": "2026-09-24 20:10"
-    },
-    {
-      "id": "p-004",
-      "fecha": "2026-09-23",
-      "monto": 0,
-      "notas": "lamatera.mx. Av. México 2895, Vallarta Norte. Propuesta: sistema de reservaciones online + menú digital.",
-      "estado": "Contactado",
-      "fuente": "Google",
-      "nombre": "Gerencia",
-      "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks.\n\nSoy cliente frecuente de La Matera y me encanta. Vi su página y me pareció buena, pero ¿les gustaría tener un sistema donde sus clientes puedan hacer reservaciones en línea y ver el menú actualizado?\n\nMuchos restaurantes en Guadalajara ya están implementando esto. ¿Les interesa saber más?",
-      "negocio": "Restaurante La Matera",
-      "telefono": "+52 33 3616 1626",
-      "actualizado": "2026-09-24 20:10"
-    },
-    {
-      "id": "p-005",
-      "fecha": "2026-09-23",
-      "monto": 0,
-      "notas": "alcalde.com.mx. Av. México 2903, Vallarta Norte. Propuesta: sistema de reservaciones + pedidos para llevar.",
-      "estado": "Contactado",
-      "fuente": "Google",
-      "nombre": "Gerencia",
-      "mensaje": "Hola, ¿cómo está? Soy Daniel de D.Softworks.\n\nAdmiro mucho el trabajo que hacen en Alcalde. Vi su página y me gustaría proponerles algo: ¿les interesaría tener un sistema de reservaciones online donde sus clientes puedan apartar mesa directamente?\n\nTambién podríamos implementar un sistema de pedidos para llevar. ¿Hablamos?",
-      "negocio": "Restaurante Alcalde",
-      "telefono": "+52 33 3615 7400",
-      "actualizado": "2026-09-24 20:10"
-    },
-    {
       "id": "p-006",
       "fecha": "2026-09-23",
       "monto": 0,
       "notas": "Agencia de marketing. Propuesta: alianza estratégica (ellos marketing, nosotros desarrollo)",
-      "estado": "Nuevo",
+      "estado": "Contactado",
       "fuente": "Web",
       "nombre": "Equipo Somos Red GDL",
       "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks.\n\nVi su proyecto Somos Red GDL y me parece excelente lo que hacen por los negocios locales.\n\nSomos una empresa de desarrollo de software aquí en GDL. ¿Les gustaría tener un aliado tecnológico para cuando sus clientes necesiten algo más complejo que una web básica?\n\nPodríamos hacer una alianza estratégica. ¿Hablamos?",
       "negocio": "Somos Red GDL",
       "telefono": "+52 33 2962 5857",
-      "actualizado": "2026-09-23 03:45"
+      "actualizado": "2026-09-24 22:07"
     },
     {
       "id": "p-007",
@@ -90,46 +51,20 @@
       "mensaje": "Hola, ¿cómo está? Soy Daniel de D.Softworks.\n\nVi que Dental Magaña tiene dos sucursales en Guadalajara, ¡qué bueno que están creciendo!\n\n¿Tienen una página web donde sus pacientes puedan ver ambas ubicaciones y agendar citas? Les puedo ayudar a tener algo profesional que centralice todo.\n\n¿Hablamos?",
       "negocio": "Dental Magaña",
       "telefono": "+52 33 1349 2145",
-      "actualizado": "2026-09-23 20:55"
-    },
-    {
-      "id": "p-008",
-      "fecha": "2026-09-23",
-      "monto": 2500,
-      "notas": "Varias sucursales, sin web. Av. Fray Antonio Alcalde 355, Centro. Propuesta: web corporativa + citas multi-sucursal.",
-      "estado": "Contactado",
-      "fuente": "Google",
-      "nombre": "Clínica Dental La Zapopana",
-      "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks.\n\nVi que La Zapopana tiene varias sucursales en Guadalajara. ¿Cuentan con una página web donde sus pacientes puedan ver todos los servicios y agendar citas?\n\nLes puedo desarrollar una solución que centralice las citas de todas sus sucursales. ¿Les interesa?",
-      "negocio": "Clínica Dental La Zapopana",
-      "telefono": "+52 33 3613 6217",
-      "actualizado": "2026-09-24 20:10"
-    },
-    {
-      "id": "p-009",
-      "fecha": "2026-09-23",
-      "monto": 0,
-      "notas": "Mtra. Nora Alejandra Martín Galindo (Directora General). Av. Miguel Hidalgo y Costilla 1933, Arcos Vallarta. Email: direcciongeneral@projal.com.mx. Tel fijo 33 3615 5557 Ext. 110 (sin WhatsApp). Propuesta: sistema de gestión de créditos + portal de solicitud.",
-      "estado": "Contactado",
-      "fuente": "Google",
-      "nombre": "Mtra. Nora Alejandra Martín Galindo",
-      "mensaje": "Hola, ¿cómo está? Soy Daniel de D.Softworks, una empresa de desarrollo de software en Guadalajara.\n\nVi que PROJAL apoya a las PyMEs con financiamiento. ¿Les gustaría tener un sistema donde las empresas puedan solicitar créditos en línea y ustedes puedan gestionar todo digitalmente?\n\nPodemos desarrollar algo a su medida. ¿Hablamos?",
-      "negocio": "PROJAL",
-      "telefono": "+52 33 3615 5557",
-      "actualizado": "2026-09-24 20:10"
+      "actualizado": "2026-10-10 02:41"
     },
     {
       "id": "p-010",
       "fecha": "2026-09-23",
       "monto": 0,
       "notas": "Agencia de web básicas ($8,000). Propuesta: alianza para proyectos complejos + referidos",
-      "estado": "Nuevo",
+      "estado": "Contactado",
       "fuente": "Web",
       "nombre": "Equipo Atelback",
       "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks.\n\nVi que Atelback hace páginas web para negocios pequeños, ¡muy buen servicio!\n\nSomos una empresa de desarrollo de software. ¿Les gustaría tener un aliado para cuando sus clientes necesiten algo más complejo como sistemas, apps o plataformas?\n\nPodríamos referirnos clientes mutuamente. ¿Hablamos?",
       "negocio": "Atelback",
       "telefono": "+52 33 2051 2899",
-      "actualizado": "2026-09-23 03:45"
+      "actualizado": "2026-09-24 22:07"
     },
     {
       "id": "p-011",
@@ -262,31 +197,83 @@
       "actualizado": "2026-09-24 19:39"
     },
     {
+      "id": "p-003",
+      "fecha": "2026-09-23",
+      "monto": 2500,
+      "notas": "Sin web propia, solo Doctoralia. Av. Cuauhtémoc 1192, Zapopan. Número sin confirmar en WhatsApp (pendiente en Doctoralia). Propuesta: web + sistema de pacientes.",
+      "estado": "No registrado",
+      "fuente": "Doctoralia",
+      "nombre": "Dra. Lucy Edith Barrón Celis",
+      "mensaje": "Hola, ¿cómo está? Soy Daniel de D.Softworks.\n\nTrabajo ayudando a clínicas dentales a tener su presencia digital profesional. Vi que Denticelis tiene muy buenas reseñas.\n\n¿Les gustaría tener una página web propia donde muestren sus servicios y sus pacientes puedan contactarlas directamente?\n\nPodemos hacer algo moderno y profesional. ¿Hablamos?",
+      "negocio": "Denticelis",
+      "telefono": "",
+      "actualizado": "2026-09-24 21:33"
+    },
+    {
+      "id": "p-004",
+      "fecha": "2026-09-23",
+      "monto": 0,
+      "notas": "lamatera.mx. Av. México 2895, Vallarta Norte. Propuesta: sistema de reservaciones online + menú digital.",
+      "estado": "No registrado",
+      "fuente": "Google",
+      "nombre": "Gerencia",
+      "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks.\n\nSoy cliente frecuente de La Matera y me encanta. Vi su página y me pareció buena, pero ¿les gustaría tener un sistema donde sus clientes puedan hacer reservaciones en línea y ver el menú actualizado?\n\nMuchos restaurantes en Guadalajara ya están implementando esto. ¿Les interesa saber más?",
+      "negocio": "Restaurante La Matera",
+      "telefono": "+52 33 3616 1626",
+      "actualizado": "2026-09-24 21:32"
+    },
+    {
+      "id": "p-005",
+      "fecha": "2026-09-23",
+      "monto": 0,
+      "notas": "alcalde.com.mx. Av. México 2903, Vallarta Norte. Propuesta: sistema de reservaciones + pedidos para llevar.",
+      "estado": "No registrado",
+      "fuente": "Google",
+      "nombre": "Gerencia",
+      "mensaje": "Hola, ¿cómo está? Soy Daniel de D.Softworks.\n\nAdmiro mucho el trabajo que hacen en Alcalde. Vi su página y me gustaría proponerles algo: ¿les interesaría tener un sistema de reservaciones online donde sus clientes puedan apartar mesa directamente?\n\nTambién podríamos implementar un sistema de pedidos para llevar. ¿Hablamos?",
+      "negocio": "Restaurante Alcalde",
+      "telefono": "+52 33 3615 7400",
+      "actualizado": "2026-09-24 21:31"
+    },
+    {
+      "id": "p-008",
+      "fecha": "2026-09-23",
+      "monto": 2500,
+      "notas": "Varias sucursales, sin web. Av. Fray Antonio Alcalde 355, Centro. Propuesta: web corporativa + citas multi-sucursal.",
+      "estado": "No registrado",
+      "fuente": "Google",
+      "nombre": "Clínica Dental La Zapopana",
+      "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks.\n\nVi que La Zapopana tiene varias sucursales en Guadalajara. ¿Cuentan con una página web donde sus pacientes puedan ver todos los servicios y agendar citas?\n\nLes puedo desarrollar una solución que centralice las citas de todas sus sucursales. ¿Les interesa?",
+      "negocio": "Clínica Dental La Zapopana",
+      "telefono": "+52 33 3613 6217",
+      "actualizado": "2026-09-24 21:33"
+    },
+    {
+      "id": "p-009",
+      "fecha": "2026-09-23",
+      "monto": 0,
+      "notas": "Mtra. Nora Alejandra Martín Galindo (Directora General). Av. Miguel Hidalgo y Costilla 1933, Arcos Vallarta. Email: direcciongeneral@projal.com.mx. Tel fijo 33 3615 5557 Ext. 110 (sin WhatsApp). Propuesta: sistema de gestión de créditos + portal de solicitud.",
+      "estado": "No registrado",
+      "fuente": "Google",
+      "nombre": "Mtra. Nora Alejandra Martín Galindo",
+      "mensaje": "Hola, ¿cómo está? Soy Daniel de D.Softworks, una empresa de desarrollo de software en Guadalajara.\n\nVi que PROJAL apoya a las PyMEs con financiamiento. ¿Les gustaría tener un sistema donde las empresas puedan solicitar créditos en línea y ustedes puedan gestionar todo digitalmente?\n\nPodemos desarrollar algo a su medida. ¿Hablamos?",
+      "negocio": "PROJAL",
+      "telefono": "+52 33 3615 5557",
+      "actualizado": "2026-09-24 21:29"
+    },
+    {
       "id": "p-021",
       "fecha": "2026-09-23",
       "monto": 1500,
       "notas": "C. Irineo Paz 1, La Loma, GDL. Sin web. Propuesta: web básica + WhatsApp.",
-      "estado": "Contactado",
+      "estado": "No registrado",
       "fuente": "Sección Amarilla",
       "nombre": "Barras y Mancuernas",
       "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks.\n\nVi su gimnasio Barras y Mancuernas en La Loma y se ve que es de barrio con gente fiel. ¿Tienen página web?\n\nLes puedo hacer una web sencilla con horarios y membresías, más su botón de WhatsApp para inscribir de forma directa. ¿Les interesa conocer más?",
       "negocio": "Barras y Mancuernas",
       "telefono": "+52 33 3643 3268",
-      "actualizado": "2026-09-24 20:10"
-    },
-    {
-      "id": "p-022",
-      "fecha": "2026-09-23",
-      "monto": 1200,
-      "notas": "Av. Chapultepec Sur 165, Col. Americana, GDL. Café muy comentado, perfil sin verificar, sin web propia. Propuesta: landing + menú + WhatsApp. numero no registrado en whatsap",
-      "estado": "No registrado",
-      "fuente": "Google",
-      "nombre": "The Coffee Legacy",
-      "mensaje": "Hola, buenas. Soy Daniel de D.Softworks, aquí en Guadalajara.\n\nVi The Coffee Legacy por Chapultepec y he leído muy buenos comentarios de su café. ¿Tienen página web?\n\nLes puedo hacer una landing bonita con su menú, ubicación y botón de WhatsApp para pedidos. Ayuda mucho a que más gente los encuentre. ¿Hablamos 10 min?",
-      "negocio": "The Coffee Legacy",
-      "telefono": "+52 33 2491 4269",
-      "actualizado": "2026-09-24 19:44"
+      "actualizado": "2026-09-24 21:30"
     }
   ],
-  "actualizado": "2026-09-24 20:10"
+  "actualizado": "2026-10-10 02:41"
 }

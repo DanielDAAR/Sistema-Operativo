@@ -27,7 +27,8 @@ const COLLECTIONS = [
   { key: 'contenido',    arr: 'publicaciones', file: 'app/data/contenido.json' },
   { key: 'agenda',       arr: 'reuniones',     file: 'app/data/agenda.json' },
   { key: 'bitacora',     arr: 'eventos',       file: 'app/data/bitacora.json' },
-  { key: 'reportes',     arr: 'reportes',      file: 'app/data/reportes.json' }
+  { key: 'reportes',     arr: 'reportes',      file: 'app/data/reportes.json' },
+  { key: 'radar',        arr: 'oportunidades', file: 'app/data/radar.json' }
 ];
 
 function loadCreds() {
