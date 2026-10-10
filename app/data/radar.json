@@ -117,7 +117,7 @@
       "prioridad": "ALTA",
       "precio": "setup $2,500 + mensualidad",
       "estado": "nueva línea vendible",
-      "resumen": "Noticias 10-oct-2026: empresas mexicanas reportan bloqueos de la app WhatsApp Business por uso masivo y migran a la API oficial. Todo negocio que manda recordatorios, promociones o cobros por WhatsApp corre riesgo de quedar sin canal de ventas. La API oficial cuesta mensajes pero nunca bloquea el número.",
+      "resumen": "Noticias 10-oct-2026: empresas mexicanas reportan bloqueos de la app WhatsApp Business por uso masivo y migran a la API oficial. Todo negocio que manda recordatorios, promociones o cobros por WhatsApp corre riesgo de quedar sin canal de ventas. La API oficial cuesta mensajes pero nunca bloquea el número. Dato regional: 63% de empresas chilenas ya migraron de chat a canal de ventas formal en 2026 (El Ecosistema Startup, 14-ago).",
       "accion": "Ángulo de venta: 'Tu WhatsApp Business se puede bloquear y pierdes tu canal de ventas. Te migro a la API oficial: chat ilimitado, sin riesgo de bloqueo'. Validar BSP (360dialog o Twilio) antes de prometer; primer cliente: restaurantes y clínicas que ya contactan masivo (La Matera, Alcalde, Dental Magaña).",
       "seConvierteEn": "servicio nuevo: migración + mantenimiento de WhatsApp API",
       "fecha": "2026-10-10"
@@ -153,6 +153,8 @@
     {"tendencia": "Data centers + IA de Meta", "que": "Meta invierte fuerte en infraestructura de IA (8-oct-2026)", "fecha": "08-oct-2026", "veredicto": "Contexto: la IA se abarata y acelera; más herramientas para vender pronto"},
     {"tendencia": "Google IA para PyMEs mexicanas", "que": "blog.google (10-ago-2026) anuncia nuevas iniciativas de IA para PyMEs de México", "fecha": "10-ago-2026", "veredicto": "Ángulo de contenido para c-003 '5 cosas en internet 2026': la IA ya es infraestructura barata para el negocio local; D.Softworks la instala"},
     {"tendencia": "Mito 'eso es para empresas grandes'", "que": "El Economista (10-oct-2026): las pymes mexicanas creen que la tecnología es solo para grandes", "fecha": "10-oct-2026", "veredicto": "Ángulo de venta directo: en cada mensaje agregar 'No es cosa de grandes: tu competencia de barrio ya lo tiene' — baja la resistencia inicial"},
-    {"tendencia": "WhatsApp Business bloqueado en 2026", "que": "Empresas reportan bloqueos y migran a la API oficial (10-oct-2026)", "fecha": "10-oct-2026", "veredicto": "Ya es O-12: nueva línea de servicio de migración a API oficial"}
+    {"tendencia": "WhatsApp Business bloqueado en 2026", "que": "Empresas reportan bloqueos y migran a la API oficial (10-oct-2026)", "fecha": "10-oct-2026", "veredicto": "Ya es O-12: nueva línea de servicio de migración a API oficial"},
+    {"tendencia": "Restaurantes jaliscienses crecen", "que": "La Crónica de Hoy (30-sep-2026): el sector restaurantero aporta al crecimiento económico de Jalisco", "fecha": "30-sep-2026", "veredicto": "Contexto: más restaurantes en GDL = más prospectos (La Matera, Alcalde ya en pipeline)"},
+    {"tendencia": "63% de empresas chilenas migran de chat a canal de ventas", "que": "El Ecosistema Startup (14-ago-2026): WhatsApp API como canal de ventas formal", "fecha": "14-ago-2026", "veredicto": "Refuerza O-12: la migración a API ya es tendencia regional, no teoría"}
   ]
 }
