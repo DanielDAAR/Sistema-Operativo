@@ -162,6 +162,7 @@
     {"tendencia": "WhatsApp cobrará $15-22 por mensaje", "que": "Teletrece (2-oct-2026): rango de precios por mensaje para empresas", "fecha": "02-oct-2026", "veredicto": "Refuerza O-04: el costo por mensaje ya es específico; el free tier de 1,000 msgs/mes es la ventaja"},
     {"tendencia": "Meta Business Agent en WhatsApp", "que": "ENTER.CO (1-jul-2026): WhatsApp estrena agentes con IA para empresas", "fecha": "01-jul-2026", "veredicto": "Nueva oportunidad: 'setup de agente IA en WhatsApp' — monitorear cuando esté disponible en MX"},
     {"tendencia": "Top 5 chatbots WhatsApp 2026", "que": "Marketing Directo (13-may-2026): plataformas de chatbot para WhatsApp", "fecha": "13-may-2026", "veredicto": "Contexto: competencia en automatización WhatsApp; D.Softworks puede revender setup"},
-    {"tendencia": "10 proveedores WhatsApp Business API", "que": "Marketing4eCommerce (11-sep-2025): landscape de BSPs", "fecha": "11-sep-2025", "veredicto": "Conecta con O-12: lista de BSPs para validar (360dialog, Twilio, etc.)"}
+    {"tendencia": "10 proveedores WhatsApp Business API", "que": "Marketing4eCommerce (11-sep-2025): landscape de BSPs", "fecha": "11-sep-2025", "veredicto": "Conecta con O-12: lista de BSPs para validar (360dialog, Twilio, etc.)"},
+    {"tendencia": "De dónde saca la IA la info para recomendar negocios", "que": "PuroMarketing (9-oct-2026): qué datos usa la IA para recomendar negocios locales", "fecha": "09-oct-2026", "veredicto": "Refuerza O-02: la IA recomienda negocios según datos estructurados — Google Business Profile + schema son la clave"}
   ]
 }
