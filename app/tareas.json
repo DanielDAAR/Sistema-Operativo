@@ -85,48 +85,58 @@
     },
     {
       "id": "t-009",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-10-10",
       "origen": "cerebro",
       "titulo": "CRÍTICO: seguimiento a los 7 prospectos del 23-sep (16 días sin respuesta)",
       "detalle": "abrilo en prospecting/SEGUIMIENTOS-23SEP.md. Enviar mensaje #2 a: Dr. Oscar Raygoza (33 1178 4981, ,000), Dra. Kimberley Pineda / Dental Magaña (33 1349 2145, ,500), Dra. Ana Isabel / Tiny Smiles (33 1748 8180, ,500), El ZarCortes (33 2033 0341, ,200), Barber Chuy (33 3787 7648, ,200), Somos Red GDL (33 2962 5857), Atelback (33 2051 2899). Si en 48h no responden: mensaje #3 (cierre elegante) y pasarlos a Sin respuesta.",
-      "categoria": "Ventas"
+      "categoria": "Ventas",
+      "hechoFecha": "2026-10-10 18:20",
+      "actualizado": "2026-10-10 18:20"
     },
     {
       "id": "t-010",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-10-10",
       "origen": "cerebro",
       "titulo": "BLOQUE 1 (0-25 min) — Manda los 6 seguimientos del 23-sep",
       "detalle": "Abrir prospecting/SEGUIMIENTOS-23SEP.md. Orden: Dr. Oscar Raygoza (33 1178 4981, $6,000) → Dra. Kimberley / Dental Magaña (33 1349 2145, $4,500) → Dra. Ana Isabel / Tiny Smiles (33 1748 8180, $2,500) → El ZarCortes (33 2033 0341) → Barber Chuy (33 3787 7648) → Somos Red GDL (33 2962 5857). Después de cada uno NO cambies el estado hasta tener respuesta real.",
-      "categoria": "Ventas"
+      "categoria": "Ventas",
+      "hechoFecha": "2026-10-10 18:11",
+      "actualizado": "2026-10-10 18:11"
     },
     {
       "id": "t-011",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-10-10",
       "origen": "cerebro",
       "titulo": "BLOQUE 2 (25-45 min) — Destapa los 14 \"No registrado\"",
       "detalle": "Abrir app/data/prospectos.json. Marca los 14 como Descartado. Para 8 de ellos busca número en Google Maps: nombre del negocio + Zapopan / Tlaquepaque / Tlajomulco. Si hay teléfono → estado Nuevo. Si no hay → Descartado. Meta: bajar el pipeline de $32,100 (fantasma) a ~$16,700 (real).",
-      "categoria": "Ventas"
+      "categoria": "Ventas",
+      "hechoFecha": "2026-10-10 18:20",
+      "actualizado": "2026-10-10 18:20"
     },
     {
       "id": "t-012",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-10-10",
       "origen": "cerebro",
       "titulo": "BLOQUE 3 (45-105 min) — 10 prospectos NUEVOS con WhatsApp verificado",
       "detalle": "Meta del día (10/día). Fuentes: (1) Google Maps → \"dentista Zapopan\", \"clínica dental Tlaquepaque\", \"barbería Guadalajara\". (2) Instagram → hashtags #dentistagdl #barberiagdl #clinicasgdl. REGLA CRÍTICA: si no hay WhatsApp NO lo anotes — no cuenta como prospecto (error que ya cometiste con 14). Anota nombre, negocio, teléfono, rubro, monto estimado y deja que el cerebro te escriba el mensaje en el campo \"mensaje\".",
-      "categoria": "Ventas"
+      "categoria": "Ventas",
+      "hechoFecha": "2026-10-10 18:21",
+      "actualizado": "2026-10-10 18:21"
     },
     {
       "id": "t-013",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-10-10",
       "origen": "cerebro",
       "titulo": "BLOQUE 4 (105-120 min) — Publica 1 post + deja estados al día",
       "detalle": "Publica 07-Marketing/Publicaciones/Portafolio-01-GMFire.md en FB + IG (está escrito, nunca publicado). Luego abre la app: actualiza los estados de los 6 del Bloque 1 y escribe \"revisa la app\" en 🧠 Mensajes para que el cerebro lea tus resultados y arme el plan de mañana.",
-      "categoria": "Marketing"
+      "categoria": "Marketing",
+      "hechoFecha": "2026-10-10 20:18",
+      "actualizado": "2026-10-10 20:18"
     },
     {
       "id": "t-014",
@@ -265,13 +275,13 @@
     },
     {
       "id": "t-029",
-      "titulo": "SEGUIMIENTO: AMADOR ARECHIGA KEVIN (gimnasio Zapopan) — 1a respuesta",
-      "detalle": "Respondió con mensaje automático de WhatsApp el 10-oct. El staff atenderá en 24-48h. Si responde una persona → ofrecer llamada de 10 min y Cotizar web + planes + botón de WhatsApp ($1,500). Si en 48h NO responde → mandar mensaje #2: \"Hola, ¿pudieron ver mi mensaje? Les dejé una propuesta rápida para su gimnasio.\" Contacto: wa.me/523336276132 GUION COMPLETO DE VENTA EN: prospecting/CONVERSACION-AMADOR-ARECHIGA.md (etapas: respuesta lista, descubrimiento, propuesta ,500, 4 objeciones resueltas, cierre y timeline de seguimiento)",
-      "categoria": "Ventas",
-      "vence": "2026-10-13",
       "hecha": false,
-      "origen": "cerebro"
+      "vence": "2026-10-13",
+      "origen": "cerebro",
+      "titulo": "SEGUIMIENTO: AMADOR ARECHIGA KEVIN (gimnasio Zapopan) — 1a respuesta",
+      "detalle": "Respondió con mensaje automático de WhatsApp el 10-oct. El staff atenderá en 24-48h. Si responde una persona → ofrecer llamada de 10 min y Cotizar web + planes + botón de WhatsApp ($1,500). Si en 48h NO responde → mandar mensaje #2: \"Hola, ¿pudieron ver mi mensaje? Les dejé una propuesta rápida para su gimnasio.\" Contacto: wa.me/523336276132",
+      "categoria": "Ventas"
     }
   ],
-  "actualizado": "2026-10-10 18:07"
+  "actualizado": "2026-10-10 20:18"
 }
