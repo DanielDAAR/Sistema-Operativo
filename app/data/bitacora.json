@@ -479,7 +479,17 @@
       "titulo": "Número no registrado",
       "detalle": "BAÑUELOS CALLEROS JOSE IGNACIO — BAÑUELOS CALLEROS JOSE IGNACIO (+52 33 3110 1771)",
       "actualizado": "2026-10-10 20:27"
+    },
+    {
+      "id": "deployrotomv4avow7",
+      "tipo": "sistema",
+      "fecha": "2026-10-11 14:53",
+      "monto": 0,
+      "origen": "cerebro",
+      "titulo": "⚠️ DEPLOY DE NETLIFY DESACTUALIZADO",
+      "detalle": "Verificado por fetch: dsw-os.netlify.app/app.js corre versión VIEJA (874 líneas, sin radar/puntos/equipo/visualizar). El repo tiene la versión nueva (1292 líneas). El auto-deploy de GitHub→Netlify NO está funcionando. Los datos SÍ están en Supabase (a salvo). SOLUCIÓN: deploy manual arrastrando dsw-os-web/public a Netlify, o arreglar Base directory=dsw-os-web en Site settings.",
+      "actualizado": "2026-10-11 14:53"
     }
   ],
-  "actualizado": "2026-10-10 20:27"
+  "actualizado": "2026-10-11 14:53"
 }
