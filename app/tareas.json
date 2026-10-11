@@ -158,21 +158,25 @@
     },
     {
       "id": "t-016",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-10-10",
       "origen": "cerebro",
       "titulo": "H5 — Publicar Portafolio GM Fire (FB 10:00 / IG 12:00)",
       "detalle": "Texto y formato listos en 07-Marketing/Publicaciones/Portafolio-01-GMFire.md. Imagen: Captura de pantalla 2026-09-15 195023.png. Nunca se ha publicado. Marcar como publicado en la app > Contenido (c-001).",
-      "categoria": "Marketing"
+      "categoria": "Marketing",
+      "hechoFecha": "2026-10-10 20:23",
+      "actualizado": "2026-10-10 20:23"
     },
     {
       "id": "t-017",
-      "hecha": false,
+      "hecha": true,
       "vence": "2026-10-10",
       "origen": "cerebro",
       "titulo": "H6 — Checklist de perfil de WhatsApp (60 seg, ANTES de mandar mensajes)",
       "detalle": "Está al final de prospecting/MENSAJES-V2.md. Foto de perfil = logo D.Softworks (no el ícono gris), nombre 'D.Softworks', estado 'Páginas web y sistemas para negocios de GDL', foto de portada. Un número sin foto desperdicia el mejor mensaje.",
-      "categoria": "Ventas"
+      "categoria": "Ventas",
+      "hechoFecha": "2026-10-10 20:23",
+      "actualizado": "2026-10-10 20:23"
     },
     {
       "id": "t-018",
@@ -283,5 +287,5 @@
       "categoria": "Ventas"
     }
   ],
-  "actualizado": "2026-10-10 20:18"
+  "actualizado": "2026-10-10 20:23"
 }

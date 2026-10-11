@@ -160,14 +160,14 @@
       "id": "p-mv2zte3mjo4",
       "fecha": "2026-10-10",
       "monto": 1500,
-      "notas": "Encontrado en Sección Amarilla. Dirección: CLL MECANICA 2168, LOMAS DE ZAPOPAN, ZAPOPAN, JAL, CP 45130. Sin sitio web",
-      "estado": "Nuevo",
+      "notas": "Encontrado en Sección Amarilla. Dirección: CLL MECANICA 2168, LOMAS DE ZAPOPAN, ZAPOPAN, JAL, CP 45130. Sin sitio web. Número no registrado en WhatsApp.",
+      "estado": "No registrado",
       "fuente": "Sección Amarilla",
       "nombre": "ARENAS DEL ROSAL SERGIO",
       "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks, una empresa de desarrollo de software aquí en Guadalajara.\n\nVi su gimnasio Arenas Del Rosal Sergio en LOMAS DE ZAPOPAN y me pareció muy bien.\n\nNoto que no tienen página web propia. ¿Les gustaría tener una donde sus clientes puedan ver servicios, precios y contactarlos por WhatsApp directamente?\n\nLes puedo ayudar con web + planes + botón de WhatsApp. Es rápido y profesional.\n\n¿Les interesa conocer más? Son 10 minutos de plática.\n\nNo es cosa de empresas grandes: tu competencia de barrio ya lo tiene, y cuesta menos de lo que crees.",
       "negocio": "ARENAS DEL ROSAL SERGIO",
       "telefono": "+52 33 3364 6759",
-      "actualizado": "2026-10-10"
+      "actualizado": "2026-10-10 20:27"
     },
     {
       "id": "p-mv2zte3mw39",
@@ -180,7 +180,7 @@
       "mensaje": "Hola, buenas tardes. Soy Daniel de D.Softworks, una empresa de desarrollo de software aquí en Guadalajara.\n\nVi su gimnasio BañUelos Calleros Jose Ignacio en Zapopan y me pareció muy bien.\n\nNoto que no tienen página web propia. ¿Les gustaría tener una donde sus clientes puedan ver servicios, precios y contactarlos por WhatsApp directamente?\n\nLes puedo ayudar con web + planes + botón de WhatsApp. Es rápido y profesional.\n\n¿Les interesa conocer más? Son 10 minutos de plática.\n\nNo es cosa de empresas grandes: tu competencia de barrio ya lo tiene, y cuesta menos de lo que crees.",
       "negocio": "BAÑUELOS CALLEROS JOSE IGNACIO",
       "telefono": "+52 33 3110 1771",
-      "actualizado": "2026-10-10"
+      "actualizado": "2026-10-10 20:27"
     },
     {
       "id": "p-mv2zte3myk2",
@@ -2575,5 +2575,5 @@
       "actualizado": "2026-10-10"
     }
   ],
-  "actualizado": "2026-10-10 18:19"
+  "actualizado": "2026-10-10 20:27"
 }

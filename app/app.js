@@ -331,6 +331,43 @@ function renderDashboard(){
   });
   $('#dashEmbudo').innerHTML=embHtml;
 
+  // ── TARJETA DE AVANCE POR PUNTOS (dashboard) ──
+  var eqDash=[].concat(state.puntos.equipo||[]);
+  if(eqDash.length){
+    var eqOrd=eqDash.slice().sort(function(a,b){return b.puntos-a.puntos});
+    var maxPtsD=Math.max.apply(null,eqOrd.map(function(e){return e.puntos}).concat([1]));
+    var dashHtml='<h3>🏆 Avance del equipo</h3>';
+    eqOrd.forEach(function(p){
+      var niv=nivelDe(p.puntos);
+      var sig=siguienteNivel(p.puntos);
+      var pctD=Math.round(p.puntos/maxPtsD*100);
+      var hoyD=today();
+      var actHoy=(p.historial||[]).filter(function(h){return(h.fecha||'').slice(0,10)===hoyD}).length;
+      var corona=eqOrd.length>1&&p.puntos>0&&p.id===eqOrd[0].id?' 👑':'';
+      var cero=p.puntos===0?' <span style="color:var(--warn);font-size:12px">— ¡aún no suma puntos!</span>':'';
+      dashHtml+='<div style="padding:10px 0;border-bottom:1px solid var(--border)"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><div><b>'+esc(p.nombre.split(' ')[0])+'</b>'+(p.rol?' <span style="font-size:11px;color:var(--muted)">'+esc(p.rol)+'</span>':'')+cero+'</div><div style="font-size:20px">'+niv.icono+' <b>'+p.puntos+'</b> pts'+corona+'</div></div><div class="equipo-progress" style="margin-top:6px"><i style="width:'+pctD+'%;background:linear-gradient(90deg,var(--accent),'+niv.color+')"></i></div><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:12px;color:var(--muted)"><span>'+niv.nombre+' · '+(p.tareasHechas||0)+' tareas · 🔥 '+p.racha+'</span>'+(sig?'<span style="color:var(--accent)">Faltan '+sig.falta+' → '+sig.nivel.icono+'</span>':'<span>👑 MAX</span>')+'</div>'+(actHoy?'<div style="font-size:11px;color:var(--ok);margin-top:2px">🟢 '+actHoy+' tarea(s) hoy</div>':'<div style="font-size:11px;color:var(--muted);margin-top:2px">Sin actividad hoy</div>')+'</div>';
+    });
+    // Feed dinámico: quién hizo qué (últimas 5)
+    var feed=[];
+    eqDash.forEach(function(p){
+      (p.historial||[]).forEach(function(h){feed.push({quien:p.nombre.split(' ')[0],tarea:h.tarea,pts:h.puntos,fecha:h.fecha})});
+    });
+    feed.sort(function(a,b){return b.fecha.localeCompare(a.fecha)});
+    dashHtml+='<div style="margin-top:10px"><div style="font-size:12px;color:var(--muted);margin-bottom:6px">📢 Últimas acciones del equipo</div>';
+    if(feed.length){
+      feed.slice(0,5).forEach(function(f){
+        dashHtml+='<div style="display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid var(--border)"><span><b>'+esc(f.quien)+'</b> → '+esc(f.tarea.length>32?f.tarea.slice(0,32)+'…':f.tarea)+'</span><span style="color:var(--accent)">+'+f.pts+'</span></div>';
+      });
+    }else{
+      dashHtml+='<div style="font-size:12px;color:var(--muted)">Nadie ha sumado puntos todavía. Marcá una tarea como hecha para arrancar.</div>';
+    }
+    dashHtml+='</div><button class="btn ghost small" id="dashCTAEquipo" style="margin-top:10px">Ver tabla completa →</button>';
+    $('#dashEquipo').innerHTML=dashHtml;
+    $('#dashCTAEquipo').addEventListener('click',function(){goTab('equipo')});
+  }else{
+    $('#dashEquipo').innerHTML='<h3>🏆 Avance del equipo</h3><div style="color:var(--muted);font-size:13px">Sin equipo registrado.</div>';
+  }
+
   var rules=checkRules();
   var ruleHtml='<h3>Motor de reglas ('+rules.length+' alerta(s))</h3>';
   if(!rules.length){ruleHtml+='<div class="all-clear"><div>Sistema al dia — nada urgente</div></div>'}
@@ -711,7 +748,12 @@ function renderTasks(){
       var catHtml=t.categoria?'<span class="cat">'+esc(t.categoria)+'</span>':'';
       var venceHtml=t.vence?dueChip(t.vence):'';
       var origenHtml=t.origen==='cerebro'?'<span class="cat">del cerebro</span>':'';
-      taskHtml+='<div class="task'+doneCls+'"><input type="checkbox" data-task="'+esc(t.id)+'"'+checked+' aria-label="Completar '+esc(t.titulo)+'"><div class="body"><div class="title">'+esc(t.titulo)+'</div>'+(t.detalle?'<div class="detail">'+esc(t.detalle)+'</div>':'')+'<div class="meta">'+catHtml+venceHtml+origenHtml+'<span style="flex:1"></span><button class="btn ghost small" data-tedit="'+esc(t.id)+'">Editar</button><button class="btn ghost small" data-tdel="'+esc(t.id)+'">Eliminar</button></div></div></div>';
+      var quienHtml='';
+      if(t.hecha&&t.hechoPor){
+        var hq=(state.puntos.equipo||[]).find(function(e){return e.id===t.hechoPor});
+        quienHtml='<span class="cat hecho-por" title="Completada por '+(hq?hq.nombre:t.hechoPor)+'">✅ '+(hq?hq.nombre.split(' ')[0]:t.hechoPor)+'</span>';
+      }
+      taskHtml+='<div class="task'+doneCls+'"><input type="checkbox" data-task="'+esc(t.id)+'"'+checked+' aria-label="Completar '+esc(t.titulo)+'"><div class="body"><div class="title">'+esc(t.titulo)+'</div>'+(t.detalle?'<div class="detail">'+esc(t.detalle)+'</div>':'')+'<div class="meta">'+catHtml+venceHtml+origenHtml+quienHtml+'<span style="flex:1"></span><button class="btn ghost small" data-tedit="'+esc(t.id)+'">Editar</button><button class="btn ghost small" data-tdel="'+esc(t.id)+'">Eliminar</button></div></div></div>';
     });
     list.innerHTML=taskHtml;
   }
@@ -798,6 +840,7 @@ function showWhoModal(t,cb){
 function closeWhoModal(){var m=$('#whoModal');if(m)m.classList.remove('open')}
 function completeTaskWith(t,who,cb){
   t.hecha=true;t.hechoFecha=stamp();
+  t.hechoPor=who; // ← quién la hizo: guardado en la tarea misma
   var eq=(state.puntos.equipo||[]).find(function(e){return e.id===who});
   if(!eq)return;
   var base=(state.puntos.reglas[t.categoria]||1);

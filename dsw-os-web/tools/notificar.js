@@ -88,8 +88,46 @@ function buildAlerta() {
   return lines.join('\n');
 }
 
+function buildDia() {
+  var puntos = load('puntos.json', null);
+  var tareas = [];
+try { tareas = JSON.parse(fs.readFileSync(path.join(ROOT, 'app', 'tareas.json'), 'utf8')).tareas || []; } catch (e) {}
+  var reglas = (puntos && puntos.reglas) || { Ventas: 10, Marketing: 5, Sistema: 3, Personal: 1 };
+  var hoyStr = hoy;
+  var pend = tareas.filter(function (t) { return !t.hecha && t.vence && t.vence <= hoyStr; });
+  var ptsDisponibles = pend.reduce(function (s, t) { return s + (reglas[t.categoria] || 1); }, 0);
+  var lines = [];
+  lines.push('☀️ BUENOS DÍAS — PLAN DE HOY');
+  lines.push(pend.length + ' tareas esperando · ' + ptsDisponibles + ' puntos disponibles');
+  lines.push('');
+  pend.slice(0, 8).forEach(function (t, i) {
+    lines.push('  ' + (i + 1) + '. [' + t.categoria + ' · ' + (reglas[t.categoria] || 1) + ' pts] ' + t.titulo);
+  });
+  if (pend.length > 8) lines.push('  ... y ' + (pend.length - 8) + ' más');
+  lines.push('');
+  if (puntos && puntos.equipo) {
+    lines.push('MARCADOR:');
+    var eq = [].concat(puntos.equipo).sort(function (a, b) { return b.puntos - a.puntos; });
+    eq.forEach(function (p) {
+      lines.push('  ' + p.nombre.split(' ')[0] + ': ' + p.puntos + ' pts · racha ' + (p.racha || 0));
+    });
+    var lider = eq[0];
+    if (lider && eq.length > 1 && eq[1].puntos < lider.puntos) {
+      lines.push('  👑 ' + lider.nombre.split(' ')[0] + ' va ganando por ' + (lider.puntos - eq[1].puntos) + ' pts');
+    } else if (eq.length > 1 && eq[0].puntos === eq[1].puntos) {
+      lines.push('  ⚡ ¡EMPATE! El que complete una tarea hoy toma la delantera');
+    }
+  }
+  lines.push('');
+  lines.push('CÓMO SUMAR: marca la tarea como hecha en la app → elige quién la hizo → puntos automáticos.');
+  lines.push('Bonus: 3+ días seguidos = +10% extra en cada punto (máx +50%).');
+  lines.push('');
+  lines.push('App: https://dsw-os.netlify.app');
+  return lines.join('\n');
+}
+
 function abrirMailto(body, subject) {
-  var to = eq.daniel.email + ',' + eq.cesar.email;
+  var to = eq.map(function (e) { return e.email; }).filter(function (e) { return e && e !== 'sin correo'; }).join(',');
   var mailto = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   console.log('\n  📧 Abriendo cliente de correo con el reporte precargado...');
   console.log('  Para: ' + to);
@@ -171,6 +209,9 @@ var body, subject;
 if (cmd === 'alerta') {
   body = buildAlerta();
   subject = 'D.Softworks — Alerta de inactividad ' + hoy;
+} else if (cmd === 'dia') {
+  body = buildDia();
+  subject = '☀️ D.Softworks — Buenos días: ' + body.split('\n')[1];
 } else {
   body = buildReporte();
   subject = 'D.Softworks — Marcador del equipo ' + hoy;

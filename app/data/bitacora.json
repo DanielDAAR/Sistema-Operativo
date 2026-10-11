@@ -381,6 +381,56 @@
       "actualizado": "2026-10-10 20:18"
     },
     {
+      "id": "mv378jdu9whjl",
+      "tipo": "tarea-hecha",
+      "fecha": "2026-10-10 20:23",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Tarea completada",
+      "detalle": "H5 — Publicar Portafolio GM Fire (FB 10:00 / IG 12:00)",
+      "actualizado": "2026-10-10 20:23"
+    },
+    {
+      "id": "mv378oypfn7v2",
+      "tipo": "tarea-hecha",
+      "fecha": "2026-10-10 20:23",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Tarea completada",
+      "detalle": "H6 — Checklist de perfil de WhatsApp (60 seg, ANTES de mandar mensajes)",
+      "actualizado": "2026-10-10 20:23"
+    },
+    {
+      "id": "mv37a7ce55wdl",
+      "tipo": "publicacion",
+      "fecha": "2026-10-10 20:24",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Publicación marcada como publicada",
+      "detalle": "Portafolio — GM Fire Services",
+      "actualizado": "2026-10-10 20:24"
+    },
+    {
+      "id": "mv37akmieq5ts",
+      "tipo": "publicacion",
+      "fecha": "2026-10-10 20:25",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Publicación marcada como publicada",
+      "detalle": "Portafolio — GM Fire Services",
+      "actualizado": "2026-10-10 20:25"
+    },
+    {
+      "id": "mv37aph9h514j",
+      "tipo": "publicacion",
+      "fecha": "2026-10-10 20:25",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Publicación marcada como publicada",
+      "detalle": "Portafolio — GM Fire Services",
+      "actualizado": "2026-10-10 20:25"
+    },
+    {
       "id": "pubigmv378xss",
       "tipo": "publicacion",
       "fecha": "2026-10-10 20:23",
@@ -399,7 +449,37 @@
       "titulo": "Puntos retroactivos asignados",
       "detalle": "5 tareas del 10-oct (4 Ventas + 1 Marketing) = 45 pts + logro 🎯 Primer paso (+5). Daniel llega a 50 pts = nivel 🥈 PLATA. Causa: la app en la nube corría código viejo sin el modal de puntos — se requiere que Netlify redeploye.",
       "actualizado": "2026-10-10 20:23"
+    },
+    {
+      "id": "mv37crnpui9c9",
+      "tipo": "prospecto-no-reg",
+      "fecha": "2026-10-10 20:26",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Número no registrado",
+      "detalle": "ARENAS DEL ROSAL SERGIO — ARENAS DEL ROSAL SERGIO (+52 33 3364 6759)",
+      "actualizado": "2026-10-10 20:26"
+    },
+    {
+      "id": "mv37dgsakxnvm",
+      "tipo": "prospecto-no-reg",
+      "fecha": "2026-10-10 20:27",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Número no registrado",
+      "detalle": "ARENAS DEL ROSAL SERGIO — ARENAS DEL ROSAL SERGIO (+52 33 3364 6759)",
+      "actualizado": "2026-10-10 20:27"
+    },
+    {
+      "id": "mv37e1ix6m4ck",
+      "tipo": "prospecto-no-reg",
+      "fecha": "2026-10-10 20:27",
+      "monto": 0,
+      "origen": "app",
+      "titulo": "Número no registrado",
+      "detalle": "BAÑUELOS CALLEROS JOSE IGNACIO — BAÑUELOS CALLEROS JOSE IGNACIO (+52 33 3110 1771)",
+      "actualizado": "2026-10-10 20:27"
     }
   ],
-  "actualizado": "2026-10-10 20:23"
+  "actualizado": "2026-10-10 20:27"
 }
