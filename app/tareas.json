@@ -262,7 +262,16 @@
       "titulo": "H15 — Leer el Plan de Actualización Crítica y ejecutar C1",
       "detalle": "Abrir 07-Marketing/PLAN-ACTUALIZACION-CRITICA.md. Tiene 11 puntos ordenados por dinero en juego. C1 = cero cotizaciones: hoy el objetivo es mandar mensaje #2 a los 8 prospectos fríos y pedir la cotización explícitamente. C3 = publicar GM Fire (nunca se ha publicado). C7 = probar la pestaña Equipo.",
       "categoria": "Sistema"
+    },
+    {
+      "id": "t-029",
+      "titulo": "SEGUIMIENTO: AMADOR ARECHIGA KEVIN (gimnasio Zapopan) — 1a respuesta",
+      "detalle": "Respondió con mensaje automático de WhatsApp el 10-oct. El staff atenderá en 24-48h. Si responde una persona → ofrecer llamada de 10 min y Cotizar web + planes + botón de WhatsApp ($1,500). Si en 48h NO responde → mandar mensaje #2: \"Hola, ¿pudieron ver mi mensaje? Les dejé una propuesta rápida para su gimnasio.\" Contacto: wa.me/523336276132",
+      "categoria": "Ventas",
+      "vence": "2026-10-13",
+      "hecha": false,
+      "origen": "cerebro"
     }
   ],
-  "actualizado": "2026-10-10 22:00"
+  "actualizado": "2026-10-10 18:07"
 }

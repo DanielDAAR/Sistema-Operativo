@@ -319,7 +319,17 @@
       "titulo": "Número no registrado",
       "detalle": "ALVAREZ ALBOR JOSE LUIS — ALVAREZ ALBOR JOSE LUIS (+52 33 3620 3803)",
       "actualizado": "2026-10-10 17:56"
+    },
+    {
+      "id": "primerticmv32dc65",
+      "tipo": "prospecto-respondio",
+      "fecha": "2026-10-10 18:07",
+      "monto": 1500,
+      "origen": "app",
+      "titulo": "PRIMERA RESPUESTA del pipeline (198 prospectos)",
+      "detalle": "AMADOR ARECHIGA KEVIN LEONARDO LEONCIO (AMADOR ARECHIGA KEVIN LEONARDO LEONCIO, +52 33 3627 6132) respondió con mensaje automático de WhatsApp. Número confirmado activo. Es la primera respuesta de los 198 prospectos minados en Sección Amarilla.",
+      "actualizado": "2026-10-10 18:07"
     }
   ],
-  "actualizado": "2026-10-10 17:56"
+  "actualizado": "2026-10-10 18:07"
 }
