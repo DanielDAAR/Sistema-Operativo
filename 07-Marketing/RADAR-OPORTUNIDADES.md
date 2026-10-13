@@ -291,8 +291,8 @@ Cada video que filmen para un prospecto debe decir en voz alta:
 **Qué está pasando:** la ZMG subió **+12.46% anual** en precios de vivienda (IIEG/SHF, 1T-2026, al parejo del nacional) y el 2026 abrió con **5 de 13 estaciones en calidad "extremadamente mala"** (SEMADET, 1-ene-2026). Comprar casa en GDL hoy es caro y con aire incierto — y ningún portal dice "esta colonia vale lo que cuesta".
 
 **Los números:**
-- Precio publicado promedio GDL 2026: **~$5M** (negociado ~$4.6M); depa en gran ciudad ya supera **$3M**
-- **13-oct-2026 (nuevo):** casa promedio ZMG **casi $4M**, +12.5% anual (AMPI/cuadratín); **IIEG publicó mapa de precios POR COLONIA** (renta más barata por municipio + estudio ITESO) — es la capa de precio que faltaba para US-09, dato abierto $0
+- Venta promedio ZMG: **~$6M** (mediana $3.7M); renta promedio **$26,139/mes** (IIEG, mapa por colonia actualizado); GDL +11.74% anual (NTR, oct-2026); SHF 1T-2026 +12.46%
+- **13-oct-2026 (nuevo):** **IIEG publicó mapa de precios POR COLONIA** — es la capa de precio que faltaba para US-09, dato abierto $0
 - HabitaGDL ya tiene: **534 localidades, 1,086 clínicas, 87,840 lecturas de aire, serie IIEG 2000-2020** — todo open-data, costo $0
 - Stack validado 2026: **DuckDB-WASM + MapLibre** corre el dashboard en el navegador, sin backend (FOSS4G 2026)
 

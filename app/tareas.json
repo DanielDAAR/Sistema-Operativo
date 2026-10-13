@@ -330,6 +330,15 @@
       "titulo": "HabitaGDL S2: MVP publicado en Netlify",
       "detalle": "Mapa IHT + pesos vivos + drawer + top 10. Hecho = URL publica + Lighthouse >=90.",
       "categoria": "Sistema"
+    },
+    {
+      "id": "t-035",
+      "hecha": false,
+      "vence": "2026-10-17",
+      "origen": "cerebro",
+      "titulo": "HabitaGDL: registrar anteproyecto + pedir Guia DI-VA-200-22-02",
+      "detalle": "Ver 06-Clientes/HabitaGDL/05-Plan-tesis.md seccion 1. Pedir en coordinacion la Guia de estilo ES + registrar anteproyecto ante Comite (Art.23). Sin esto no hay asesor ni jurado.",
+      "categoria": "Sistema"
     }
   ],
   "actualizado": "2026-10-12 16:34"
