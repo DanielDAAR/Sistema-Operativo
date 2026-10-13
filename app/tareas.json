@@ -287,6 +287,15 @@
       "categoria": "Ventas"
     },
     {
+      "id": "t-034",
+      "hecha": false,
+      "vence": "2026-10-15",
+      "origen": "cerebro",
+      "titulo": "HabitaGDL: publicar repo en GitHub (init + push 59MB)",
+      "detalle": "Pasos exactos en 06-Clientes/HabitaGDL/04-Publicacion-GitHub.md. .gitignore ya creado. Push normal, sin LFS (verificado: 59MB total, max 25MB). Luego agregar a Julio como colaborador.",
+      "categoria": "Sistema"
+    },
+    {
       "id": "t-030",
       "hecha": false,
       "vence": "2026-10-20",
