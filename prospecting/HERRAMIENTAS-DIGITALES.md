@@ -21,6 +21,7 @@
 | **H13** | Ángulo "no es para grandes" | Línea para cerrar mensajes (El Economista 10-oct) | 0 seg | pegar al final de cada mensaje |
 | **H14** | Equipo: puntos + correo | Sistema de puntos con modal "¿Quién lo hizo?", indicador 🟢/🟡/🔴, meta semanal, reporte por correo a Daniel y César | 10 seg | app → pestaña **Equipo** · `node dsw-os-web/tools/notificar.js` |
 | **H15** | Priorizar prospectos | Puntaje 0-100 por prospecto: etapa+antigüedad+valor+fuente+WhatsApp. Te dice a quién contactar hoy | 10 seg | `node dsw-os-web/tools/priorizar.js` · pestaña Visualizar → "A quién contactar hoy" |
+| **H16** | QA HabitaGDL | Audita el proyecto de graduación como empresa real: cuenta Parquet, detecta estaciones perdidas y services vacíos. Verde/amarillo/rojo en 10 seg | 10 seg | `node dsw-os-web/tools/habita.js "ruta"` · expediente en `06-Clientes/HabitaGDL/` |
 
 ---
 
@@ -64,6 +65,7 @@ Cada herramienta viene de una oportunidad del radar (`07-Marketing/RADAR-OPORTUN
 | H5 | O-10 (contenido real > IA) | tier premium |
 | H13 | Mito "es para grandes" (El Economista) | baja la resistencia de todo mensaje |
 | *(próxima)* | O-12 (bloqueos WhatsApp → API oficial) | setup $2,500 + mensualidad |
+| H16 | O-13 (dashboards open-data para inmobiliarias) | setup $8,000-15,000 + $500/mes |
 
 ---
 

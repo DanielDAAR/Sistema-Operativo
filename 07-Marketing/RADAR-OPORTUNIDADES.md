@@ -284,6 +284,28 @@ Cada video que filmen para un prospecto debe decir en voz alta:
 
 ---
 
+### O-13 · Dashboards de datos abiertos para inmobiliarias: SHF +12.46% y aire en crisis · ALTA
+**Descubierto:** 13-oct-2026
+**Estado:** 🟢 viable ahora (con HabitaGDL como demo)
+
+**Qué está pasando:** la ZMG subió **+12.46% anual** en precios de vivienda (IIEG/SHF, 1T-2026, al parejo del nacional) y el 2026 abrió con **5 de 13 estaciones en calidad "extremadamente mala"** (SEMADET, 1-ene-2026). Comprar casa en GDL hoy es caro y con aire incierto — y ningún portal dice "esta colonia vale lo que cuesta".
+
+**Los números:**
+- Precio publicado promedio GDL 2026: **~$5M** (negociado ~$4.6M); depa en gran ciudad ya supera **$3M**
+- HabitaGDL ya tiene: **534 localidades, 1,086 clínicas, 87,840 lecturas de aire, serie IIEG 2000-2020** — todo open-data, costo $0
+- Stack validado 2026: **DuckDB-WASM + MapLibre** corre el dashboard en el navegador, sin backend (FOSS4G 2026)
+
+**Por qué es oportunidad para D.Softworks:** la tesis ES el demo. No hay que construir nada nuevo para vender: se publica el MVP y se ofrece a inmobiliarias como "buscador con IHT por colonia".
+
+**ACCIÓN CONCRETA:**
+1. Publicar MVP HabitaGDL (mapa + pesos + top 10) en Netlify
+2. Mensaje exacto: *"Tus casas compiten por precio. Yo te pongo un mapa que demuestra por qué esta colonia vale $4.6M: aire, salud, escuelas y servicios con datos oficiales. Setup $8,000 + $500/mes. ¿Te muestro el demo con tus 3 colonias?"*
+3. Primeros 3 objetivos: inmobiliarias de Zapopan/GDL que publiquen en $3-5M
+
+**Se convierte en:** servicio nuevo "dashboard de datos abiertos" — setup **$8,000-15,000** + $500/mes. Un cierre = 5 meses de meta.
+
+---
+
 ## 📋 TENDENCIAS MONITOREADAS (contexto, no acciones)
 
 Estas están en radar. Si alguna se vuelve accionable, se promueve a oportunidad activa.

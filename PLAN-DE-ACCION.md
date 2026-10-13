@@ -772,6 +772,7 @@ Caja de herramientas completa para ejecutar la prospección de la semana. Índic
 | H13 · Ángulo "no es para grandes" | en cada mensaje de hoy | El Economista 10-oct: las pymes creen que la tecnología es para grandes → cerrar con "No es cosa de empresas grandes: tu competencia de barrio ya lo tiene" |
 | H14 · Equipo (puntos + correo) | app → pestaña **Equipo** | Sistema de puntos que obliga a trabajar: Ventas=10 · Marketing=5 · Sistema=3 · Personal=1. Modal "¿Quién lo hizo?" al marcar tarea. Indicador 🟢/🟡/🔴, meta semanal 50 pts, reporte por correo a ambos. Script: `node dsw-os-web/tools/notificar.js` |
 | H15 · Priorizar prospectos | `node dsw-os-web/tools/priorizar.js` | Puntúa cada prospecto 0-100 (etapa+antigüedad+valor+fuente+WhatsApp) y te dice a quién contactar HOY. También en la pestaña Visualizar → "A quién contactar hoy". Variantes: `hoy` (top 5), `embudo` (conversión entre etapas) |
+| H16 · QA HabitaGDL | `node dsw-os-web/tools/habita.js` | Audita el proyecto de graduación como cliente real (Parquet, estaciones, services). Expediente en `06-Clientes/HabitaGDL/` |
 
 **Herramientas de línea de comando del cerebro** (todas en `dsw-os-web/tools/`): `money.js` (dónde está la plata) · `dia.js` (plan del día + seguimiento + TSV + radar) · `sync-data.js` (puente a Supabase). Registro de todo en `AGENTS.md` → "REGLA DE EVOLUCIÓN".
 
