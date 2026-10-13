@@ -6,7 +6,7 @@
 
 | # | Hallazgo | Evidencia | Impacto | Acción (dueño + fecha) |
 |---|---|---|---|---|
-| 1 | **Guadalajara casi no existe en ITER-localidad** | `iter_zgm.parquet`: 534 filas → Tlajomulco 235, Zapopan 213, Tonalá 54, Tlaquepaque 28, **Guadalajara 4**. El municipio más denso aporta 4 renglones porque ITER a nivel localidad colapsa la mancha urbana. | 🔴 Crítico: el IHT no puede comparar colonias de GDL con este grano. | Conseguir AGEB urbana INEGI (MGN 2020) y re-hacer el join a ese nivel. Julio, 27-oct. |
+| 1 | **Guadalajara casi no existe en ITER-localidad** | `iter_zgm.parquet`: 534 filas → … **Guadalajara 4**. … | ✅ **CERRADO 13-oct (S1-geo, IHT v2):** 1,724 AGEBs urbanas (GDL 442) con IHT heredado de la localidad más cercana (nearest-centroid UTM, `dist_km` guardada). `iht_ageb.geojson` web-ready. Metodología documentada en código. | Hecho. |
 | 2 | **Aire: 3 estaciones perdidas en el ETL** | … | ✅ **CERRADO 13-oct (S0, commit 14e26e3):** Param traía Estación↔Abreviatura cruzadas; `parse_stations` intercambia. Lecturas 87,840→114,192, daily 3,660→4,758. | Hecho. |
 | 3 | **`services_inegi.parquet`: 59 filas pero `total` todo NaN** | … | ✅ **CERRADO 13-oct (S0):** el XLS trae UNA consulta real (energía eléctrica); parser por bloques → 15 filas con números. Jalisco 99.03%. Resto de variables vía ITER. | Hecho. |
 | 4 | **Encoding: verificado OK (falsa alarma descartada)** | Codepoints reales: `ú=0xfa, ñ=0xf1` correctos en ITER y services. El `�` era solo la fuente de la terminal, no los datos. | ✅ Ninguno: no tocar encoding. | Cerrado 13-oct (Daniel, verificado por script). |

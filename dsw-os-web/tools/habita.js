@@ -29,7 +29,19 @@ try:
     s = pd.read_parquet(d/"services_inegi.parquet")
     out["services_nan"] = int(s["total"].isna().sum()) if "total" in s.columns else -9
     out["services_filas"] = int(len(s))
+    # mojibake: ya descartado 13-oct (terminal, no datos)
     out["mojibake"] = False  # verificado 13-oct: ú=0xfa/ñ=0xf1 correctos, el � era la terminal
+    try:
+        import json as _j
+        gj = _j.load(open(d/"iht_ageb.geojson", encoding="utf-8"))
+        feats = gj.get("features", [])
+        out["ageb_filas"] = len(feats)
+        out["ageb_gdl"] = sum(
+            1 for f in feats
+            if (f.get("properties", {}) or {}).get("CVE_MUN") == "039")
+    except Exception:
+        out["ageb_filas"] = -1
+        out["ageb_gdl"] = -1
 except Exception as e:
     out["errores"].append(str(e)[:300])
 print(json.dumps(out, ensure_ascii=False))
@@ -54,7 +66,7 @@ const fails = [];
 if (r.archivos) for (const [f, sz] of Object.entries(r.archivos)) if (sz === -1) fails.push("falta " + f);
 const checks = [];
 checks.push(["ITER 534 filas", r.iter_filas === 534]);
-checks.push(["GDL > 4 localidades", (r.iter_mun && (r.iter_mun.Guadalajara || 0)) > 4]);
+checks.push(["GDL > 4 (AGEB: 442)", (r.ageb_gdl ?? 0) >= 400]);
 checks.push(["Aire trae COU+SAN", r.aq_estaciones && r.aq_estaciones.includes("COU") && r.aq_estaciones.includes("SAN")]);
 checks.push(["Services con números", (r.services_nan ?? 99) === 0]);
 checks.push(["Sin mojibake", r.mojibake === false]);
