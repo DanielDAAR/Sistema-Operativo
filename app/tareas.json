@@ -285,6 +285,42 @@
       "titulo": "SEGUIMIENTO: AMADOR ARECHIGA KEVIN (gimnasio Zapopan) — 1a respuesta",
       "detalle": "Respondió con mensaje automático de WhatsApp el 10-oct. El staff atenderá en 24-48h. Si responde una persona → ofrecer llamada de 10 min y Cotizar web + planes + botón de WhatsApp ($1,500). Si en 48h NO responde → mandar mensaje #2: \"Hola, ¿pudieron ver mi mensaje? Les dejé una propuesta rápida para su gimnasio.\" Contacto: wa.me/523336276132",
       "categoria": "Ventas"
+    },
+    {
+      "id": "t-030",
+      "hecha": false,
+      "vence": "2026-10-20",
+      "origen": "cerebro",
+      "titulo": "HabitaGDL S0: QA en verde (services + COU/SAN + is_zgm)",
+      "detalle": "Ver 06-Clientes/HabitaGDL/01-Diagnostico-QA.md puntos 1-3. Verificar con: node dsw-os-web/tools/habita.js. Hecho = 5/5 checks.",
+      "categoria": "Sistema"
+    },
+    {
+      "id": "t-031",
+      "hecha": false,
+      "vence": "2026-10-20",
+      "origen": "cerebro",
+      "titulo": "HabitaGDL S0: crear habita-web + CI verde",
+      "detalle": "En repo HabitaGDL: create-next-app TS+Tailwind+App, instalar maplibre-gl recharts duckdb-wasm, CI con pytest+build. Hecho = npm run build verde. Spec en 03-Decision-stack.md.",
+      "categoria": "Sistema"
+    },
+    {
+      "id": "t-032",
+      "hecha": false,
+      "vence": "2026-11-10",
+      "origen": "cerebro",
+      "titulo": "HabitaGDL S1: AGEB/MGN + escuelas + IHT v1",
+      "detalle": "Resolver GDL-4-filas con AGEB urbana, ETL escuelas, motor src/iht/ con test de 3 colonias conocidas. Hecho = ranking sensato documentado.",
+      "categoria": "Sistema"
+    },
+    {
+      "id": "t-033",
+      "hecha": false,
+      "vence": "2026-11-24",
+      "origen": "cerebro",
+      "titulo": "HabitaGDL S2: MVP publicado en Netlify",
+      "detalle": "Mapa IHT + pesos vivos + drawer + top 10. Hecho = URL publica + Lighthouse >=90.",
+      "categoria": "Sistema"
     }
   ],
   "actualizado": "2026-10-12 16:34"
