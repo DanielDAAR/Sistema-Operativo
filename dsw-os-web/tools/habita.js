@@ -28,6 +28,7 @@ try:
     out["aq_daily_filas"] = int(len(a))
     s = pd.read_parquet(d/"services_inegi.parquet")
     out["services_nan"] = int(s["total"].isna().sum()) if "total" in s.columns else -9
+    out["services_filas"] = int(len(s))
     out["mojibake"] = False  # verificado 13-oct: ú=0xfa/ñ=0xf1 correctos, el � era la terminal
 except Exception as e:
     out["errores"].append(str(e)[:300])
@@ -62,7 +63,7 @@ console.log("\nHABITAGDL QA — " + new Date().toISOString().slice(0, 10));
 console.log("Carpeta: " + proc);
 console.log("Filas: ITER " + r.iter_filas + " · salud " + r.health_filas + " (sin coords " + r.health_sin_coords + ") · aire-daily " + r.aq_daily_filas);
 console.log("Estaciones aire: " + (r.aq_estaciones || []).join(","));
-console.log("Services NaN: " + r.services_nan + "/59 · mojibake: " + (r.mojibake ? "SI" : "no"));
+console.log("Services: " + r.services_filas + " filas, NaN " + r.services_nan + " · mojibake: " + (r.mojibake ? "SI" : "no"));
 for (const [n, ok] of checks) console.log((ok ? "  OK  " : "  FAIL") + " " + n);
 if (r.errores && r.errores.length) console.log("Errores: " + r.errores.join(" | "));
 const score = checks.filter((c) => c[1]).length;
