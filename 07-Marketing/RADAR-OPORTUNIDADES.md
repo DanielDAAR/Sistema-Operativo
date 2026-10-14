@@ -389,4 +389,25 @@ Si falla 2 o más → **no entra al radar.**
 ---
 
 **Integrado en:** `AGENTS.md` (contrato de trabajo) · se actualiza en cada interacción
-**Última actualización:** 10 de octubre de 2026
+**Última actualización:** 14 de octubre de 2026
+
+### O-14 · ZMG +11.1% anual (SHF 2T-2026) + TikTok inmobiliario viral · ALTA
+**Descubierto:** 14-oct-2026
+**Estado:** 🟢 viable ahora (con HabitaGDL S1-geo como demo)
+
+**Qué está pasando:** SHF 2T-2026 (10-ago-2026): vivienda nacional +7.3% anual; **ZMG Guadalajara +11.1%** (1S-2026), muy por encima del Valle de México (+4.6%). Precio medio Jalisco 1T-2026: **$2,211,582** (mediana $1.28M). En TikTok, el formato "mega-mansión exclusiva" rompe algoritmo: cuentas <60K seguidores logran 3-4.4M vistas (FYPNow, sep-2026).
+
+**Los números:**
+- ZMG +11.1% vs nacional +7.3% — argumento "tu colonia se aprecia, demuéstralo con datos"
+- Ticket medio nacional $1.96M; Jalisco $2.21M — el comprador necesita justificación
+- TikTok real-estate: 156x views/follower en top videos — cuenta nueva compite sin pauta
+- HabitaGDL ya tiene: **1724 AGEBs ZMG + IHT v2 (100% cobertura) + CI 3 tests + build verde**
+
+**Por qué es oportunidad para D.Softworks:** es O-13 llevada a venta: el dato SHF fresco + el mapa por AGEB ya construido = pitch con número oficial, no promesa.
+
+**ACCIÓN CONCRETA:**
+1. Mensaje exacto a 3 inmobiliarias Zapopan/GDL: *"ZMG subió 11.1% anual (SHF). Te armo mapa por AGEB con IHT de tus 3 colonias para que el comprador vea por qué vale $X. Demo gratis con datos oficiales. Setup $8,000 + $500/mes. ¿Te lo muestro?"*
+2. Video TikTok 30s: tour + precio en pantalla + decir en voz alta "casa en [colonia], Zapopan" (O-05)
+3. Cerrar 1 = 80% de la meta mensual ($10,000)
+
+**Se convierte en:** servicio "dashboard + video por propiedad" — setup **$8,000-15,000** + $500/mes + $1,200/video.
