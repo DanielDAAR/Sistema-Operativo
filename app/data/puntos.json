@@ -1,92 +1,4 @@
 {
-  "equipo": [
-    {
-      "id": "daniel",
-      "rol": "Fundador / Ventas",
-      "email": "danielaldanarubioalejandro2005@gmail.com",
-      "racha": 1,
-      "logros": [
-        "primera_tarea"
-      ],
-      "nombre": "Daniel Alejandro Aldana Rubio",
-      "puntos": 50,
-      "ventas": 4,
-      "historial": [
-        {
-          "base": 10,
-          "bonus": 0,
-          "fecha": "2026-10-10 20:23",
-          "tarea": "BLOQUE 1 — Manda los 6 seguimientos del 23-sep",
-          "puntos": 10,
-          "categoria": "Ventas",
-          "retroactivo": true
-        },
-        {
-          "base": 10,
-          "bonus": 0,
-          "fecha": "2026-10-10 20:23",
-          "tarea": "CRÍTICO: seguimiento a los 7 prospectos del 23-sep",
-          "puntos": 10,
-          "categoria": "Ventas",
-          "retroactivo": true
-        },
-        {
-          "base": 10,
-          "bonus": 0,
-          "fecha": "2026-10-10 20:23",
-          "tarea": "BLOQUE 2 — Destapa los 14 \"No registrado\"",
-          "puntos": 10,
-          "categoria": "Ventas",
-          "retroactivo": true
-        },
-        {
-          "base": 10,
-          "bonus": 0,
-          "fecha": "2026-10-10 20:23",
-          "tarea": "BLOQUE 3 — 10 prospectos NUEVOS con WhatsApp verificado",
-          "puntos": 10,
-          "categoria": "Ventas",
-          "retroactivo": true
-        },
-        {
-          "base": 5,
-          "bonus": 0,
-          "fecha": "2026-10-10 20:23",
-          "tarea": "BLOQUE 4 — Publica 1 post + deja estados al día",
-          "puntos": 5,
-          "categoria": "Marketing",
-          "retroactivo": true
-        },
-        {
-          "base": 5,
-          "bonus": 0,
-          "fecha": "2026-10-10 20:23",
-          "tarea": "LOGRO: Primer paso 🎯",
-          "puntos": 5,
-          "categoria": "Sistema",
-          "retroactivo": true
-        }
-      ],
-      "mejorRacha": 1,
-      "fechaIngreso": "2026-10-10",
-      "tareasHechas": 5,
-      "ultimaActividad": "2026-10-10 20:23"
-    },
-    {
-      "id": "cesar",
-      "rol": "Desarrollo",
-      "email": "a24110110@ceti.mx",
-      "racha": 0,
-      "logros": [],
-      "nombre": "Julio Cesar Ortiz Becerra",
-      "puntos": 0,
-      "historial": [],
-      "mejorRacha": 0,
-      "fechaIngreso": "2026-10-10",
-      "tareasHechas": 0,
-      "ultimaActividad": null
-    }
-  ],
   "reglas": {
     "Ventas": 10,
     "Sistema": 3,
@@ -185,6 +97,94 @@
       "icono": "🤝",
       "nombre": "Cazador",
       "condicion": "ventas>=5"
+    }
+  ],
+  "equipo": [
+    {
+      "id": "daniel",
+      "rol": "Fundador / Ventas",
+      "email": "danielaldanarubioalejandro2005@gmail.com",
+      "racha": 1,
+      "logros": [
+        "primera_tarea"
+      ],
+      "nombre": "Daniel Alejandro Aldana Rubio",
+      "puntos": 50,
+      "ventas": 4,
+      "historial": [
+        {
+          "base": 10,
+          "bonus": 0,
+          "fecha": "2026-10-10 20:23",
+          "tarea": "BLOQUE 1 — Manda los 6 seguimientos del 23-sep",
+          "puntos": 10,
+          "categoria": "Ventas",
+          "retroactivo": true
+        },
+        {
+          "base": 10,
+          "bonus": 0,
+          "fecha": "2026-10-10 20:23",
+          "tarea": "CRÍTICO: seguimiento a los 7 prospectos del 23-sep",
+          "puntos": 10,
+          "categoria": "Ventas",
+          "retroactivo": true
+        },
+        {
+          "base": 10,
+          "bonus": 0,
+          "fecha": "2026-10-10 20:23",
+          "tarea": "BLOQUE 2 — Destapa los 14 \"No registrado\"",
+          "puntos": 10,
+          "categoria": "Ventas",
+          "retroactivo": true
+        },
+        {
+          "base": 10,
+          "bonus": 0,
+          "fecha": "2026-10-10 20:23",
+          "tarea": "BLOQUE 3 — 10 prospectos NUEVOS con WhatsApp verificado",
+          "puntos": 10,
+          "categoria": "Ventas",
+          "retroactivo": true
+        },
+        {
+          "base": 5,
+          "bonus": 0,
+          "fecha": "2026-10-10 20:23",
+          "tarea": "BLOQUE 4 — Publica 1 post + deja estados al día",
+          "puntos": 5,
+          "categoria": "Marketing",
+          "retroactivo": true
+        },
+        {
+          "base": 5,
+          "bonus": 0,
+          "fecha": "2026-10-10 20:23",
+          "tarea": "LOGRO: Primer paso 🎯",
+          "puntos": 5,
+          "categoria": "Sistema",
+          "retroactivo": true
+        }
+      ],
+      "mejorRacha": 1,
+      "fechaIngreso": "2026-10-10",
+      "tareasHechas": 5,
+      "ultimaActividad": "2026-10-10 20:23"
+    },
+    {
+      "id": "cesar",
+      "rol": "Desarrollo",
+      "email": "a24110110@ceti.mx",
+      "racha": 0,
+      "logros": [],
+      "nombre": "Julio Cesar Ortiz Becerra",
+      "puntos": 0,
+      "historial": [],
+      "mejorRacha": 0,
+      "fechaIngreso": "2026-10-10",
+      "tareasHechas": 0,
+      "ultimaActividad": null
     }
   ]
 }

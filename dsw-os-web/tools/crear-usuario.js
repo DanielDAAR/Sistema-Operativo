@@ -121,8 +121,8 @@ async function main() {
   const o = args();
   if (o.help) { help(); process.exit(0); }
   const email = String(o.email || '').trim().toLowerCase();
-  if (!email || !email.includes('@')) {
-    console.error('Falta --email válido. Ejemplo: --email maria@ejemplo.com');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    console.error('Correo inválido. Ejemplo: --email maria@ejemplo.com');
     process.exit(1);
   }
   const creds = loadCreds();

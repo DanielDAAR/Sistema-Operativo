@@ -103,16 +103,18 @@ async function main() {
   const action = args[0];
   if (action !== 'push' && action !== 'pull') {
     console.error('Uso: node dsw-os-web/tools/sync-data.js push|pull [colecciones...]');
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
   const wanted = args.slice(1);
   const cols = COLLECTIONS.filter(c => !wanted.length || wanted.includes(c.key));
-  if (!cols.length) { console.error('Colección no reconocida. Válidas: ' + COLLECTIONS.map(c => c.key).join(', ')); process.exit(1); }
+  if (!cols.length) { console.error('Colección no reconocida. Válidas: ' + COLLECTIONS.map(c => c.key).join(', ')); process.exitCode = 1; return; }
 
   const creds = loadCreds();
   if (!creds.SUPABASE_URL || !creds.SUPABASE_KEY) {
     console.error('Faltan credenciales. Crea tools/creds.json o usa SUPABASE_URL + SUPABASE_SERVICE_KEY.');
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
   const u = creds.SUPABASE_URL.replace(/\/$/, '');
   const headers = {
@@ -123,7 +125,7 @@ async function main() {
 
   let cloud = {};
   try { cloud = await req(COLS.proxy(u), { headers }); }
-  catch (e) { console.error('No pude leer la nube: ' + e.message); process.exit(1); }
+  catch (e) { console.error('No pude leer la nube: ' + e.message); process.exitCode = 1; return; }
   const cloudMap = {};
   (cloud || []).forEach(d => { if (d && d.name) cloudMap[d.name] = d.data; });
 
@@ -140,10 +142,14 @@ async function main() {
     if (action === 'push') {
       if (!local) { console.log(`  ⚠ ${c.key}: sin archivo local (${c.file}) — omitido`); continue; }
       result = mergeBucket(server, local, c.arr);
-    } else { // pull
+    } else { // pull: fusiona (nunca pierde lo local no subido) y NO escribe a la nube
       if (!server) { console.log(`  ⚠ ${c.key}: no existe en la nube — omitido`); continue; }
+      result = local ? mergeBucket(server, local, c.arr) : server;
       fs.mkdirSync(path.dirname(localPath), { recursive: true });
-      fs.writeFileSync(localPath, JSON.stringify(server, null, 2) + '\n', 'utf8');
+      fs.writeFileSync(localPath, JSON.stringify(result, null, 2) + '\n', 'utf8');
+      const n = (result[c.arr] || []).length;
+      console.log(`  ✓ ${c.key}: bajado (${n} registros)`);
+      continue;
     }
 
     try {
@@ -160,7 +166,7 @@ async function main() {
     }
   }
   console.log(action === 'push' ? 'Push terminado.' : 'Pull terminado.');
-  process.exit(ok ? 0 : 1);
+  process.exitCode = ok ? 0 : 1;
 }
 
 main();

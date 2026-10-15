@@ -2,7 +2,7 @@
 
 ## What this repo is
 
-D.Softworks "Sistema Operativo" — business operations docs for a freelance web development agency in Guadalajara, Mexico. **Not a product code repository.** Markdown ops docs + one single-file local app (`app/index.html`, no build). No test/lint commands exist.
+D.Softworks "Sistema Operativo" — business operations docs for a freelance web development agency in Guadalajara, Mexico. **Not a product code repository.** Markdown ops docs + cloud ops app (`dsw-os-web/public/`, Supabase + Netlify, no build). No test/lint commands exist.
 
 ## Working contract (user's explicit rule)
 
@@ -50,7 +50,7 @@ Herramientas de línea de comando del cerebro (todas en `dsw-os-web/tools/`): `m
 
 ## Brain ↔ hands protocol (the app)
 
-The user runs `app/index.html` in a browser (double-click, no server). Data files are the channel — read/write them directly:
+The user runs the cloud app at `https://dsw-os.netlify.app` (code in `dsw-os-web/public/`). Data files are the channel — read/write them directly:
 
 - **`app/tareas.json`** — YOU write tasks here (`titulo`, `detalle`, `categoria`, `vence` as `YYYY-MM-DD`, `hecha: false`, `origen: "cerebro"`, unique `id`). On each session start, read it: check which `hecha` flipped to `true` and factor that into your next instructions. Never delete user-added tasks (`origen: "tu"`); only append or update fields.
 - **`app/data/prospectos.json`** — user adds prospects via the app. Read to know pipeline state (`estado`: Nuevo → Contactado → Respondió → Reunión → Cotizado → Cerrado / Sin respuesta). Each prospect has `monto` (number, MXN).
@@ -67,16 +67,16 @@ The user runs `app/index.html` in a browser (double-click, no server). Data file
 
 The humans now use a **cloud app**: `https://dsw-os.netlify.app` (Netlify site `dsw-os`) backed by **Supabase project `dsw-os`** (ref `pwlajncxlifmlihisqwy`). Two logins: `daniel@dssoftworks.mx` and `cesar@dssoftworks.mx` (passwords delivered via chat, not in repo). Full memory in `MIGRACION-NUBE.md` — read it before touching the new stack.
 
-- The old `app/` folder is still the **brain's working copy** of the JSON; the cloud `data` in Supabase is the shared source of truth for the humans.
+- The `app/` folder is the **brain's data channel** (JSON only: `tareas.json` + `data/`); the cloud `data` in Supabase is the shared source of truth for the humans. The legacy local UI was archived to `archivo/app-local-legacy/` (audit 2026-10-15) — do not point anyone at it.
 - Brain pushes/pulls via `node dsw-os-web/tools/sync-data.js push|pull [colecciones...]` (creds in `dsw-os-web/tools/creds.json`, gitignored). After any brain mutation, tell the user to hit **⟳ Sincronizar** in the cloud app too.
 - Never deploy anything but `dsw-os-web/public/` to Netlify (`tools/`, `supabase/` and `creds.json` must stay 404).
 - `config.js` now lives at `dsw-os-web/public/config.js`.
 
 ## App structure
 
-- `app/index.html` — solo markup + link a CSS + script src (sin JS inline)
-- `app/styles.css` — design system completo (tokens, componentes, print)
-- `app/app.js` — toda la lógica (state management, CRUDs, Dashboard, Kanban, reglas, bitácora, reportes)
+- `dsw-os-web/public/index.html` — solo markup + link a CSS + script src (sin JS inline)
+- `dsw-os-web/public/styles.css` — design system completo (tokens, componentes, print)
+- `dsw-os-web/public/app.js` — toda la lógica (state management, CRUDs, Dashboard, Kanban, reglas, bitácora, reportes)
 - **13 secciones**: Dashboard · Pipeline · Proyectos · Agenda · Cotizaciones · Finanzas · Contenido · Métricas · Tareas · Mensajes · Bitácora · Reportes · Ayuda
 - Pipeline es Kanban con drag-and-drop HTML5 y montos en MXN
 - Motor de reglas en Dashboard (alertas para no dejar escapar dinero)
@@ -116,7 +116,7 @@ The humans now use a **cloud app**: `https://dsw-os.netlify.app` (Netlify site `
 | `11-Automatizacion-Contratacion/` | Process automation, hiring plan, payroll costs, labor obligations |
 | `12-APIs-Tecnologias/` | APIs to integrate: billing, payments, email, AI, CRM, automation |
 | `prospecting/` | Active prospect lists and WhatsApp message drafts |
-| `app/` | Local ops app: `index.html` (double-click), `styles.css`, `app.js`, `tareas.json`, `data/prospectos.json`, `data/mensajes.json`, `data/clientes.json`, `data/cotizaciones.json`, `data/finanzas.json`, `data/contenido.json`, `data/agenda.json`, `data/bitacora.json`, `data/reportes.json` |
+| `app/` | Canal de datos del cerebro: `tareas.json` + `data/*.json` (la UI local vieja se archivó en `archivo/app-local-legacy/`) |
 
 ## Key facts
 

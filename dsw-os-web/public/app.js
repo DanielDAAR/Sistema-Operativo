@@ -218,6 +218,7 @@ async function pullBucket(name){
 }
 async function doLogin(){
   var err=$('#authError');if(!err)return;
+  if(!sb){err.textContent='Sin conexión a la nube. Revisa tu internet y recarga.';return}
   var email=$('#authEmail').value.trim(),pass=$('#authPass').value;
   if(!email||!pass){err.textContent='Ingresa correo y contraseña.';return}
   err.textContent='';
@@ -518,9 +519,10 @@ function renderPipeline(){
   $('#pipeKPIs').innerHTML='<div class="kpi-tile"><div class="kpi-val">'+total+'</div><div class="kpi-label">Prospectos</div></div><div class="kpi-tile"><div class="kpi-val">'+mxn(bruto)+'</div><div class="kpi-label">Pipeline bruto</div></div><div class="kpi-tile"><div class="kpi-val">'+mxn(Math.round(ponderado))+'</div><div class="kpi-label">Pipeline ponderado</div></div>';
   renderProspectForm();
   var fuentes=[].concat(new Set(ps.map(function(p){return p.fuente||'Otro'})));
-  var ff=$('#pipeFilterFuente');ff.innerHTML='<option value="">Todas las fuentes</option>'+fuentes.map(function(f){return'<option>'+esc(f)+'</option>'}).join('');
+  var ff=$('#pipeFilterFuente');var ffVal=ff.value;ff.innerHTML='<option value="">Todas las fuentes</option>'+fuentes.map(function(f){return'<option>'+esc(f)+'</option>'}).join('');if(ffVal&&fuentes.indexOf(ffVal)>=0)ff.value=ffVal;
   var el=$('#kanban');
-  var filtered=ps.filter(function(p){return!f||p.estado===f});
+  var ffSel=$('#pipeFilterFuente')?$('#pipeFilterFuente').value:'';
+  var filtered=ps.filter(function(p){return(!f||p.estado===f)&&(!ffSel||(p.fuente||'Otro')===ffSel)});
   var cols=ESTADOS.map(function(est){
     var items=filtered.filter(function(p){return p.estado===est});
     var colHtml='';
@@ -676,9 +678,8 @@ function renderCotizaciones(){
   });
   $$('[data-qedit]').forEach(function(b){
     b.addEventListener('click',function(){
-      var q=state.cotizaciones.cotizaciones.find(function(x){return x.id===b.dataset.qedit});if(q){
-        editingQ=q.id;$('#qProspecto').value=q.prospecto;$('#qServicio').value=q.servicio||'';$('#qPrecio').value=q.precio??'';$('#qFecha').value=q.fechaEnvio||'';$('#qSeg').value=q.seguimiento||'';[...$('#qRespuesta').options].some(function(o){return o.value===q.respuesta})&&($('#qRespuesta').value=q.respuesta);$('#qProspectoLbl').textContent='Prospecto / cliente * (editando)';$('#addCot').textContent='Guardar cambios';$('#cancelQEdit').classList.remove('hidden');$('#qProspecto').focus();
-      }
+      var q=state.cotizaciones.cotizaciones.find(function(x){return x.id===b.dataset.qedit});
+      if(q){editingQ=q.id;renderCotForm();$('#qProspecto').focus()}
     });
   });
   $$('[data-qdel]').forEach(function(b){
@@ -706,7 +707,7 @@ function showCotDoc(q){
   var itemsHtml=(q.items||[]).map(function(i){return'<tr><td>'+esc(i.descripcion)+'</td><td class="num">'+mxn(i.precio)+'</td></tr>'}).join('');
   var total=(q.items||[]).reduce(function(s,i){return s+Number(i.precio)},0);
   var printIcon='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>';
-  var doc='<div class="cot-doc"><div class="doc-header"><div><div class="company">D<span>.Softworks</span> OS</div><div style="font-size:12px;color:#555">D.Softworks · Guadalajara, Jalisco<br>WhatsApp +52 1 33 5051 9325 · danielsoftworks.netlify.app</div></div><div class="contact-info"><div style="font-size:20px;font-weight:700;color:#0d121c">COTIZACIÓN '+(q.folio||'COT-2026-001')+'</div><div style="font-size:12px;color:#555">Fecha: '+esc(q.fechaEnvio||today())+' · Válida 15 días</div></div></div><div class="client-block"><b>Cliente:</b> '+esc(q.prospecto)+'<br>'+esc(q.servicio||'—')+'</div><table><thead><tr><th>Concepto</th><th style="text-align:right">Precio MXN</th></tr></thead><tbody>'+itemsHtml+'<tr class="total-row"><td>TOTAL</td><td class="num">'+mxn(total)+'</td></tr></tbody></table><div class="conditions"><b>Condiciones:</b><br>1. Anticipo 50% · saldo contra entrega<br>2. Transferencia o efectivo (no tarjeta)<br>3. 2 rondas de cambios (web/landing), 1 (catálogo)<br>4. No incluye: hosting renovación, cambios fuera de alcance<br><br><b>Para confirmar, responde este documento.</b></div><div style="margin-top:16px;display:flex;gap:10px"><button class="btn" onclick="window.print()" style="background:#0d121c;color:#fff">'+printIcon+' Imprimir / PDF</button><button class="btn ghost" id="copyCotText">Copiar texto (WhatsApp)</button></div><button class="close-btn" onclick="document.getElementById(\'cotDocModal\').classList.remove(\'open\')" style="position:absolute;top:16px;right:16px">Cerrar</button></div>';
+  var doc='<div class="cot-doc"><div class="doc-header"><div><div class="company">D<span>.Softworks</span> OS</div><div style="font-size:12px;color:#555">D.Softworks · Guadalajara, Jalisco<br>WhatsApp +52 1 33 5051 9325 · danielsoftworks.netlify.app</div></div><div class="contact-info"><div style="font-size:20px;font-weight:700;color:#0d121c">COTIZACIÓN '+esc(q.folio||'COT-2026-001')+'</div><div style="font-size:12px;color:#555">Fecha: '+esc(q.fechaEnvio||today())+' · Válida 15 días</div></div></div><div class="client-block"><b>Cliente:</b> '+esc(q.prospecto)+'<br>'+esc(q.servicio||'—')+'</div><table><thead><tr><th>Concepto</th><th style="text-align:right">Precio MXN</th></tr></thead><tbody>'+itemsHtml+'<tr class="total-row"><td>TOTAL</td><td class="num">'+mxn(total)+'</td></tr></tbody></table><div class="conditions"><b>Condiciones:</b><br>1. Anticipo 50% · saldo contra entrega<br>2. Transferencia o efectivo (no tarjeta)<br>3. 2 rondas de cambios (web/landing), 1 (catálogo)<br>4. No incluye: hosting renovación, cambios fuera de alcance<br><br><b>Para confirmar, responde este documento.</b></div><div style="margin-top:16px;display:flex;gap:10px"><button class="btn" onclick="window.print()" style="background:#0d121c;color:#fff">'+printIcon+' Imprimir / PDF</button><button class="btn ghost" id="copyCotText">Copiar texto (WhatsApp)</button></div><button class="close-btn" onclick="document.getElementById(\'cotDocModal\').classList.remove(\'open\')" style="position:absolute;top:16px;right:16px">Cerrar</button></div>';
   var modal=$('#cotDocModal');modal.classList.add('open');var content=modal.querySelector('.modal');content.innerHTML=doc;$('#copyCotText').addEventListener('click',function(){var txt='COTIZACIÓN '+(q.folio||'COT-2026-001')+'\nCliente: '+q.prospecto+'\nServicio: '+q.servicio+'\n'+(q.items||[]).map(function(i){return'- '+i.descripcion+': '+mxn(i.precio)}).join('\n')+'\nTOTAL: '+mxn(total)+'\nCondiciones: anticipo 50%, saldo contra entrega. Transferencia o efectivo.\nVálida 15 días.\nD.Softworks · Guadalajara, Jalisco · WhatsApp +52 1 33 5051 9325';navigator.clipboard.writeText(txt).then(function(){toast('Texto copiado para WhatsApp')}).catch(function(){toast('No se pudo copiar','err')})});
 }
 $('#cotDocModal').addEventListener('click',function(e){if(e.target===$('#cotDocModal'))$('#cotDocModal').classList.remove('open')});
@@ -761,7 +762,8 @@ function renderContenido(){
   });
   $$('[data-kedit]').forEach(function(b){
     b.addEventListener('click',function(){
-      var k=state.contenido.publicaciones.find(function(x){return x.id===b.dataset.kedit});if(k){editingK=k.id;$('#kTitulo').value=k.titulo;$('#kTipo').value=k.tipo||'Portafolio';$('#kFecha').value=k.fecha||'';$('#kEnlace').value=k.enlace||'';$('#kArchivo').value=k.archivo||'';$('#kTituloLbl').textContent='Título * (editando)';$('#addPost').textContent='Guardar cambios';$('#cancelKEdit').classList.remove('hidden');$('#kTitulo').focus()}
+      var k=state.contenido.publicaciones.find(function(x){return x.id===b.dataset.kedit});
+      if(k){editingK=k.id;renderContForm();$('#kTitulo').focus()}
     });
   });
   $$('[data-kdel]').forEach(function(b){
@@ -881,10 +883,12 @@ function showWhoModal(t,cb){
     modal=document.createElement('div');
     modal.id='whoModal';
     modal.className='modal-overlay';
-    modal.innerHTML='<div class="modal" style="max-width:440px"><h3>¿Quién lo hizo?</h3><p style="color:var(--muted);font-size:14px;margin-bottom:16px">'+esc(t.titulo)+'</p><div id="whoBtns" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"></div><p style="color:var(--muted);font-size:12px;margin-top:12px">+<span id="whoPts"></span> puntos base según categoría · la racha suma bonus 🔥</p><button class="btn ghost" id="whoCancel" style="margin-top:12px">Cancelar</button></div>';
+    modal.innerHTML='<div class="modal" style="max-width:440px"><h3>¿Quién lo hizo?</h3><p id="whoTitle" style="color:var(--muted);font-size:14px;margin-bottom:16px">'+esc(t.titulo)+'</p><div id="whoBtns" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"></div><p style="color:var(--muted);font-size:12px;margin-top:12px">+<span id="whoPts"></span> puntos base según categoría · la racha suma bonus 🔥</p><button class="btn ghost" id="whoCancel" style="margin-top:12px">Cancelar</button></div>';
     document.body.appendChild(modal);
     modal.addEventListener('click',function(e){if(e.target===modal)closeWhoModal()});
     $('#whoCancel').addEventListener('click',function(){closeWhoModal();if(cb)cb.checked=false});
+  }else{
+    $('#whoTitle').textContent=t.titulo;
   }
   var btnsHtml='';
   (state.puntos.equipo||[]).forEach(function(e){
@@ -1160,7 +1164,7 @@ function renderMetrics(){
 }
 function bars(data,total){var max=Math.max.apply(null,Object.values(data).concat([1]));var html='';Object.entries(data).forEach(function(entry){var k=entry[0],v=entry[1];html+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span style="width:130px;font-size:13px">'+esc(k)+'</span><div style="flex:1;height:14px;background:var(--bg);border-radius:7px;overflow:hidden"><i style="display:block;height:100%;width:'+Math.round(v/max*100)+'%;background:var(--accent);border-radius:7px"></i></div><span style="width:40px;text-align:right;font-size:13px;font-weight:700">'+v+'</span></div>';});return html;}
 function renderSparkline(){
-  var months=[''];for(var i=5;i>=0;i--){var d=new Date();d.setMonth(d.getMonth()-i);months[i]=d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2,'0')}
+  var months=[];for(var i=5;i>=0;i--){var d=new Date();d.setMonth(d.getMonth()-i);months.unshift(d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2,'0'))}
   var vals=months.map(function(m){var mk=m;return(state.finanzas.movimientos||[]).filter(function(x){return(x.fecha||'').slice(0,7)===mk&&x.tipo==='ingreso'}).reduce(function(s,x){return s+Number(x.monto||0)},0)});
   var max=Math.max.apply(null,vals.concat([1]));var w=280,h=60;var pts=vals.map(function(v,i){return((i/(vals.length-1||1))*w)+','+((1-v/max)*h)}).join(' ');var area=vals.map(function(v,i){var base=(i/(vals.length-1||1))*w;return base+','+h+' '+((i===0)?('0,'+h):(base+','+((1-v/max)*h)))}).join(' ');
   var sparkHtml='<h3>Ingresos por mes (ultimos 6)</h3><svg width="100%" viewBox="0 0 '+w+' '+h+'" style="margin-top:8px"><polygon points="'+area+'" fill="rgba(99,207,228,.15)" /><polyline points="'+pts+'" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/><circle cx="0" cy="'+(h-(vals[0]/max)*h)+'" r="3" fill="var(--accent)"/><circle cx="'+w+'" cy="'+(h-(vals[vals.length-1]/max)*h)+'" r="3" fill="var(--accent)"/></svg><div style="display:flex;justify-content:space-between;margin-top:4px;font-size:11px;color:var(--muted)">';
@@ -1168,7 +1172,7 @@ function renderSparkline(){
 }
 
 function renderReportesSel(){
-  var sel=$('#reporteWeek');if(!sel)return;sel.innerHTML='';var weeks=[''];var d=new Date();for(var i=4;i>=0;i--){var dd=new Date(d);dd.setDate(dd.getDate()-i*7);var weekNum=Math.ceil(((dd.getDate()+6-(dd.getDay()||7))%7+1)/7);var y=dd.getFullYear();weeks.unshift(y+'-W'+String(Math.ceil((dd.getDate()+(6-dd.getDay()))/7)).padStart(2,'0'))}weeks.forEach(function(w){sel.innerHTML+='<option>'+w+'</option>'});
+  var sel=$('#reporteWeek');if(!sel)return;sel.innerHTML='';var weeks=[];var d=new Date();for(var i=4;i>=0;i--){var dd=new Date(d);dd.setDate(dd.getDate()-i*7);var y=dd.getFullYear();weeks.unshift(y+'-W'+String(Math.ceil((dd.getDate()+(6-dd.getDay()))/7)).padStart(2,'0'))}weeks.forEach(function(w){sel.innerHTML+='<option>'+w+'</option>'});
   var rep=state.reportes.reportes.find(function(r){return r.semana===sel.value});
   if(rep)renderReporteCard(rep);else{$('#reporteActual').innerHTML='<div class="card" style="color:var(--muted)">Selecciona una semana para ver el reporte, o genera uno nuevo.</div>';renderReportesHist()}
 }
@@ -1233,8 +1237,8 @@ async function init(){
   else{showLogin()}
 }
 function setupMobileMenu(){$('#mobileMenuBtn').addEventListener('click',openDrawer);$('#closeDrawer').addEventListener('click',closeDrawer);$('#drawerOverlay').addEventListener('click',closeDrawer)}
-$('#dismissOnboard').addEventListener('click',function(){localStorage.setItem('dsw-onboard','1');$('#onboard').classList.add('hidden')});
-$('#btnLogout').addEventListener('click',async function(){if(sb)await sb.auth.signOut();currentUserEmail='';localStorage.removeItem('dsw-onboard')});
+$('#dismissOnboard').addEventListener('click',function(){localStorage.setItem('dsw-welcome','1');$('#onboard').classList.add('hidden')});
+$('#btnLogout').addEventListener('click',async function(){if(sb)await sb.auth.signOut();currentUserEmail='';localStorage.removeItem('dsw-welcome')});
 $('#btnLogin').addEventListener('click',doLogin);
 $('#authEmail').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
 $('#authPass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
@@ -1290,7 +1294,7 @@ function renderVisualizar(){
     for(var i=0;i<heat.length;i++){var hb=buckets[i];if(days>=hb.min&&days<=hb.max){heat[i].n++;heat[i].monto+=Number(p.monto||0);heat[i].nombres.push(p.negocio||p.nombre);break}}
   });
   $('#vizHeat').innerHTML='<div class="heat-grid">'+heat.map(function(h){
-    return '<div class="heat-cell '+h.c+'" title="'+(h.nombres.join(', ')||'sin prospectos')+'"><div class="heat-n">'+h.n+'</div><div class="heat-k">'+h.k+'</div><div class="heat-m">'+mxn(h.monto)+'</div></div>';
+    return '<div class="heat-cell '+h.c+'" title="'+esc(h.nombres.join(', ')||'sin prospectos')+'"><div class="heat-n">'+h.n+'</div><div class="heat-k">'+h.k+'</div><div class="heat-m">'+mxn(h.monto)+'</div></div>';
   }).join('')+'</div><div class="help" style="margin-top:8px">Días desde el último movimiento. Pasa el cursor sobre cada celda para ver quién es. Rojo = dinero enfriándose.</div>';
   var ops=(state.radar&&state.radar.oportunidades)||[];
   $('#vizRadar').innerHTML=ops.length?ops.map(function(o){
@@ -1330,14 +1334,14 @@ function renderVisualizar(){
   $('#vizPriorizar').innerHTML=top5.length?top5.map(function(r,i){
     var p=r.p;
     var cls=r.score>=70?'prio-alta':r.score>=50?'prio-media':'prio-baja';
-    return '<div class="radar-card" style="border-left:3px solid var(--accent)"><div class="radar-head"><span class="radar-id">#'+(i+1)+' · '+r.score+' pts</span><span class="prio '+cls+'">'+esc(p.estado)+'</span></div><div class="radar-t">'+esc(p.nombre)+' · '+esc(p.negocio||'')+'</div><div class="radar-precio">'+mxn(p.monto)+' · '+r.dias+'d sin mover · '+(p.telefono||'sin tel')+'</div><div class="radar-accion">'+(r.dias>=14?'🔥 Lleva '+r.dias+' días frío — HOY':r.dias>=7?'◐ Lleva '+r.dias+' días — esta semana':'○ Reciente — sigue el hilo')+'</div></div>';
+    return '<div class="radar-card" style="border-left:3px solid var(--accent)"><div class="radar-head"><span class="radar-id">#'+(i+1)+' · '+r.score+' pts</span><span class="prio '+cls+'">'+esc(p.estado)+'</span></div><div class="radar-t">'+esc(p.nombre)+' · '+esc(p.negocio||'')+'</div><div class="radar-precio">'+mxn(p.monto)+' · '+r.dias+'d sin mover · '+esc(p.telefono||'sin tel')+'</div><div class="radar-accion">'+(r.dias>=14?'🔥 Lleva '+r.dias+' días frío — HOY':r.dias>=7?'◐ Lleva '+r.dias+' días — esta semana':'○ Reciente — sigue el hilo')+'</div></div>';
   }).join(''):'<div class="card" style="color:var(--muted)">Sin prospectos activos.</div>';
 }
 
 /* ============ EXPORTAR / IMPORTAR — backup de todo ============ */
 function exportBackup(){
-  var data={app:'D.Softworks OS',version:2,fecha:stamp(),colecciones:{}};
-  ['tareas','prospectos','mensajes','clientes','cotizaciones','finanzas','contenido','agenda','bitacora','reportes','radar'].forEach(function(k){data.colecciones[k]=state[k]});
+  var data={app:'D.Softworks OS',version:3,fecha:stamp(),colecciones:{}};
+  ['tareas','prospectos','mensajes','clientes','cotizaciones','finanzas','contenido','agenda','bitacora','reportes','radar','puntos'].forEach(function(k){data.colecciones[k]=state[k]});
   var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   var a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
@@ -1353,7 +1357,7 @@ function importBackup(file){
     try{
       var data=JSON.parse(r.result);
       var cols=(data&&data.colecciones)||data;
-      var keys=['tareas','prospectos','mensajes','clientes','cotizaciones','finanzas','contenido','agenda','bitacora','reportes','radar'];
+      var keys=['tareas','prospectos','mensajes','clientes','cotizaciones','finanzas','contenido','agenda','bitacora','reportes','radar','puntos'];
       var n=0;
       keys.forEach(function(k){if(cols[k]&&typeof cols[k]==='object'){state[k]=cols[k];n++}});
       normalizeState();

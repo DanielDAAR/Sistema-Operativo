@@ -86,7 +86,7 @@ exports.handler = async (event) => {
   const rol = String(body.rol || 'Colaborador').trim() || 'Colaborador';
   let password = String(body.password || '').trim();
   if (!nombre) return res(400, { ok: false, error: 'Falta el nombre.' });
-  if (!email || !email.includes('@')) return res(400, { ok: false, error: 'Correo inválido.' });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return res(400, { ok: false, error: 'Correo inválido.' });
   if (!password) password = genPass();
   if (password.length < 8) return res(400, { ok: false, error: 'La clave debe tener mínimo 8 caracteres.' });
 

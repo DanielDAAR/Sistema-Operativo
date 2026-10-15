@@ -17,7 +17,10 @@ const fs = require('fs');
 const path = require('path');
 
 const DATA = path.join(__dirname, '..', '..', 'app', 'data');
-const leer = (n) => JSON.parse(fs.readFileSync(path.join(DATA, n), 'utf8'));
+const leer = (n) => {
+  try { return JSON.parse(fs.readFileSync(path.join(DATA, n), 'utf8')); }
+  catch (e) { console.error(`  ✗ No pude leer ${n} (¿falta el archivo o el JSON está roto?): ${e.message}`); process.exit(1); }
+};
 const escribir = (n, d) =>
   fs.writeFileSync(path.join(DATA, n), JSON.stringify(d, null, 2) + '\n');
 
@@ -161,12 +164,16 @@ function cotizar(prospectoId, clavePaquete, extra) {
   }
 
   const c = leer('cotizaciones.json');
+  const sigNum = c.cotizaciones.reduce((m, x) => {
+    const n = parseInt(String(x.id || '').replace(/^cot-0*/, ''), 10);
+    return isNaN(n) ? m : Math.max(m, n);
+  }, 0);
   const extraMonto = Number(extra || 0);
   const total = pack.precio + extraMonto;
   const anticipo = Math.round(total * 0.5);
 
   const cot = {
-    id: 'cot-' + String(c.cotizaciones.length + 1).padStart(3, '0'),
+    id: 'cot-' + String(sigNum + 1).padStart(3, '0'),
     fecha: hoy(),
     cliente: p.negocio || p.nombre,
     contacto: p.nombre,
@@ -230,15 +237,22 @@ function cobrar(cotId, tipo) {
   const monto = tipo === 'saldo' ? cot.saldo : cot.anticipo;
   if (monto <= 0) { console.log('\n  Ya esta pagado.\n'); return; }
 
-  if (tipo === 'saldo') { cot.saldoPagado = cot.total; cot.saldo = 0; cot.estado = 'Cobrada'; }
+  if (tipo === 'saldo') {
+    if (!cot.anticipoPagado || cot.anticipoPagado <= 0) { console.error('  ✗ Cobra primero el anticipo de ' + cotId + ' (regla 50/50).'); process.exit(1); }
+    cot.saldoPagado = (cot.saldoPagado || 0) + monto; cot.saldo = 0; cot.estado = 'Cobrada';
+  }
   else { cot.anticipoPagado = cot.anticipo; cot.saldo = cot.total - cot.anticipo; cot.estado = 'En curso'; }
 
   c.actualizado = ahora();
   escribir('cotizaciones.json', c);
 
   const f = leer('finanzas.json');
+  const sigM = f.movimientos.reduce((m, x) => {
+    const n = parseInt(String(x.id || '').replace(/^m-0*/, ''), 10);
+    return isNaN(n) ? m : Math.max(m, n);
+  }, 0);
   f.movimientos.push({
-    id: 'm-' + String(f.movimientos.length + 1).padStart(3, '0'),
+    id: 'm-' + String(sigM + 1).padStart(3, '0'),
     fecha: hoy(), tipo: tipo === 'saldo' ? 'saldo' : 'anticipo',
     monto, cotizacion: cot.id, cliente: cot.cliente, nota: '',
   });

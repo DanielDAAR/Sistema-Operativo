@@ -1,4 +1,5 @@
 {
+  "actualizado": "2026-10-15 17:23",
   "tareas": [
     {
       "id": "t-001",
@@ -340,6 +341,5 @@
       "detalle": "Ver 06-Clientes/HabitaGDL/05-Plan-tesis.md seccion 1. Pedir en coordinacion la Guia de estilo ES + registrar anteproyecto ante Comite (Art.23). Sin esto no hay asesor ni jurado.",
       "categoria": "Sistema"
     }
-  ],
-  "actualizado": "2026-10-15 17:05"
+  ]
 }

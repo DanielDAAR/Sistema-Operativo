@@ -37,6 +37,9 @@ if (!puntos || !puntos.equipo) {
 }
 
 const eq = puntos.equipo;
+// El equipo es un ARRAY [{id,nombre,...}]; si algún día llega como objeto, se normaliza.
+const eqArr = Array.isArray(eq) ? eq : Object.keys(eq).map(function (k) { return Object.assign({ id: k }, eq[k]); });
+const primero = function (s) { return String(s || '').split(' ')[0]; };
 const meta = puntos.metaSemanal || 50;
 const hoy = new Date().toISOString().slice(0, 10);
 const semana = (function () {
@@ -51,14 +54,16 @@ function buildReporte() {
   lines.push('D.SOFTWORKS — MARCADOR DEL EQUIPO — ' + hoy);
   lines.push('');
   ['daniel', 'cesar'].forEach(function (k) {
-    var p = eq[k];
+    var p = eqArr.find(function (m) { return m.id === k; }) || eqArr[k === 'daniel' ? 0 : 1];
+    if (!p) return;
     lines.push(p.nombre + ': ' + p.puntos + ' pts · ' + p.tareasHechas + ' tareas · racha ' + p.racha);
-    var actSemana = p.historial.filter(function (h) { return (h.fecha || '').slice(0, 10) >= semana; });
+    var actSemana = (p.historial || []).filter(function (h) { return (h.fecha || '').slice(0, 10) >= semana; });
     lines.push('  Esta semana: ' + actSemana.length + ' tareas · ' + actSemana.reduce(function (s, h) { return s + h.puntos; }, 0) + ' pts (meta: ' + meta + ')');
     lines.push('  Última actividad: ' + (p.ultimaActividad || 'nunca'));
     lines.push('');
   });
-  var winner = eq.daniel.puntos >= eq.cesar.puntos ? 'Daniel' : 'César';
+  var orden = eqArr.slice().sort(function (a, b) { return b.puntos - a.puntos; });
+  var winner = orden.length ? primero(orden[0].nombre) : '—';
   lines.push('Líder: ' + winner);
   lines.push('');
   lines.push('Reglas: Ventas=10pts · Marketing=5pts · Sistema=3pts · Personal=1pt');
@@ -71,19 +76,18 @@ function buildAlerta() {
   lines.push('D.SOFTWORKS — ALERTA DE INACTIVIDAD — ' + hoy);
   lines.push('');
   var hayAlerta = false;
-  ['daniel', 'cesar'].forEach(function (k) {
-    var p = eq[k];
-    var dias = p.ultimaActividad ? Math.floor((new Date(hoy) - new Date(p.ultimaActividad.slice(0, 10))) / 86400000) : 99;
+  eqArr.forEach(function (p) {
+    var dias = p.ultimaActividad ? Math.floor((new Date(hoy) - new Date(String(p.ultimaActividad).slice(0, 10))) / 86400000) : 99;
     if (dias >= 3) {
       hayAlerta = true;
-      lines.push('⚠ ' + p.nombre + ' lleva ' + días + ' días sin actividad.');
+      lines.push('⚠ ' + p.nombre + ' lleva ' + dias + ' días sin actividad.');
       lines.push('  Última: ' + (p.ultimaActividad || 'nunca'));
       lines.push('  Tareas hechas: ' + p.tareasHechas + ' · Puntos: ' + p.puntos);
       lines.push('');
     }
   });
   if (!hayAlerta) {
-    lines.push('✅ Ambos están activos. Sin alertas.');
+    lines.push('✅ Todo el equipo activo. Sin alertas.');
   }
   return lines.join('\n');
 }
@@ -127,7 +131,7 @@ try { tareas = JSON.parse(fs.readFileSync(path.join(ROOT, 'app', 'tareas.json'),
 }
 
 function abrirMailto(body, subject) {
-  var to = eq.map(function (e) { return e.email; }).filter(function (e) { return e && e !== 'sin correo'; }).join(',');
+  var to = eqArr.map(function (e) { return e.email; }).filter(function (e) { return e && e !== 'sin correo'; }).join(',');
   var mailto = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   console.log('\n  📧 Abriendo cliente de correo con el reporte precargado...');
   console.log('  Para: ' + to);
@@ -153,9 +157,11 @@ function enviarSMTP(body, subject) {
   }
   // Envío vía Gmail SMTP usando Node puro (sin dependencias)
   const tls = require('tls');
-  const user = eq.daniel.email;
+  var remitente = (eqArr.find(function (m) { return m.id === 'daniel'; }) || eqArr[0] || {}).email || '';
+  if (!remitente) { console.log('  ✗ Sin remitente en el equipo.'); return; }
+  const user = remitente;
   const pass = creds.gmailAppPassword.replace(/\s/g, '');
-  var recipients = [eq.daniel.email, eq.cesar.email];
+  var recipients = eqArr.map(function (m) { return m.email; }).filter(function (e) { return e && e !== 'sin correo'; });
   var ok = 0, fail = 0;
 
   function enviarPara(email, cb) {

@@ -37,7 +37,7 @@ INGRESOS = contactos/semana × tasa de respuesta × tasa de reunión × tasa de 
 
 | Bloque | Tiempo | Qué exactamente |
 |--------|--------|------------------|
-| **☀️ Mañana** | 45 min | 1) Abrir `app/index.html` → tareas de HOY. 2) Enviar **10 WhatsApp** personalizados (5 seguimiento + 5 nuevos o los 10 precargados el día 1). 3) Cambiar cada uno a **Contactado**. |
+| **☀️ Mañana** | 45 min | 1) Abrir `https://dsw-os.netlify.app` → tareas de HOY. 2) Enviar **10 WhatsApp** personalizados (5 seguimiento + 5 nuevos o los 10 precargados el día 1). 3) Cambiar cada uno a **Contactado**. |
 | **🌞 Mediodía** | 5 min | Responder **todo** lo que contestó (≤2 h de respuesta = se siente serio). Los interesados → agendar llamada de 10 min → estado **Respondió**. |
 | **🌙 Noche** | 10 min | App: estados al día + **buscar 5 negocios nuevos** para mañana + escribir en 🧠 Mensajes si necesitas que el cerebro prepare algo (mensaje, cotización, decisión). |
 | **Cada 2 días** | 20 min | **1 publicación** (portafolio o educativo) en FB + IG. Nunca rafagas. |

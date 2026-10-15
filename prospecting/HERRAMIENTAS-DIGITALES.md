@@ -22,7 +22,11 @@
 | **H14** | Equipo: puntos + correo | Sistema de puntos con modal "¿Quién lo hizo?", indicador 🟢/🟡/🔴, meta semanal, reporte por correo a Daniel y César | 10 seg | app → pestaña **Equipo** · `node dsw-os-web/tools/notificar.js` |
 | **H15** | Priorizar prospectos | Puntaje 0-100 por prospecto: etapa+antigüedad+valor+fuente+WhatsApp. Te dice a quién contactar hoy | 10 seg | `node dsw-os-web/tools/priorizar.js` · pestaña Visualizar → "A quién contactar hoy" |
 | **H16** | QA HabitaGDL | Audita el proyecto de graduación como empresa real: cuenta Parquet, detecta estaciones perdidas y services vacíos. Verde/amarillo/rojo en 10 seg | 10 seg | `node dsw-os-web/tools/habita.js "ruta"` · expediente en `06-Clientes/HabitaGDL/` |
-| **H17** | Crear acceso + Mi perfil | Botón web en Equipo → 🔑 (crea usuario + clave REAL, mensaje WhatsApp listo) + 👤 Mi perfil con tus puntos y movimientos. Respaldo: `node dsw-os-web/tools/crear-usuario.js`. Reset con `--reset` | 30 seg | app → Equipo · `netlify/functions/crear-usuario.js` |
+| H17 · Crear acceso + Mi perfil | Botón web en Equipo → 🔑 (crea usuario + clave REAL, mensaje WhatsApp listo) + 👤 Mi perfil con tus puntos y movimientos. Respaldo: `node dsw-os-web/tools/crear-usuario.js`. Reset con `--reset` | 30 seg | app → Equipo · `netlify/functions/crear-usuario.js` |
+
+## 🔍 AUDITORÍA DE CÓDIGO (15-oct-2026)
+
+Reporte completo en `AUDITORIA-CODIGO.md`. Se corrigieron 8 críticos (backup sin puntos, `pull` destructivo, crashes de `notificar.js`, edición de cotización/publicación, app vieja retirada a `archivo/app-local-legacy/`) + 12 medios/menores. Pendiente diseñado: tombstones en la nube (P1), escalares por campo (P2), permisos por rol fase 2 (P3).
 
 ---
 

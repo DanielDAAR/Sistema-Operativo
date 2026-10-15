@@ -1,4 +1,5 @@
 {
+  "actualizado": "2026-10-15 17:23",
   "mensajes": [
     {
       "id": "muggdekptvjy5",
@@ -21,6 +22,5 @@
       "estado": "atendido",
       "respuesta": "Recibido ✅. Mismo mensaje que el anterior. Necesito la lista de clientes nuevos (nombre, negocio, teléfono, monto estimado) para rellenar clientes.json. Si no tienes lista, dime de qué fuente los saco."
     }
-  ],
-  "actualizado": "2026-10-15 17:05"
+  ]
 }
