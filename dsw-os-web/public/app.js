@@ -1006,14 +1006,22 @@ function renderEquipo(){
     html+='<div style="padding:8px 12px;border:1px solid var(--border);border-radius:10px;font-size:13px;'+(alguienTiene?'border-color:var(--accent);background:rgba(99,207,228,.08)':'opacity:.6')+'" title="'+esc(l.desc)+' (+'+l.bonus+' pts)"><span style="font-size:20px">'+l.icono+'</span> <b>'+esc(l.nombre)+'</b><div style="font-size:11px;color:var(--muted)">'+esc(l.desc)+' · +'+l.bonus+' pts</div>'+(alguienTiene?'<div style="font-size:11px;color:var(--accent);font-weight:700">✓ Desbloqueado</div>':'')+'</div>';
   });
   html+='</div></div>';
-  // ── AGREGAR TRABAJADOR ──
-  html+='<div class="card"><h3>➕ Agregar trabajador</h3><div class="form-row"><div><label for="newWorkerName">Nombre completo</label><input id="newWorkerName" placeholder="Ej: María González"></div><div><label for="newWorkerEmail">Correo</label><input id="newWorkerEmail" placeholder="correo@ejemplo.com"></div></div><div class="form-row"><div><label for="newWorkerRol">Rol</label><input id="newWorkerRol" placeholder="Ej: Diseñadora, Community Manager"></div><div style="display:flex;align-items:flex-end"><button class="btn" id="addWorker">+ Agregar al equipo</button></div></div></div>';
+  // ── ACCESO AL SISTEMA (H17: login real, no solo puntos) ──
+  html+='<div class="card" style="border-color:var(--accent)"><h3>🔑 Acceso al sistema</h3><p style="font-size:13px;color:var(--muted);margin-bottom:8px">Para que alguien <b style="color:var(--txt)">entre a dsw-os.netlify.app</b> necesita usuario + contraseña (Supabase Auth). Esto es <b style="color:var(--txt)">distinto</b> de aparecer en el marcador de abajo.</p><ol style="font-size:13px;line-height:1.8;margin:0 0 8px 18px"><li><b>Pídele al cerebro</b> (Mensajes → "crea acceso para NOMBRE correo@ejemplo.com rol X") o a Daniel que corra:<br><code style="font-size:12px">node dsw-os-web/tools/crear-usuario.js --nombre "Nombre Apellido" --email correo@ejemplo.com --rol "Rol"</code></li><li>El cerebro te devuelve <b>usuario + clave + mensaje de WhatsApp</b> listo para enviar.</li><li>La persona entra a <b>https://dsw-os.netlify.app</b> y pulsa <b>Sincronizar</b>.</li></ol><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost small" id="btnCopyAcceso">Copiar mensaje para pedir acceso</button></div><p style="font-size:12px;color:var(--muted);margin:8px 0 0">¿Olvidó su clave? El cerebro la resetea con <code>--email CORREO --reset</code>. Nadie más puede crear usuarios desde la app (por seguridad).</p></div>';
+  // ── AGREGAR TRABAJADOR (solo marcador, sin login) ──
+  html+='<div class="card"><h3>➕ Agregar trabajador <span style="font-size:12px;color:var(--muted)">(solo marcador, sin contraseña)</span></h3><p style="font-size:12px;color:var(--muted);margin-bottom:8px">Esto lo pone en la tabla de puntos. <b>No le da acceso.</b> Para acceso usa el bloque 🔑 de arriba.</p><div class="form-row"><div><label for="newWorkerName">Nombre completo</label><input id="newWorkerName" placeholder="Ej: María González"></div><div><label for="newWorkerEmail">Correo</label><input id="newWorkerEmail" placeholder="correo@ejemplo.com"></div></div><div class="form-row"><div><label for="newWorkerRol">Rol</label><input id="newWorkerRol" placeholder="Ej: Diseñadora, Community Manager"></div><div style="display:flex;align-items:flex-end"><button class="btn" id="addWorker">+ Agregar al equipo</button></div></div></div>';
   // ── REPORTE POR CORREO ──
   html+='<div class="card"><h3>📧 Reporte por correo</h3><p style="font-size:13px;color:var(--muted);margin-bottom:8px">Envía el marcador con niveles y logros a todos los correos del equipo.</p><button class="btn primary" id="btnMailReport">Enviar reporte a los '+eq.length+' correos</button><div id="mailStatus" style="margin-top:8px;font-size:13px"></div></div>';
   // ── HISTORIAL ──
   html+='<div class="card"><h3>📜 Actividad reciente del equipo</h3><div id="teamHistory" class="equipo-history" style="font-size:13px"></div></div>';
   $('#equipoContent').innerHTML=html;
   $('#btnMailReport').addEventListener('click',function(){sendMailReport()});
+  var btnAcc=$('#btnCopyAcceso');
+  if(btnAcc)btnAcc.addEventListener('click',function(){
+    var txt='Hola cerebro: crea acceso para NOMBRE con correo CORREO@ejemplo.com rol ROL. Pásame usuario + clave + mensaje de WhatsApp.';
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast('Mensaje copiado. Pégalo en Mensajes 📋')},function(){toast('Copia este texto: '+txt,'err')})}
+    else{toast('Copia este texto: '+txt,'err')}
+  });
   $('#addWorker').addEventListener('click',function(){
     var n=$('#newWorkerName').value.trim();
     var e=$('#newWorkerEmail').value.trim();
