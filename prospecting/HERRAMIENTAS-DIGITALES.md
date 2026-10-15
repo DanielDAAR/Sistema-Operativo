@@ -22,7 +22,7 @@
 | **H14** | Equipo: puntos + correo | Sistema de puntos con modal "¿Quién lo hizo?", indicador 🟢/🟡/🔴, meta semanal, reporte por correo a Daniel y César | 10 seg | app → pestaña **Equipo** · `node dsw-os-web/tools/notificar.js` |
 | **H15** | Priorizar prospectos | Puntaje 0-100 por prospecto: etapa+antigüedad+valor+fuente+WhatsApp. Te dice a quién contactar hoy | 10 seg | `node dsw-os-web/tools/priorizar.js` · pestaña Visualizar → "A quién contactar hoy" |
 | **H16** | QA HabitaGDL | Audita el proyecto de graduación como empresa real: cuenta Parquet, detecta estaciones perdidas y services vacíos. Verde/amarillo/rojo en 10 seg | 10 seg | `node dsw-os-web/tools/habita.js "ruta"` · expediente en `06-Clientes/HabitaGDL/` |
-| **H17** | Crear acceso al sistema | Crea usuario + contraseña REAL para entrar a dsw-os.netlify.app (Supabase Auth) + lo pone en Equipo + mensaje WhatsApp listo. Reset con `--reset` | 30 seg | `node dsw-os-web/tools/crear-usuario.js --nombre "Nombre" --email correo@ejemplo.com --rol "Rol"` · app → Equipo → 🔑 Acceso |
+| **H17** | Crear acceso + Mi perfil | Botón web en Equipo → 🔑 (crea usuario + clave REAL, mensaje WhatsApp listo) + 👤 Mi perfil con tus puntos y movimientos. Respaldo: `node dsw-os-web/tools/crear-usuario.js`. Reset con `--reset` | 30 seg | app → Equipo · `netlify/functions/crear-usuario.js` |
 
 ---
 

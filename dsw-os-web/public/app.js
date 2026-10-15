@@ -21,6 +21,8 @@ const COLLECTIONS=[
 let tombstones={};
 let lastPush={};
 let online=true;
+let currentUserEmail=''; // login actual (para "Mi perfil" en Equipo)
+var _accOK=null; // último acceso creado (se muestra una vez en pantalla)
 let PUNTOS_DEFAULT={equipo:[{id:'daniel',nombre:'Daniel Alejandro Aldana Rubio',email:'danielaldanarubioalejandro2005@gmail.com',rol:'Fundador / Ventas',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,mejorRacha:0,historial:[],logros:[],ventas:0,fechaIngreso:'2026-10-10'},{id:'cesar',nombre:'Julio Cesar Ortiz Becerra',email:'a24110110@ceti.mx',rol:'Desarrollo',puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,mejorRacha:0,historial:[],logros:[],ventas:0,fechaIngreso:'2026-10-10'}],niveles:[{nivel:1,nombre:'Bronce',min:0,icono:'\u{1F949}',color:'#cd7f32'},{nivel:2,nombre:'Plata',min:50,icono:'\u{1F948}',color:'#a8a9ad'},{nivel:3,nombre:'Oro',min:150,icono:'\u{1F947}',color:'#ffd700'},{nivel:4,nombre:'Platino',min:300,icono:'\u{1F48E}',color:'#00d4ff'},{nivel:5,nombre:'Diamante',min:600,icono:'\u{1F451}',color:'#b967ff'}],logrosDisponibles:[{id:'primera_tarea',nombre:'Primer paso',icono:'\u{1F3AF}',desc:'Completar tu primera tarea',bonus:5,condicion:'tareas>=1'},{id:'racha_3',nombre:'En llama',icono:'\u{1F525}',desc:'3 d\u00edas seguidos trabajando',bonus:15,condicion:'racha>=3'},{id:'racha_7',nombre:'Imparable',icono:'\u{26A1}',desc:'7 d\u00edas seguidos trabajando',bonus:50,condicion:'racha>=7'},{id:'cien_puntos',nombre:'Centenario',icono:'\u{1F4AF}',desc:'Llegar a 100 puntos',bonus:25,condicion:'puntos>=100'},{id:'productivo',nombre:'D\u00eda productivo',icono:'\u{1F4C8}',desc:'3+ tareas en un solo d\u00eda',bonus:20,condicion:'tareasHoy>=3'},{id:'vendedor',nombre:'Cazador',icono:'\u{1F91D}',desc:'5 tareas de Ventas',bonus:30,condicion:'ventas>=5'}],reglas:{Ventas:10,Marketing:5,Sistema:3,Personal:1},bonusRacha:{diasParaBonus:3,multiplicador:0.1,maxMultiplicador:0.5},metaSemanal:50,actualizado:''};
 let state={tareas:{actualizado:'',tareas:[]},prospectos:{actualizado:'',prospectos:[]},mensajes:{actualizado:'',mensajes:[]},clientes:{actualizado:'',clientes:[]},cotizaciones:{actualizado:'',cotizaciones:[]},finanzas:{actualizado:'',metaMes:10000,movimientos:[]},contenido:{actualizado:'',publicaciones:[]},agenda:{actualizado:'',reuniones:[]},bitacora:{actualizado:'',eventos:[]},reportes:{actualizado:'',reportes:[]},radar:{actualizado:'',oportunidades:[]},puntos:JSON.parse(JSON.stringify(PUNTOS_DEFAULT))};
 
@@ -186,6 +188,7 @@ function showLogin(){
 }
 function showApp(user){
   var s=$('#authScreen');if(s)s.classList.add('hidden');
+  currentUserEmail=(user&&user.email?String(user.email).toLowerCase():'');
   var t=$('#connTxt');if(t)t.textContent='En línea — '+(user&&user.email?user.email:'nube');
   if(!localStorage.getItem('dsw-welcome')){var ob=$('#onboard');if(ob)ob.classList.remove('hidden');localStorage.setItem('dsw-welcome','1')}
 }
@@ -943,6 +946,46 @@ function completeTaskWith(t,who,cb){
   }
   toast(msg);
 }
+function paintAccResult(){
+  var box=$('#accResult');
+  if(!box)return;
+  if(!_accOK){box.innerHTML='';return}
+  box.innerHTML='<div style="padding:12px;border:1px solid var(--accent);border-radius:10px;background:rgba(99,207,228,.07)"><div style="font-weight:700;margin-bottom:6px">✅ Acceso creado para '+esc(_accOK.nombre)+'</div><div style="font-size:13px">URL: <b>https://dsw-os.netlify.app</b><br>Usuario: <b>'+esc(_accOK.email)+'</b><br>Clave: <b>'+esc(_accOK.password)+'</b><br><span style="color:var(--muted)">La clave solo se muestra esta vez: pásala por WhatsApp ahora.</span></div><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn ghost small" id="btnCopyWA">Copiar mensaje WhatsApp</button><button class="btn ghost small" id="btnHideAcc">Ocultar</button></div></div>';
+  $('#btnCopyWA').addEventListener('click',function(){
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(_accOK.wa).then(function(){toast('Mensaje copiado 📋')},function(){toast('No se pudo copiar','err')})}
+    else{toast('Copia manual: '+_accOK.wa,'err')}
+  });
+  $('#btnHideAcc').addEventListener('click',function(){_accOK=null;paintAccResult()});
+}
+async function crearAccesoDesdeWeb(){
+  var n=$('#accNombre').value.trim();
+  var e=$('#accEmail').value.trim().toLowerCase();
+  var r=$('#accRol').value.trim()||'Colaborador';
+  var p=$('#accPass').value;
+  var box=$('#accResult'),spin=$('#accSpin'),btn=$('#btnCrearAcceso');
+  if(!n){toast('Escribe el nombre','err');return}
+  if(!e||e.indexOf('@')<0){toast('Correo inválido','err');return}
+  if(box)box.innerHTML='';if(spin)spin.textContent='Creando acceso…';if(btn)btn.disabled=true;
+  try{
+    var s=await sb.auth.getSession();
+    var jwt=s&&s.data&&s.data.session?s.data.session.access_token:'';
+    if(!jwt)throw new Error('Sin sesión. Sal y entra de nuevo.');
+    var resp=await fetch('/.netlify/functions/crear-usuario',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+jwt},body:JSON.stringify({nombre:n,email:e,rol:r,password:p})});
+    var out=null;try{out=await resp.json()}catch(x){}
+    if(!resp.ok||!out||!out.ok)throw new Error((out&&out.error)||('Error '+resp.status));
+    var eq=state.puntos.equipo||[];
+    if(!eq.some(function(m){return String(m.email||'').toLowerCase()===out.email})){
+      var nid=n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,30)+'-'+Date.now().toString(36).slice(-3);
+      eq.push({id:nid,nombre:out.nombre,email:out.email,authEmail:out.email,rol:out.rol,puntos:0,tareasHechas:0,ultimaActividad:null,racha:0,mejorRacha:0,historial:[],logros:[],ventas:0,fechaIngreso:today()});
+    }
+    _accOK={email:out.email,password:out.password,nombre:out.nombre,wa:'Hola '+out.nombre.split(' ')[0]+', ya tienes acceso a D.Softworks OS.\nEntra a https://dsw-os.netlify.app\nUsuario: '+out.email+'\nClave: '+out.password+'\nAl entrar pulsa Sincronizar. Tu avance suma puntos en Equipo. ¡Bienvenido! 🎉'};
+    log('sistema','Acceso creado',out.nombre+' ('+out.email+')');
+    await save('puntos');
+    renderEquipo();
+    toast('Acceso creado ✅');
+  }catch(err){if(spin)spin.textContent='';toast(err.message,'err')}
+  finally{if(btn)btn.disabled=false;if(spin&&!_accOK)spin.textContent=''}
+}
 function renderEquipo(){
   var eq=[].concat(state.puntos.equipo||[]);
   var meta=state.puntos.metaSemanal||50;
@@ -954,6 +997,30 @@ function renderEquipo(){
   var orden=eq.slice().sort(function(a,b){return b.puntos-a.puntos});
   var maxPts=Math.max.apply(null,orden.map(function(e){return e.puntos}).concat([1]));
   var html='';
+  // ── MI PERFIL (quién soy + mis puntos y movimientos) ──
+  var yo=null;
+  if(currentUserEmail){
+    yo=eq.find(function(m){return String(m.authEmail||'').toLowerCase()===currentUserEmail})
+      ||eq.find(function(m){return String(m.email||'').toLowerCase()===currentUserEmail});
+  }
+  var perfilHtml='<div class="card" style="border-color:var(--accent)"><h3>👤 Mi perfil</h3>';
+  if(yo){
+    var miNiv=nivelDe(yo.puntos);
+    var miSig=siguienteNivel(yo.puntos);
+    var miHist=(yo.historial||[]).slice().sort(function(a,b){return String(b.fecha).localeCompare(String(a.fecha))});
+    perfilHtml+='<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div style="font-size:40px">'+miNiv.icono+'</div><div style="flex:1;min-width:180px"><div style="font-weight:800;font-size:16px">'+esc(yo.nombre)+'</div><div style="font-size:12px;color:var(--muted)">'+esc(yo.rol||'Colaborador')+' · login: '+esc(currentUserEmail||'—')+'</div><div style="font-size:12px;color:'+miNiv.color+';font-weight:700">'+miNiv.nombre+(miSig?' · faltan '+miSig.falta+' pts → '+miSig.nivel.icono+' '+miSig.nivel.nombre:' · 👑 MAX')+'</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:800">'+yo.puntos+'</div><div style="font-size:11px;color:var(--muted)">mis puntos</div></div></div>';
+    perfilHtml+='<div style="display:flex;gap:16px;font-size:13px;margin:10px 0;flex-wrap:wrap;color:var(--muted)"><span>✅ '+(yo.tareasHechas||0)+' tareas</span><span>🔥 Racha '+(yo.racha||0)+' (récord '+(yo.mejorRacha||0)+')</span><span>🎯 Meta semanal '+meta+' pts</span></div>';
+    perfilHtml+='<div style="font-size:12px;color:var(--muted);margin-bottom:4px">📜 Mis últimos movimientos</div>';
+    if(miHist.length){
+      perfilHtml+='<div style="max-height:220px;overflow:auto">'+miHist.slice(0,10).map(function(h){
+        return '<div style="display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px"><span>'+esc(h.tarea)+'</span><span style="color:var(--muted);white-space:nowrap">'+esc(String(h.fecha||'').slice(0,16))+' · +'+h.puntos+' pts</span></div>';
+      }).join('')+'</div>';
+    }else{perfilHtml+='<div style="font-size:13px;color:var(--muted)">Sin movimientos todavía. Marca una tarea como hecha y suma tus primeros puntos.</div>'}
+  }else{
+    perfilHtml+='<div style="font-size:13px">Sesión: <b>'+esc(currentUserEmail||'desconocida')+'</b></div><p style="font-size:13px;color:var(--muted)">Tu login aún no está ligado a nadie del Equipo. Elige quién eres para ver tus puntos aquí:</p><div class="form-row"><div><label for="linkWho">Yo soy…</label><select id="linkWho">'+eq.map(function(m){return '<option value="'+esc(m.id)+'">'+esc(m.nombre)+' ('+esc(m.rol||'—')+')</option>'}).join('')+'</select></div><div style="display:flex;align-items:flex-end"><button class="btn" id="btnLinkMe">Ligar mi login</button></div></div>';
+  }
+  perfilHtml+='</div>';
+  html=perfilHtml+html;
   // ── TABLA DE LÍDERES ──
   html+='<div class="card" style="background:linear-gradient(135deg,rgba(99,207,228,.06),rgba(168,85,247,.06));border-color:var(--accent)"><h3>🏆 Tabla de líderes</h3><div style="margin-top:10px">';
   orden.forEach(function(p,i){
@@ -1006,8 +1073,8 @@ function renderEquipo(){
     html+='<div style="padding:8px 12px;border:1px solid var(--border);border-radius:10px;font-size:13px;'+(alguienTiene?'border-color:var(--accent);background:rgba(99,207,228,.08)':'opacity:.6')+'" title="'+esc(l.desc)+' (+'+l.bonus+' pts)"><span style="font-size:20px">'+l.icono+'</span> <b>'+esc(l.nombre)+'</b><div style="font-size:11px;color:var(--muted)">'+esc(l.desc)+' · +'+l.bonus+' pts</div>'+(alguienTiene?'<div style="font-size:11px;color:var(--accent);font-weight:700">✓ Desbloqueado</div>':'')+'</div>';
   });
   html+='</div></div>';
-  // ── ACCESO AL SISTEMA (H17: login real, no solo puntos) ──
-  html+='<div class="card" style="border-color:var(--accent)"><h3>🔑 Acceso al sistema</h3><p style="font-size:13px;color:var(--muted);margin-bottom:8px">Para que alguien <b style="color:var(--txt)">entre a dsw-os.netlify.app</b> necesita usuario + contraseña (Supabase Auth). Esto es <b style="color:var(--txt)">distinto</b> de aparecer en el marcador de abajo.</p><ol style="font-size:13px;line-height:1.8;margin:0 0 8px 18px"><li><b>Pídele al cerebro</b> (Mensajes → "crea acceso para NOMBRE correo@ejemplo.com rol X") o a Daniel que corra:<br><code style="font-size:12px">node dsw-os-web/tools/crear-usuario.js --nombre "Nombre Apellido" --email correo@ejemplo.com --rol "Rol"</code></li><li>El cerebro te devuelve <b>usuario + clave + mensaje de WhatsApp</b> listo para enviar.</li><li>La persona entra a <b>https://dsw-os.netlify.app</b> y pulsa <b>Sincronizar</b>.</li></ol><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost small" id="btnCopyAcceso">Copiar mensaje para pedir acceso</button></div><p style="font-size:12px;color:var(--muted);margin:8px 0 0">¿Olvidó su clave? El cerebro la resetea con <code>--email CORREO --reset</code>. Nadie más puede crear usuarios desde la app (por seguridad).</p></div>';
+  // ── DAR ACCESO (H17: crear login desde la web) ──
+  html+='<div class="card" style="border-color:var(--accent)"><h3>🔑 Dar acceso al sistema</h3><p style="font-size:13px;color:var(--muted);margin-bottom:8px">Crea <b style="color:var(--txt)">usuario + contraseña</b> para que alguien entre a <b>dsw-os.netlify.app</b>. Por ahora todo acceso nuevo ve todo (los permisos por rol vienen después).</p><div class="form-row"><div><label for="accNombre">Nombre completo *</label><input id="accNombre" placeholder="Ej: María López"></div><div><label for="accEmail">Correo (será su usuario) *</label><input id="accEmail" type="email" placeholder="correo@ejemplo.com"></div></div><div class="form-row"><div><label for="accRol">Rol</label><input id="accRol" placeholder="Ej: Ventas, Diseño"></div><div><label for="accPass">Clave (vacío = generar segura)</label><input id="accPass" placeholder="mínimo 8 caracteres"></div></div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn" id="btnCrearAcceso">+ Crear acceso</button><span id="accSpin" style="font-size:13px;color:var(--muted)"></span></div><div id="accResult" style="margin-top:10px"></div></div>';
   // ── AGREGAR TRABAJADOR (solo marcador, sin login) ──
   html+='<div class="card"><h3>➕ Agregar trabajador <span style="font-size:12px;color:var(--muted)">(solo marcador, sin contraseña)</span></h3><p style="font-size:12px;color:var(--muted);margin-bottom:8px">Esto lo pone en la tabla de puntos. <b>No le da acceso.</b> Para acceso usa el bloque 🔑 de arriba.</p><div class="form-row"><div><label for="newWorkerName">Nombre completo</label><input id="newWorkerName" placeholder="Ej: María González"></div><div><label for="newWorkerEmail">Correo</label><input id="newWorkerEmail" placeholder="correo@ejemplo.com"></div></div><div class="form-row"><div><label for="newWorkerRol">Rol</label><input id="newWorkerRol" placeholder="Ej: Diseñadora, Community Manager"></div><div style="display:flex;align-items:flex-end"><button class="btn" id="addWorker">+ Agregar al equipo</button></div></div></div>';
   // ── REPORTE POR CORREO ──
@@ -1016,12 +1083,18 @@ function renderEquipo(){
   html+='<div class="card"><h3>📜 Actividad reciente del equipo</h3><div id="teamHistory" class="equipo-history" style="font-size:13px"></div></div>';
   $('#equipoContent').innerHTML=html;
   $('#btnMailReport').addEventListener('click',function(){sendMailReport()});
-  var btnAcc=$('#btnCopyAcceso');
-  if(btnAcc)btnAcc.addEventListener('click',function(){
-    var txt='Hola cerebro: crea acceso para NOMBRE con correo CORREO@ejemplo.com rol ROL. Pásame usuario + clave + mensaje de WhatsApp.';
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast('Mensaje copiado. Pégalo en Mensajes 📋')},function(){toast('Copia este texto: '+txt,'err')})}
-    else{toast('Copia este texto: '+txt,'err')}
+  var btnAcc=$('#btnCrearAcceso');
+  if(btnAcc)btnAcc.addEventListener('click',crearAccesoDesdeWeb);
+  var btnLink=$('#btnLinkMe');
+  if(btnLink)btnLink.addEventListener('click',async function(){
+    var id=$('#linkWho').value;
+    var m=(state.puntos.equipo||[]).find(function(x){return String(x.id)===String(id)});
+    if(!m||!currentUserEmail){toast('No hay sesión activa','err');return}
+    m.authEmail=currentUserEmail;
+    await save('puntos');renderEquipo();
+    toast('Login ligado a '+m.nombre+' ✅');
   });
+  paintAccResult();
   $('#addWorker').addEventListener('click',function(){
     var n=$('#newWorkerName').value.trim();
     var e=$('#newWorkerEmail').value.trim();
@@ -1161,7 +1234,7 @@ async function init(){
 }
 function setupMobileMenu(){$('#mobileMenuBtn').addEventListener('click',openDrawer);$('#closeDrawer').addEventListener('click',closeDrawer);$('#drawerOverlay').addEventListener('click',closeDrawer)}
 $('#dismissOnboard').addEventListener('click',function(){localStorage.setItem('dsw-onboard','1');$('#onboard').classList.add('hidden')});
-$('#btnLogout').addEventListener('click',async function(){if(sb)await sb.auth.signOut();localStorage.removeItem('dsw-onboard')});
+$('#btnLogout').addEventListener('click',async function(){if(sb)await sb.auth.signOut();currentUserEmail='';localStorage.removeItem('dsw-onboard')});
 $('#btnLogin').addEventListener('click',doLogin);
 $('#authEmail').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
 $('#authPass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin()});
