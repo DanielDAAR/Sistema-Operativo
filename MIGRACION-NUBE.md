@@ -59,10 +59,17 @@ netlify: https://dsw-os.netlify.app  ─────▶  Supabase: dsw-os (ref p
 ## 6. Redesplegar cambios de la app
 
 ```powershell
-netlify deploy --dir dsw-os-web/public --site 90df0383-0852-4f9c-be3c-eda64b02e260 --auth <netlify_token> --prod
+netlify deploy --prod --dir=public --functions=netlify/functions --site 90df0383-0852-4f9c-be3c-eda64b02e260 --message "motivo"
 ```
-
+Correr desde `dsw-os-web/` (ahí vive `netlify.toml` con `publish` + `functions`).
 Ojo: `--dir` anula el `publish` del `netlify.toml`; **siempre desplegar `dsw-os-web/public`, nunca la carpeta raíz** (ahí están `tools/` y `supabase/` con datos internos).
+
+Variables de entorno obligatorias en el sitio (Site settings → Environment variables;
+sin ellas `/.netlify/functions/crear-usuario` responde 500):
+`SUPABASE_URL` · `SUPABASE_SERVICE_KEY` · `SUPABASE_ANON_KEY`.
+Se ponen con `netlify env:set CLAVE valor --site <id>` (requiere `NETLIFY_AUTH_TOKEN`).
+Deploy verificado 2026-10-16: 5 archivos + 1 función en vivo (`GET` a la función → 405,
+`/tools/*` → 404, HTML sirve `app.js?v=7`).
 
 ## 7. Seguridad (verificada 2026-09-24)
 
