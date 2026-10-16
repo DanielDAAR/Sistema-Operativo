@@ -38,7 +38,7 @@ netlify: https://dsw-os.netlify.app  ─────▶  Supabase: dsw-os (ref p
 
 - **Service role y Project URL:** viven en `dsw-os-web/tools/creds.json` (gitignore) y en variables de entorno `SUPABASE_URL` / `SUPABASE_SERVICE_KEY`. Solo el cerebro las usa.
 - **Anon key:** en `public/config.js` (segura de publicar; RLS impide leer sin sesión).
-- **Usuarios de la app** (creados vía Auth Admin): `daniel@dssoftworks.mx` y `cesar@dssoftworks.mx`. Contraseñas entregadas por chat. Se cambian en Supabase → Authentication → Users.
+- **Usuarios de la app** (Auth): `daniel@dssoftworks.mx` (Daniel, fundador), `cesar@dssoftworks.mx` (César) y `daamtz05@gmail.com` (Danny Hernández). Contraseñas entregadas por chat. Se cambian vía Admin API o en Supabase → Authentication → Users. OJO: hay dos Dannys (Daniel fundador y Danny Hernández): confirmar siempre cuál antes de tocar credenciales (incidente 16-oct-2026).
 - El **PAT** de Supabase (`sbp_…`) usado para crear el proyecto **fue entregado por el usuario y debe estar revocado** una vez verificado el despliegue.
 
 ## 5. Flujo de trabajo
