@@ -103,7 +103,8 @@
     {
       "id": "daniel",
       "rol": "Fundador / Ventas",
-      "email": "danielaldanarubioalejandro2005@gmail.com",
+      "email": "daamtz05@gmail.com",
+      "authEmail": "daamtz05@gmail.com",
       "racha": 1,
       "logros": [
         "primera_tarea"
@@ -183,6 +184,22 @@
       "historial": [],
       "mejorRacha": 0,
       "fechaIngreso": "2026-10-10",
+      "tareasHechas": 0,
+      "ultimaActividad": null
+    },
+    {
+      "id": "danny-alejandro-hernandez-cerv-3ow",
+      "rol": "ventas/desarrollo",
+      "email": "a24110116@ceti.mx",
+      "racha": 0,
+      "logros": [],
+      "nombre": "Danny Alejandro Hernandez cervantes",
+      "puntos": 0,
+      "ventas": 0,
+      "authEmail": "a24110116@ceti.mx",
+      "historial": [],
+      "mejorRacha": 0,
+      "fechaIngreso": "2026-10-15",
       "tareasHechas": 0,
       "ultimaActividad": null
     }

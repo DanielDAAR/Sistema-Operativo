@@ -203,8 +203,9 @@
       "vence": "2026-10-10",
       "origen": "cerebro",
       "titulo": "H7 — Probar la pestaña Visualizar (centro de mando en vivo)",
-      "detalle": "Abre la app (app/index.html local o dsw-os.netlify.app) y dale clic a la pestaña nueva 'Visualizar'. Ahí se ve TODO en un lugar: embudo monetizado por etapa con montos, donut de la meta del mes, mapa de calor de prospectos fríos (rojo = dinero enfriándose), radar de oportunidades O-01 a O-11, calendario de contenido a 14 días, tareas por categoría y bitácora. Si algo se ve cortado o vacío, dile al cerebro en Mensajes.",
-      "categoria": "Sistema"
+      "detalle": "En https://dsw-os.netlify.app dale clic a la pestaña Visualizar. Ahí se ve TODO en un lugar: embudo monetizado por etapa con montos, donut de la meta del mes, mapa de calor de prospectos fríos (rojo = dinero enfriándose), radar de oportunidades, calendario de contenido a 14 días, tareas por categoría y bitácora. Si algo se ve cortado o vacío, dile al cerebro en Mensajes.",
+      "categoria": "Sistema",
+      "actualizado": "2026-10-16 12:00"
     },
     {
       "id": "t-021",
@@ -212,8 +213,9 @@
       "vence": "2026-10-10",
       "origen": "cerebro",
       "titulo": "H8 — Abrir el Centro de Mando (app/visualizador.html)",
-      "detalle": "Doble click en app/visualizador.html. Si lo abres doble-click (file://) te pedirá archivos: selecciona los JSON de app/data/ (tareas, prospectos, mensajes, clientes, cotizaciones, finanzas, contenido, agenda, bitacora, reportes y radar). Si lo sirves con serve.bat se carga SOLO y se actualiza cada 60 segundos. Pantalla completa oscura: ideal para dejarla abierta en la oficina.",
-      "categoria": "Sistema"
+      "detalle": "OBSOLETA: el centro de mando local fue reemplazado por la pestaña Visualizar de la app (https://dsw-os.netlify.app). Solo abre esa pestaña; no uses archivos locales.",
+      "categoria": "Sistema",
+      "actualizado": "2026-10-16 12:00"
     },
     {
       "id": "t-022",

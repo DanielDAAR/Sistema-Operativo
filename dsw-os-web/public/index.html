@@ -18,7 +18,7 @@
     <h1>Iniciar sesión</h1>
     <p class="auth-sub">Acceso compartido para Daniel y su socio. Cada cambio se sincroniza en vivo.</p>
     <label for="authEmail">Correo</label>
-    <input type="email" id="authEmail" placeholder="daniel@dssoftworks.mx" autocomplete="email">
+<input type="email" id="authEmail" placeholder="daamtz05@gmail.com" autocomplete="email">
     <label for="authPass">Contraseña</label>
     <input type="password" id="authPass" placeholder="Contraseña" autocomplete="current-password">
     <div class="auth-error" id="authError"></div>
@@ -287,10 +287,10 @@
 <section class="tab-panel" id="tab-ayuda" role="tabpanel" aria-labelledby="tb-ayuda" tabindex="0">
   <h2>Ayuda</h2>
   <div class="card" id="ayudaBody" style="line-height:1.9;font-size:14px">
-    <b style="color:var(--accent)">1. El cerebro (IA) escribe</b> → actualiza app/tareas.json con lo que debe hacer hoy.<br>
-    <b style="color:var(--accent)">2. Tú ejecutas</b> → marcas tareas, agregas prospectos, escribes mensajes.<br>
-    <b style="color:var(--accent)">3. Guardas</b> → con la carpeta conectada, todo se guarda en los JSON.<br>
-    <b style="color:var(--accent)">4. El cerebro lee</b> → cuando me dices "revisa la app" o "ya terminé", leo los JSON y te doy el siguiente paso.<br><br>
+    <b style="color:var(--accent)">1. El cerebro (IA) escribe</b> → deja tus tareas del día en la pestaña <b>Tareas</b>.<br>
+    <b style="color:var(--accent)">2. Tú ejecutas</b> → marcas tareas, agregas prospectos, escribes mensajes. Todo aquí, sin instalar ni abrir nada más.<br>
+    <b style="color:var(--accent)">3. Todo se guarda solo</b> → cada cambio se sube a la nube al instante y le llega al resto del equipo en vivo.<br>
+    <b style="color:var(--accent)">4. El cerebro lee</b> → cuando escribes "revisa la app" o "ya terminé" en <b>Mensajes</b>, te da el siguiente paso.<br><br>
     <b>Tablero (Dashboard):</b> KPIs en vivo, embudo, reglas, proximas reuniones, ultimos movimientos.<br>
     <b>Pipeline:</b> Kanban con arrastrar-soltar, montos en MXN, probabilidad por etapa.<br>
     <b>Proyectos:</b> clientes con anticipo, saldo y entrega. Al Entregar → aviso de cobro.<br>
@@ -299,9 +299,9 @@
     <b>Motor de reglas:</b> alertas que no dejan escapar dinero.<br>
     <b>Bitácora:</b> cada acción queda registrada para la historia.<br>
     <b>Reportes:</b> genero el de la semana con KPIs vs meta.<br><br>
-    <b>Sincronizar:</b> vuelve a leer los archivos por si el cerebro los actualizó desde fuera.<br>
-    <b>Conectar carpeta:</b> selecciona app/ una sola vez; el navegador recuerda el permiso.<br>
-    <b>Sin conexión a archivos:</b> la app funciona en modo local (navegador) pero el cerebro NO vera los cambios.<br><br>
+    <b>Sincronizar:</b> trae al instante lo que el resto del equipo cambió en la nube. Si algo no aparece, pulsa Sincronizar o recarga.<br>
+    <b>Sin internet:</b> la app sigue funcionando con tu copia local y sube todo sola al reconectar.<br>
+    <b>Mi perfil:</b> en la pestaña <b>Equipo</b> ves tus puntos, tu nivel y tus movimientos. Si no te reconoce, pulsa <b>Ligar mi login</b>.<br><br>
     <b>Metodologías:</b> ritua diario 60 min y meta $10k/mes, pipeline Nuevo→Contactado→Respondió→Reunión→Cotizado→Cerrado, 50 contactos/semana, anticipo 50% obligatorio.
   </div>
 </section>
@@ -345,6 +345,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
-<script src="app.js?v=7"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>
